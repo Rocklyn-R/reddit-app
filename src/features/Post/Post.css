@@ -1,0 +1,41 @@
+.details-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.sub-details {
+    display: flex;
+    align-items: center;
+}
+
+.sub-details img {
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    border: 2px solid black;
+    margin-right: 0.5rem;
+}
+
+.post-details {
+    display: flex;
+    margin-left: 6rem;
+}
+
+.post-display {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.post-title {
+    text-align: center;
+    margin: 2rem 2rem;
+}
+
+
+
+.post-image-container .post-image {
+    width: 100%;
+}
+
+
