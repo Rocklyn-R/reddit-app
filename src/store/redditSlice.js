@@ -1,5 +1,5 @@
 import { createSlice, createSelector } from "@reduxjs/toolkit";
-import { getSubredditPosts } from "../api/redditAPI";
+import { getSubredditPosts, getPostComments } from "../api/redditAPI";
 
 
    
@@ -35,6 +35,26 @@ export const redditSlice = createSlice({
         },
         setSelectedSubreddit: (state, action) => {
             state.selectedSubreddit = action.payload;
+        },
+        toggleShowingComments: (state, action) => {
+            state.posts[action.payload].showingComments = !state.posts[action.payload].showingComments;
+        },
+        startGetComments: (state, action) => {
+            state.posts[action.payload].showingComments = !state.posts[action.payload].showingComments;
+            if (!state.posts[action.payload].showingComments) {
+                return;
+            };
+            state.posts[action.payload].loadingComments = true;
+            state.posts[action.payload].errorComments = false;
+        },
+        getCommentsSuccess: (state, action) => {
+            state.posts[action.payload.index].comments = action.payload.comments;
+            state.posts[action.payload.index].loadingComments = false;
+            state.posts[action.payload.index].errorComments = false;
+        },
+        getCommentsFailed: (state, action) => {
+            state.posts[action.payload].loadingComments = false;
+            state.posts[action.payload].errorComments = true;
         }
     }
 });
@@ -49,18 +69,31 @@ export const {
     getPostsSuccess,
     getPostsFailed,
     setSearchTerm,
-    setSelectedSubreddit
+    setSelectedSubreddit,
+    toggleShowingComments,
+    startGetComments,
+    getCommentsSuccess,
+    getCommentsFailed
 } = redditSlice.actions;
 
 //Thunk that will get posts
 export const fetchPosts = (subreddit) => async (dispatch) => {
     try {
         dispatch(startGetPosts());
-        const posts = getSubredditPosts(subreddit);
+        const posts = await getSubredditPosts(subreddit);
+        console.log(posts);
         const postsWithMetadata = posts.map((post) => ({
             ...post,
             showingComments: false,
-            comments: [],
+            comments: [
+                {
+                    author: 'Sample Author',
+                    created_utc: '',
+                    body: "This is the comment",
+                    id: 14143432
+                }
+            ]
+            ,
             loadingComments: false,
             errorComments: false
         }))
@@ -71,6 +104,19 @@ export const fetchPosts = (subreddit) => async (dispatch) => {
     }
 };
 
+
+export const fetchComments = (index, permalink) => async (dispatch) => {
+    try {
+        dispatch(startGetComments(index));
+        const comments = await getPostComments(permalink);
+        dispatch(getCommentsSuccess({index, comments}));
+    }
+    catch (error) {
+        dispatch(getCommentsFailed(index));
+    }
+}
+
+
 export const selectFilteredPosts = createSelector(
     [selectPosts, selectSearchTerm], 
     (posts, searchTerm) => {
@@ -80,5 +126,7 @@ export const selectFilteredPosts = createSelector(
         };
     return posts;
 })
+
+
 
 export default redditSlice.reducer;

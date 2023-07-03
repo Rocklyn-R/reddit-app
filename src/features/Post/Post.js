@@ -2,14 +2,17 @@ import React from 'react';
 import './Post.css';
 import Card from '../../components/Card';
 import { selectPosts } from '../../store/redditSlice';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { selectSelectedSubreddit } from '../../store/redditSlice';
 import { BiCommentDetail } from 'react-icons/bi';
+import { Comment } from '../Comment/Comment';
+import { toggleShowingComments } from '../../store/redditSlice';
 
 
-export const Post = ({ post }) => {
+export const Post = ({ post, index }) => {
 
     const selectedSub = selectSelectedSubreddit;
+    const dispatch = useDispatch()
 
 
     //get time when the post was made
@@ -21,6 +24,11 @@ export const Post = ({ post }) => {
     const timeAgo = timeInHours < 25 ? `${timeInHours} hours ago` : `${daysAgo > 1 ? `${daysAgo} days ago` : `${daysAgo} day ago`}`;
 
 
+    const handleToggleComments = () => {
+        dispatch(toggleShowingComments(index));
+        console.log(post.comments.author)
+    };
+    
     return (
         <Card className="post-container">
             <div className="details-container">
@@ -62,12 +70,17 @@ export const Post = ({ post }) => {
                    </a>
                 }
             </div>
-            <div className="comments-container">
+            <div className="comments-container" onClick={handleToggleComments}>
                 <button type="button">
                     Comments || <BiCommentDetail className='comment-icon'/> {post.num_comments}
                 </button>
             </div>
-
+            {post.showingComments && 
+                post.comments.map(comment => {
+                    return <Comment comment={comment} />
+                })
+            }
+                
         </Card>
 
     )
