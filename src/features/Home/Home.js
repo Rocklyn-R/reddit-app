@@ -4,6 +4,7 @@ import { selectPosts, selectFilteredPosts } from '../../store/redditSlice';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchPosts, fetchComments } from '../../store/redditSlice';
 import './Home.css';
+import { getMediaContent } from '../../Utilities/Helpers';
 
 export const Home = () => {
     const reddit = useSelector((state) => state.reddit);
@@ -30,6 +31,7 @@ export const Home = () => {
                     key={post.id}
                     post={post}
                     onToggleComments={onToggleComments(index)}
+                    mediaContent={getMediaContent(post)}
                 />
         )   )}
         </div>

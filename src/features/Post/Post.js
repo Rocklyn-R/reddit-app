@@ -8,22 +8,23 @@ import { BiCommentDetail } from 'react-icons/bi';
 import { Comment } from '../Comment/Comment';
 import { toggleShowingComments } from '../../store/redditSlice';
 import { getTimeAgo } from '../../Utilities/Helpers';
+import MarkdownView from "react-showdown";
 
 
-export const Post = ({ post, onToggleComments }) => {
+
+export const Post = ({ post, onToggleComments, mediaContent }) => {
 
     const selectedSub = selectSelectedSubreddit;
     const dispatch = useDispatch()
 
 
     //get time when the post was made
-    
 
 
     const handleToggleComments = () => {
         onToggleComments(post.permalink);
     };
-    
+
     return (
         <Card className="post-container">
             <div className="details-container">
@@ -43,42 +44,50 @@ export const Post = ({ post, onToggleComments }) => {
             </div>
             <div className="post-content-container">
 
-                {post.post_hint === "image" &&
+                {mediaContent.type === 'img' &&
+                    <img
+                        src={mediaContent.src}
+                        height={mediaContent.height}
+                        width={mediaContent.width}
+                        className="post-image"
+                    />
+                }
 
-                    <img src={post.url} className="post-image" />
-                }
-                {post.post_hint === "hoisted:video" &&
-                    <video controls className='post-video'>
-                        <source src={post.secure_media.reddit_video.fallback_url} type="video/mp4" />
-                        Your browser does not support the video tag.
+                {mediaContent.type === 'video' &&
+                    <video controls>
+                        <source
+                            src={mediaContent.src}
+                            height={mediaContent.height}
+                            width={mediaContent.width}
+                        />
                     </video>
                 }
-                {post.post_hint === "rich:video" &&
-                    <video controls className="post-video">
-                        <source src={post.secure_media_embed.media_domain_url} />
-                        Your browser does not support the video tag.
-                    </video>
+
+                {mediaContent.type === "text" &&
+                    <MarkdownView
+                        markdown={mediaContent.selftext}
+                        options={{ emoji: true }}
+                        className="selftextDisplay"
+                    />
                 }
+
                 {post.post_hint === "link" &&
-                   <a href={post.url} target="_blank" rel="noopener noreferrer">
+                    <a href={post.url} target="_blank" rel="noopener noreferrer">
                         {post.url}
-                   </a>
-                }
-                {post.post_hint === "self" &&
-                    <p>stuff goes here</p>
+                    </a>
                 }
             </div>
             <div className="comments-container">
                 <button type="button" onClick={() => onToggleComments(post.permalink)}>
-                    Comments || <BiCommentDetail className='comment-icon'/> {post.num_comments}
+                    Comments || <BiCommentDetail className='comment-icon' /> {post.num_comments}
                 </button>
             </div>
-            {post.showingComments && 
+            {post.showingComments &&
                 post.comments.map(comment => {
                     return <Comment comment={comment} />
                 })
             }
-                
+
         </Card>
 
     )
