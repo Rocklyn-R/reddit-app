@@ -100,6 +100,7 @@ export const fetchPosts = (subreddit) => async (dispatch) => {
         dispatch(getPostsSuccess(postsWithMetadata));
     }
     catch (error) {
+        console.log(error);
         dispatch(getPostsFailed());
     }
 };

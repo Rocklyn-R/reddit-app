@@ -16,7 +16,12 @@ export const Home = () => {
     }, [selectedSubreddit]);
 
     
-
+    const onToggleComments = (index) => {
+        const getComments = (permalink) => {
+            dispatch(fetchComments(index, permalink))
+        }
+        return getComments;
+    }
 
     return (
         <div className='all-posts-container'>
@@ -24,7 +29,7 @@ export const Home = () => {
                 <Post 
                     key={post.id}
                     post={post}
-                    index={index}
+                    onToggleComments={onToggleComments(index)}
                 />
         )   )}
         </div>

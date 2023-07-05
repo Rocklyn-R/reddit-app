@@ -7,26 +7,21 @@ import { selectSelectedSubreddit } from '../../store/redditSlice';
 import { BiCommentDetail } from 'react-icons/bi';
 import { Comment } from '../Comment/Comment';
 import { toggleShowingComments } from '../../store/redditSlice';
+import { getTimeAgo } from '../../Utilities/Helpers';
 
 
-export const Post = ({ post, index }) => {
+export const Post = ({ post, onToggleComments }) => {
 
     const selectedSub = selectSelectedSubreddit;
     const dispatch = useDispatch()
 
 
     //get time when the post was made
-    const createdAt = new Date(post.created_utc * 1000);
-    const currentTime = new Date();
-    const timeDifferenceInMiliseconds = currentTime - createdAt
-    const timeInHours = Math.floor(timeDifferenceInMiliseconds / (1000 * 60 * 60))
-    const daysAgo = Math.floor(timeInHours / 24);
-    const timeAgo = timeInHours < 25 ? `${timeInHours} hours ago` : `${daysAgo > 1 ? `${daysAgo} days ago` : `${daysAgo} day ago`}`;
+    
 
 
     const handleToggleComments = () => {
-        dispatch(toggleShowingComments(index));
-        console.log(post.comments.author)
+        onToggleComments(post.permalink);
     };
     
     return (
@@ -40,7 +35,7 @@ export const Post = ({ post, index }) => {
                     <p>posted by {post.author}</p>
                 </div>
                 <div className="time-details">
-                    <p>{timeAgo}</p>
+                    <p>{getTimeAgo(post.created_utc)}</p>
                 </div>
             </div>
             <div className="post-title">
@@ -54,7 +49,7 @@ export const Post = ({ post, index }) => {
                 }
                 {post.post_hint === "hoisted:video" &&
                     <video controls className='post-video'>
-                        <source src={post.media.reddit_video.fallback_url} />
+                        <source src={post.secure_media.reddit_video.fallback_url} type="video/mp4" />
                         Your browser does not support the video tag.
                     </video>
                 }
@@ -69,9 +64,12 @@ export const Post = ({ post, index }) => {
                         {post.url}
                    </a>
                 }
+                {post.post_hint === "self" &&
+                    <p>stuff goes here</p>
+                }
             </div>
-            <div className="comments-container" onClick={handleToggleComments}>
-                <button type="button">
+            <div className="comments-container">
+                <button type="button" onClick={() => onToggleComments(post.permalink)}>
                     Comments || <BiCommentDetail className='comment-icon'/> {post.num_comments}
                 </button>
             </div>

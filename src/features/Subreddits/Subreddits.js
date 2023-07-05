@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './Subreddits.css';
-import { selectSubreddits } from '../../store/subredditsSlice';
+import { selectSubreddits, fetchSubreddits } from '../../store/subredditsSlice';
 import { useSelector, useDispatch } from 'react-redux';
 import { setSelectedSubreddit, selectSelectedSubreddit } from '../../store/redditSlice';
 import Card from '../../components/Card';
@@ -11,7 +11,9 @@ export const Subreddits = () => {
     const subreddits = useSelector(selectSubreddits);
     const selectedSub = useSelector(selectSelectedSubreddit);
 
-
+    useEffect(() => {
+        dispatch(fetchSubreddits());
+    }, [dispatch])
 
 
     return (
@@ -27,10 +29,10 @@ export const Subreddits = () => {
                     >
                         <button 
                             type="button"
-                            onClick={() => dispatch(setSelectedSubreddit(subreddit.display_name))}
+                            onClick={() => dispatch(setSelectedSubreddit(subreddit.url))}
                         >
                             <img 
-                                src={subreddit.icon_img}
+                                src={subreddit.icon_img ? subreddit.icon_img : 'https://b.thumbs.redditmedia.com/rmlXC779KUA2MTO4r_GJd2enqa8GKx3BOasymol6gLk.png'}
                                 className="subreddit-icon"
                                 alt="subreddit-icon"
                             />

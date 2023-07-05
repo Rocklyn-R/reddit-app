@@ -1,7 +1,22 @@
 import { pets, fitness, music, party, petsComments, fitnessComments, musicComments, partyComments } from '../data/fakeData';
+const baseUrl = "https://www.reddit.com";
 
+export const getSubreddits = async () => {
+    const response = await fetch(`${baseUrl}/subreddits.json`);
+    const json = await response.json();
+    const newArray = json.data.children.map(subreddit => subreddit.data);
+    return newArray;
+}
 
 export const getSubredditPosts = async (subreddit) => {
+    const response = await fetch(`${baseUrl}${subreddit}.json`)
+    const json = await response.json();
+    const newArray = json.data.children.map(post => post.data);
+    return newArray;
+}
+
+
+/*export const getSubredditPosts = async (subreddit) => {
     return new Promise((resolve, reject) => {
         switch (subreddit) {
             case 'pets':
@@ -21,9 +36,9 @@ export const getSubredditPosts = async (subreddit) => {
                 break;
         }
     });
-};
+};*/
 
-export const getPostComments = async (permalink) => {
+/*export const getPostComments = async (permalink) => {
     return new Promise((resolve, reject) => {
 
         switch (permalink) {
@@ -45,4 +60,11 @@ export const getPostComments = async (permalink) => {
         }
     })
 
+}*/
+
+export const getPostComments = async (permalink) => {
+    const response = await fetch(`${baseUrl}${permalink}.json`);
+    const json = await response.json();
+    const newArray = json[1].data.children.map(comment => comment.data);
+    return newArray;
 }
