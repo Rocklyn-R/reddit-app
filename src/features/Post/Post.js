@@ -9,6 +9,7 @@ import { Comment } from '../Comment/Comment';
 import { toggleShowingComments } from '../../store/redditSlice';
 import { getTimeAgo } from '../../Utilities/Helpers';
 import MarkdownView from "react-showdown";
+import { Gallery } from './galleryDisplay/galleryDisplay';
 
 
 
@@ -70,13 +71,13 @@ export const Post = ({ post, onToggleComments, mediaContent }) => {
                         className="selftextDisplay"
                     />
                 }
-
-                {post.post_hint === "link" &&
-                    <a href={post.url} target="_blank" rel="noopener noreferrer">
-                        {post.url}
-                    </a>
-                }
             </div>
+                {mediaContent.type === 'gallery' &&
+                    <Gallery mediaContent={mediaContent} />
+                }
+
+               
+            
             <div className="comments-container">
                 <button type="button" onClick={() => onToggleComments(post.permalink)}>
                     Comments || <BiCommentDetail className='comment-icon' /> {post.num_comments}

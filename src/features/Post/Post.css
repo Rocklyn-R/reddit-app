@@ -34,6 +34,8 @@
 .post-content-container {
     display: flex;
     justify-content: center;
+    align-items: center;
+    flex-direction: column;
   }
   
   .post-content-container .post-image {

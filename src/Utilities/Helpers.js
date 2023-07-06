@@ -18,18 +18,26 @@ export const getTimeAgo = (created_utc) => {
     }
 };
 
+export const cleanUrl = (imgUrl) => {
+    let encoded = imgUrl.replace("amp;s", "s");
+    let doubleEncoded = encoded.replace("amp;", "");
+    let tripleEncoded = doubleEncoded.replace("amp;", "");
+    let quadEncoded = tripleEncoded.replace("amp;v", "v");
+    return quadEncoded;
+};
+
 
 export const checkMediaType = (post) => {
     let mediaType = "";
     if (!post.is_gallery &&
         !post.is_video &&
         !post.is_self &&
-        post.preview) {
-        mediaType = "img"
+        post.preview || post.post_hint === 'link') {
+        mediaType = "img";
     } else if (post.is_gallery) {
-        mediaType = "gallery"
+        mediaType = "gallery";
     } else if (post.is_video) {
-        mediaType = "video"
+        mediaType = "video";
     } else {
         mediaType = "text"
     }
@@ -42,9 +50,14 @@ export const getMediaContent = (post) => {
     switch (mediaType) {
         case ("img"):
             const resolutions = post.preview.images[0].resolutions;
-            mediaContent['src'] = post.url
-            mediaContent['height'] = resolutions[resolutions.length - 1].height;
-            mediaContent['width'] = resolutions[resolutions.length - 1].width;
+            if (post.media) {
+                mediaContent['src'] = post.media.oembed.thumbnail_url;
+            } else {
+                mediaContent['src'] = post.url;
+            }
+            
+            mediaContent['height'] = resolutions[resolutions.length - 3].height;
+            mediaContent['width'] = resolutions[resolutions.length - 3].width;
             console.log(mediaContent);
             return mediaContent;
 
@@ -52,12 +65,12 @@ export const getMediaContent = (post) => {
             const mediaIds = post.gallery_data.items.map(item => item.media_id);
             const idMetadata = mediaIds.map(id => post.media_metadata[id]);
             const pData = idMetadata.map(obj => obj.p);
-            const pDataExtracted = pData.map(array => array[array.length - 1])
+            const pDataExtracted = pData.map(array => array[array.length - 3])
             const urls = pDataExtracted.map(obj => obj.u);
             const heights = pDataExtracted.map(obj => obj.y);
             const widths = pDataExtracted.map(obj => obj.x);
             const galleryData = urls.map((url, index) => ({
-                src: url,
+                src: cleanUrl(url),
                 height: heights[index],
                 width: widths[index],
                 id: mediaIds[index]
