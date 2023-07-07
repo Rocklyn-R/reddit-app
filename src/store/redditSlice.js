@@ -81,7 +81,6 @@ export const fetchPosts = (subreddit) => async (dispatch) => {
     try {
         dispatch(startGetPosts());
         const posts = await getSubredditPosts(subreddit);
-        console.log(posts);
         const postsWithMetadata = posts.map((post) => ({
             ...post,
             showingComments: false,

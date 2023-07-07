@@ -48,20 +48,19 @@ export const Post = ({ post, onToggleComments, mediaContent }) => {
                 {mediaContent.type === 'img' &&
                     <img
                         src={mediaContent.src}
-                        height={mediaContent.height}
-                        width={mediaContent.width}
                         className="post-image"
                     />
                 }
 
                 {mediaContent.type === 'video' &&
-                    <video controls>
+                    <video controls className='video'>
                         <source
                             src={mediaContent.src}
-                            height={mediaContent.height}
-                            width={mediaContent.width}
                         />
                     </video>
+                }
+                {mediaContent.type === "link" &&
+                    <a href={mediaContent.href}>{mediaContent.href}</a>
                 }
 
                 {mediaContent.type === "text" &&

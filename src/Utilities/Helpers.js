@@ -29,10 +29,12 @@ export const cleanUrl = (imgUrl) => {
 
 export const checkMediaType = (post) => {
     let mediaType = "";
-    if (!post.is_gallery &&
+    if (post.post_hint && post.post_hint === 'link') {
+        mediaType = 'link'
+    } else if (!post.is_gallery &&
         !post.is_video &&
         !post.is_self &&
-        post.preview || post.post_hint === 'link') {
+        post.preview && post.post_hint !== 'link') {
         mediaType = "img";
     } else if (post.is_gallery) {
         mediaType = "gallery";
@@ -53,12 +55,11 @@ export const getMediaContent = (post) => {
             if (post.media) {
                 mediaContent['src'] = post.media.oembed.thumbnail_url;
             } else {
-                mediaContent['src'] = post.url;
+                mediaContent['src'] = mediaContent["src"] = cleanUrl(resolutions[resolutions.length - 1].url)
             }
-            
-            mediaContent['height'] = resolutions[resolutions.length - 3].height;
-            mediaContent['width'] = resolutions[resolutions.length - 3].width;
-            console.log(mediaContent);
+
+            //mediaContent['height'] = resolutions[resolutions.length - 1].height;
+            //mediaContent['width'] = resolutions[resolutions.length - 1].width;
             return mediaContent;
 
         case ("gallery"): {
@@ -81,16 +82,30 @@ export const getMediaContent = (post) => {
             return mediaContent;
         case ("video"): {
             mediaContent['src'] = post.secure_media.reddit_video.fallback_url;
-            mediaContent['height'] = post.secure_media.reddit_video.height;
-            mediaContent['width'] = post.secure_media.reddit_video.width;
+            const resolutions = post.preview.images[0].resolutions;
+            //const height = resolutions[resolutions.length - 3].height;
+            //const width = resolutions[resolutions.length - 3].width;
+            //mediaContent['height'] = height;
+            //mediaContent['width'] = width;
             return mediaContent;
+        }
+        case ("link"): {
+            mediaContent["href"] = post.url;
         }
         case ("text"): {
             if (post.selftext) {
                 mediaContent['selftext'] = post.selftext;
             }
-            return mediaContent;
         }
+        case ("videoEmbed"): {
+            if (post.domain && post.domain === "youtube.com") {
+                console.log(post);
+                const searchParams = new URLSearchParams(new URL(post.url).search);
+                const videoId = searchParams.get("v");
+                console.log(videoId);
+            }
+        }
+            return mediaContent;
         default: {
             console.log('Media Not Recognized')
         }
@@ -113,13 +128,12 @@ const he = require('he');
 
 export const extractSrcFromBodyHtml = (comment) => {
     if (comment.body_html) {
-    const decodedHtml = he.decode(comment.body_html);
-    const regex = /<img[^>]+src="([^"]+)"/g;
-    const match = regex.exec(decodedHtml);
-    if (match && match.length > 1) {
-        console.log(match[1]);
-      return match[1];
-    }
-    return null;
-    } else return;  
+        const decodedHtml = he.decode(comment.body_html);
+        const regex = /<img[^>]+src="([^"]+)"/g;
+        const match = regex.exec(decodedHtml);
+        if (match && match.length > 1) {
+            return match[1];
+        }
+        return null;
+    } else return;
 }

@@ -36,15 +36,21 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-  }
+}
   
   .post-content-container .post-image {
-    width: 80%;
+    max-height: 500px;
   }
 
-  .post-content-container .post-video {
-    width: 80%;
+  .post-content-container .video {
+    height: 100%;
+    width: 100%;
+    max-height: 500px;
   }
+
+.post-content-container .selftextDisplay p {
+    margin-bottom: 1.5em;
+}
 
 .comments-container {
     margin-top: 2rem;
