@@ -11,7 +11,7 @@ export const redditSlice = createSlice({
         error: false,
         isLoading: false,
         searchTerm: '',
-        selectedSubreddit: 'pics',
+        selectedSubreddit: '/r/pics/',
     },
     reducers: {
         setPosts: (state, action) => {
@@ -84,21 +84,13 @@ export const fetchPosts = (subreddit) => async (dispatch) => {
         const postsWithMetadata = posts.map((post) => ({
             ...post,
             showingComments: false,
-            comments: [
-                {
-                    author: 'Sample Author',
-                    created_utc: '',
-                    body: "This is the comment",
-                    id: 14143432
-                }
-            ]
+            comments: []
             ,
             loadingComments: false,
             errorComments: false
         }))
         dispatch(getPostsSuccess(postsWithMetadata));
-    }
-    catch (error) {
+    } catch (error) {
         console.log(error);
         dispatch(getPostsFailed());
     }

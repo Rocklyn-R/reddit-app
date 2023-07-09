@@ -66,7 +66,7 @@ export const getMediaContent = (post) => {
             const mediaIds = post.gallery_data.items.map(item => item.media_id);
             const idMetadata = mediaIds.map(id => post.media_metadata[id]);
             const pData = idMetadata.map(obj => obj.p);
-            const pDataExtracted = pData.map(array => array[array.length - 3])
+            const pDataExtracted = pData.map(array => array[array.length - 1])
             const urls = pDataExtracted.map(obj => obj.u);
             const heights = pDataExtracted.map(obj => obj.y);
             const widths = pDataExtracted.map(obj => obj.x);
