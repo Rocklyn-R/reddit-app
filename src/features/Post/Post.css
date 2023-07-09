@@ -68,6 +68,7 @@
 
 .comments-container {
     margin-top: 2rem;
+    align-self: flex-start;
 }
 
 .comments-container button {
