@@ -27,7 +27,7 @@ export const Post = ({ post, onToggleComments, mediaContent }) => {
     };
 
     return (
-        <Card className="post-container">
+        <Card className="post-wrapper">
             <div className="details-container">
                 <div className="sub-details">
                     <img src={post.icon_url} />
@@ -87,7 +87,6 @@ export const Post = ({ post, onToggleComments, mediaContent }) => {
                     return <Comment comment={comment} />
                 })
             }
-
         </Card>
 
     )
