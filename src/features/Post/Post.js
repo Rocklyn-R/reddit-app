@@ -10,7 +10,7 @@ import { toggleShowingComments } from '../../store/redditSlice';
 import { getTimeAgo, transformLinkUri } from '../../Utilities/Helpers';
 import MarkdownView from "react-showdown";
 import { Gallery } from './galleryDisplay/galleryDisplay';
-import reactMarkdown from 'react-markdown';
+import ReactPlayer from 'react-player';
 
 
 
@@ -72,13 +72,22 @@ export const Post = ({ post, onToggleComments, mediaContent }) => {
                         className="selftextDisplay"
                     />
                 }
-            </div>
-                {mediaContent.type === 'gallery' &&
-                    <Gallery mediaContent={mediaContent} />
+
+                {mediaContent.type === "videoEmbed" &&
+                    <div>
+                    <ReactPlayer url={mediaContent.src} controls={true} />
+                  </div>
                 }
 
-               
-            
+            </div>
+            {mediaContent.type === 'gallery' &&
+                <Gallery mediaContent={mediaContent} />
+            }
+
+
+
+
+
             <div className="comments-container">
                 <button type="button" onClick={() => onToggleComments(post.permalink)}>
                     Comments || <BiCommentDetail className='comment-icon' /> {post.num_comments}

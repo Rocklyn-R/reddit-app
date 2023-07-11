@@ -45,6 +45,9 @@ export const checkMediaType = (post) => {
         mediaType = "gallery";
     } else if (post.is_video) {
         mediaType = "video";
+    } else if (post.post_hint === "rich:video" && 
+    (post.domain === "youtube.com" || post.domain === "clips.twitch.tv")) {
+        mediaType = "videoEmbed";
     } else {
         mediaType = "text"
     }
@@ -83,8 +86,8 @@ export const getMediaContent = (post) => {
             }));
 
             mediaContent['gallery_data'] = galleryData;
-        }
             return mediaContent;
+        }
         case ("video"): {
             mediaContent['src'] = post.secure_media.reddit_video.fallback_url;
             const resolutions = post.preview.images[0].resolutions;
@@ -96,19 +99,20 @@ export const getMediaContent = (post) => {
         }
         case ("link"): {
             mediaContent["href"] = post.url;
+            return mediaContent;
         }
+
         case ("text"): {
             if (post.selftext) {
                 mediaContent['selftext'] = post.selftext;
-            }
+            } 
+            return mediaContent;
         }
         case ("videoEmbed"): {
-            if (post.domain && post.domain === "youtube.com") {
-                const searchParams = new URLSearchParams(new URL(post.url).search);
-                const videoId = searchParams.get("v");
-            }
-        }
+            mediaContent["src"] = post.url;
+            console.log(mediaContent);
             return mediaContent;
+        }
         default: {
             console.log('Media Not Recognized')
         }
