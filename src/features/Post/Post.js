@@ -7,9 +7,11 @@ import { selectSelectedSubreddit } from '../../store/redditSlice';
 import { BiCommentDetail } from 'react-icons/bi';
 import { Comment } from '../Comment/Comment';
 import { toggleShowingComments } from '../../store/redditSlice';
-import { getTimeAgo } from '../../Utilities/Helpers';
+import { getTimeAgo, transformLinkUri } from '../../Utilities/Helpers';
 import MarkdownView from "react-showdown";
 import { Gallery } from './galleryDisplay/galleryDisplay';
+import reactMarkdown from 'react-markdown';
+
 
 
 

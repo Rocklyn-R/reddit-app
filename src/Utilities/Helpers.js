@@ -1,3 +1,7 @@
+import React from 'react';
+import { htmlToDOM } from 'html-react-parser';
+import { renderToString } from 'react-dom/server';
+
 export const getTimeAgo = (created_utc) => {
     const createdAt = new Date(created_utc * 1000);
     const currentTime = new Date();
@@ -29,12 +33,13 @@ export const cleanUrl = (imgUrl) => {
 
 export const checkMediaType = (post) => {
     let mediaType = "";
-    if (post.post_hint && post.post_hint === 'link') {
+    if ((post.post_hint && post.post_hint === 'link') || 
+    (post.url && !post.is_self && (post.thumbnail === "" || post.thumbnail === "default"))) {
         mediaType = 'link'
     } else if (!post.is_gallery &&
         !post.is_video &&
         !post.is_self &&
-        post.preview && post.post_hint !== 'link') {
+        post.preview && (post.post_hint !== 'link' && post.post_hint !== "rich:video")) {
         mediaType = "img";
     } else if (post.is_gallery) {
         mediaType = "gallery";
@@ -99,10 +104,8 @@ export const getMediaContent = (post) => {
         }
         case ("videoEmbed"): {
             if (post.domain && post.domain === "youtube.com") {
-                console.log(post);
                 const searchParams = new URLSearchParams(new URL(post.url).search);
                 const videoId = searchParams.get("v");
-                console.log(videoId);
             }
         }
             return mediaContent;
@@ -111,6 +114,7 @@ export const getMediaContent = (post) => {
         }
     }
 }
+
 
 
 

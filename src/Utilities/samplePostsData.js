@@ -1,55 +1,3 @@
-const image = { "data": {
-                    "subreddit": "Home",
-                    "selftext": "",
-                    "title": "Bathroom",
-                    "link_flair_richtext": [],
-                    "subreddit_name_prefixed": "r/Home",
-                    "media_embed": {},
-                    "secure_media": null,
-                    "secure_media_embed": {},
-                    "thumbnail": "https://b.thumbs.redditmedia.com/UY5f01Ph-HVFwGFHyLRzASmIbTKqHBenB3_1JiW83lg.jpg",
-                    "post_hint": "image",
-                    "preview": {
-                        "images": [
-                            {
-                                "source": {
-                                    "url": "https://preview.redd.it/0myq8031siab1.png?auto=webp&amp;v=enabled&amp;s=c904c4f49d97695c5f23c379434796e23840c0db",
-                                    "width": 469,
-                                    "height": 699
-                                },
-                                "resolutions": [
-                                    {
-                                        "url": "https://preview.redd.it/0myq8031siab1.png?width=108&amp;crop=smart&amp;auto=webp&amp;v=enabled&amp;s=44e9559c940c3c45b335697bdf6e5a30d8be5eec",
-                                        "width": 108,
-                                        "height": 160
-                                    },
-                                    {
-                                        "url": "https://preview.redd.it/0myq8031siab1.png?width=216&amp;crop=smart&amp;auto=webp&amp;v=enabled&amp;s=296f4453e9497d495abb15067bdce298f3afc4dc",
-                                        "width": 216,
-                                        "height": 321
-                                    },
-                                    {
-                                        "url": "https://preview.redd.it/0myq8031siab1.png?width=320&amp;crop=smart&amp;auto=webp&amp;v=enabled&amp;s=dc163948837a354ea7aa1336baf3fd91b834f020",
-                                        "width": 320,
-                                        "height": 476
-                                    }
-                                ],
-                                "variants": {},
-                                "id": "Dy_R7BwxRCIkd5CUoXQuNpVQVdS09ks_Sh5xUJGOpx0"
-                            }
-                        ],
-                        "enabled": true
-                    },
-                    "media_only": false,
-                    "id": "14t3a85",
-                    "num_comments": 0,
-                    "permalink": "/r/Home/comments/14t3a85/bathroom/",
-                    "url": "https://i.redd.it/0myq8031siab1.png",
-                    "media": null,
-                    "is_video": false
-                }
-            }
-
 const linkNotDisplaying = { 
             "data": {
                     "subreddit": "worldnews",
@@ -185,6 +133,156 @@ const embeddedYTVideo = { "data": {
                     "is_video": false
                 }
             }
+
+            const image = { "data": {
+                "subreddit": "Home",
+                "selftext": "",
+                "title": "Bathroom",
+                "link_flair_richtext": [],
+                "subreddit_name_prefixed": "r/Home",
+                "media_embed": {},
+                "secure_media": null,
+                "secure_media_embed": {},
+                "thumbnail": "https://b.thumbs.redditmedia.com/UY5f01Ph-HVFwGFHyLRzASmIbTKqHBenB3_1JiW83lg.jpg",
+                "post_hint": "image",
+                "preview": {
+                    "images": [
+                        {
+                            "source": {
+                                "url": "https://preview.redd.it/0myq8031siab1.png?auto=webp&amp;v=enabled&amp;s=c904c4f49d97695c5f23c379434796e23840c0db",
+                                "width": 469,
+                                "height": 699
+                            },
+                            "resolutions": [
+                                {
+                                    "url": "https://preview.redd.it/0myq8031siab1.png?width=108&amp;crop=smart&amp;auto=webp&amp;v=enabled&amp;s=44e9559c940c3c45b335697bdf6e5a30d8be5eec",
+                                    "width": 108,
+                                    "height": 160
+                                },
+                                {
+                                    "url": "https://preview.redd.it/0myq8031siab1.png?width=216&amp;crop=smart&amp;auto=webp&amp;v=enabled&amp;s=296f4453e9497d495abb15067bdce298f3afc4dc",
+                                    "width": 216,
+                                    "height": 321
+                                },
+                                {
+                                    "url": "https://preview.redd.it/0myq8031siab1.png?width=320&amp;crop=smart&amp;auto=webp&amp;v=enabled&amp;s=dc163948837a354ea7aa1336baf3fd91b834f020",
+                                    "width": 320,
+                                    "height": 476
+                                }
+                            ],
+                            "variants": {},
+                            "id": "Dy_R7BwxRCIkd5CUoXQuNpVQVdS09ks_Sh5xUJGOpx0"
+                        }
+                    ],
+                    "enabled": true
+                },
+                "media_only": false,
+                "id": "14t3a85",
+                "num_comments": 0,
+                "permalink": "/r/Home/comments/14t3a85/bathroom/",
+                "url": "https://i.redd.it/0myq8031siab1.png",
+                "media": null,
+                "is_video": false
+            }
+        }
+
+const videoEmbed1 = {
+    "subreddit": "funny",
+    "selftext": "",
+    "title": "Meteorologist multiplies on screen during graphics glitch | FOX 9 KMSP",
+    "media_embed": {
+        "content": "&lt;iframe width=\"356\" height=\"200\" src=\"https://www.youtube.com/embed/ykz_dbpYRPU?feature=oembed&amp;enablejsapi=1\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" allowfullscreen title=\"Meteorologist multiplies on screen during graphics glitch | FOX 9 KMSP\"&gt;&lt;/iframe&gt;",
+        "width": 356,
+        "scrolling": false,
+        "height": 200
+    },
+    "secure_media": {
+        "type": "youtube.com",
+        "oembed": {
+            "provider_url": "https://www.youtube.com/",
+            "version": "1.0",
+            "title": "Meteorologist multiplies on screen during graphics glitch | FOX 9 KMSP",
+            "type": "video",
+            "thumbnail_width": 480,
+            "height": 200,
+            "width": 356,
+            "html": "&lt;iframe width=\"356\" height=\"200\" src=\"https://www.youtube.com/embed/ykz_dbpYRPU?feature=oembed&amp;enablejsapi=1\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" allowfullscreen title=\"Meteorologist multiplies on screen during graphics glitch | FOX 9 KMSP\"&gt;&lt;/iframe&gt;",
+            "author_name": "FOX 9 Minneapolis-St. Paul",
+            "provider_name": "YouTube",
+            "thumbnail_url": "https://i.ytimg.com/vi/ykz_dbpYRPU/hqdefault.jpg",
+            "thumbnail_height": 360,
+            "author_url": "https://www.youtube.com/@fox9"
+        }
+    },
+    "is_reddit_media_domain": false,
+    "is_meta": false,
+    "secure_media_embed": {
+        "content": "&lt;iframe width=\"356\" height=\"200\" src=\"https://www.youtube.com/embed/ykz_dbpYRPU?feature=oembed&amp;enablejsapi=1\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" allowfullscreen title=\"Meteorologist multiplies on screen during graphics glitch | FOX 9 KMSP\"&gt;&lt;/iframe&gt;",
+        "width": 356,
+        "scrolling": false,
+        "media_domain_url": "https://www.redditmedia.com/mediaembed/14wgpq7",
+        "height": 200
+    },
+    "thumbnail": "https://a.thumbs.redditmedia.com/UIOwY_jT_9VfX3aqHwHtdYfOAsVQGnN_DMC91NgH2Z8.jpg",
+    "post_hint": "rich:video",
+    "is_self": false,
+    "domain": "youtu.be",
+    "preview": {
+        "images": [
+            {
+                "source": {
+                    "url": "https://external-preview.redd.it/fxHOW5X8d0mdf8QUmmbn03qz24pDXMPRm2ClbHrqCnk.jpg?auto=webp&amp;v=enabled&amp;s=d59735f70113e8f8e10391afa0e34f8e42e552e6",
+                    "width": 480,
+                    "height": 360
+                },
+                "resolutions": [
+                    {
+                        "url": "https://external-preview.redd.it/fxHOW5X8d0mdf8QUmmbn03qz24pDXMPRm2ClbHrqCnk.jpg?width=108&amp;crop=smart&amp;auto=webp&amp;v=enabled&amp;s=7fba704351a8522585b5367b32408f9175490375",
+                        "width": 108,
+                        "height": 81
+                    },
+                    {
+                        "url": "https://external-preview.redd.it/fxHOW5X8d0mdf8QUmmbn03qz24pDXMPRm2ClbHrqCnk.jpg?width=216&amp;crop=smart&amp;auto=webp&amp;v=enabled&amp;s=083bab1e9ee9d5d23bfd845b9cf6a36b52fe32a2",
+                        "width": 216,
+                        "height": 162
+                    },
+                    {
+                        "url": "https://external-preview.redd.it/fxHOW5X8d0mdf8QUmmbn03qz24pDXMPRm2ClbHrqCnk.jpg?width=320&amp;crop=smart&amp;auto=webp&amp;v=enabled&amp;s=26b78ae82f41dfa3dbe6123e3b159db875333c3e",
+                        "width": 320,
+                        "height": 240
+                    }
+                ],
+                "variants": {},
+                "id": "WK-d6YLVppl_2-V-nFZa18EKjT03fjuhPZ84JUCuitA"
+            }
+        ],
+        "enabled": false
+    },
+    "media_only": false,
+    "id": "14wgpq7",
+    "author": "SafeComfortable1009",
+    "permalink": "/r/funny/comments/14wgpq7/meteorologist_multiplies_on_screen_during/",
+    "url": "https://youtu.be/ykz_dbpYRPU",
+    "media": {
+        "type": "youtube.com",
+        "oembed": {
+            "provider_url": "https://www.youtube.com/",
+            "version": "1.0",
+            "title": "Meteorologist multiplies on screen during graphics glitch | FOX 9 KMSP",
+            "type": "video",
+            "thumbnail_width": 480,
+            "height": 200,
+            "width": 356,
+            "html": "&lt;iframe width=\"356\" height=\"200\" src=\"https://www.youtube.com/embed/ykz_dbpYRPU?feature=oembed&amp;enablejsapi=1\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" allowfullscreen title=\"Meteorologist multiplies on screen during graphics glitch | FOX 9 KMSP\"&gt;&lt;/iframe&gt;",
+            "author_name": "FOX 9 Minneapolis-St. Paul",
+            "provider_name": "YouTube",
+            "thumbnail_url": "https://i.ytimg.com/vi/ykz_dbpYRPU/hqdefault.jpg",
+            "thumbnail_height": 360,
+            "author_url": "https://www.youtube.com/@fox9"
+        }
+    },
+    "is_video": false
+}
 
 
 const linkDisplaying = {
