@@ -8,6 +8,7 @@
   display: flex;
   justify-content: space-between;
   width: 100%;
+  align-items: center;
 }
 
 .sub-details {
@@ -47,7 +48,7 @@
   
   .post-content-container .post-image {
     max-height: 31.25rem;
-    width: auto;
+    width: 100%;
     
   }
 
@@ -59,8 +60,11 @@
 
   .post-content-container a {
     text-align: center;
-    width: 100%;
   }
+  
+.post-content-container .selftextDisplay {
+  width: 100%;
+}
 
 .post-content-container .selftextDisplay p {
     margin-bottom: 1.5em;

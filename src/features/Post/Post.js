@@ -15,13 +15,11 @@ import ReactPlayer from 'react-player';
 
 
 
+
 export const Post = ({ post, onToggleComments, mediaContent }) => {
 
     const selectedSub = selectSelectedSubreddit;
-    const dispatch = useDispatch()
-
-
-    //get time when the post was made
+    const dispatch = useDispatch();
 
 
     const handleToggleComments = () => {
@@ -75,14 +73,14 @@ export const Post = ({ post, onToggleComments, mediaContent }) => {
 
                 {mediaContent.type === "videoEmbed" &&
                     <div>
-                    <ReactPlayer url={mediaContent.src} controls={true} />
-                  </div>
+                        <ReactPlayer url={mediaContent.src} controls={true} />
+                    </div>
                 }
-
+                {mediaContent.type === 'gallery' &&
+                    <Gallery mediaContent={mediaContent} />
+                }
             </div>
-            {mediaContent.type === 'gallery' &&
-                <Gallery mediaContent={mediaContent} />
-            }
+
 
 
 

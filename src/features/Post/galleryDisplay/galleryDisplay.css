@@ -2,16 +2,18 @@
     position: relative;
     display: flex;
     justify-content: center;
-    max-height: 500px;
+    min-width: 48.125rem;
+    max-height: 31.25rem;
+    box-sizing: border-box;
   }
 
 .gallery-display img {
     max-height: 100%;
-    width: 100%;
+    width: 90%;
     object-fit: contain;
 }
   
-  .slideButton {
+  .gallery-display .slideButton {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
@@ -38,13 +40,13 @@
     box-shadow: 0 2px 4px grey; /* Add shadow here */
   }
   
-  .prev {
-    left: 2rem;
+  .gallery-display .prev {
+    left: 0rem;
     padding-right: 0.5rem;
   }
   
-  .next {
-    right: 2rem;
+  .gallery-display .next {
+    right: 0rem;
     padding-left: 0.5rem;
   }
   

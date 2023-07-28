@@ -1,4 +1,9 @@
+.subreddits-drop-down {
+  width: 100%;
+}
+
 .container {
   display: flex;
   justify-content: space-between;
+  overflow-x: auto;
 }
