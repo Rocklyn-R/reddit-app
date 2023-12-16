@@ -15,7 +15,6 @@ export const getSubreddits = async () => {
     return newArray;
 }
 
-
 /*export const getSubredditPosts = async (subreddit) => {
     return new Promise((resolve, reject) => {
         switch (subreddit) {
@@ -65,6 +64,8 @@ export const getSubreddits = async () => {
 export const getPostComments = async (permalink) => {
     const response = await fetch(`${baseUrl}${permalink}.json`);
     const json = await response.json();
-    const newArray = json[1].data.children.map(comment => comment.data);
+    const newArray = json[1].data.children
+        .filter(comment => comment.data.body)
+        .map(comment => comment.data);
     return newArray;
 }

@@ -73,6 +73,7 @@
 .comments-container {
     margin-top: 2rem;
     align-self: flex-start;
+    width: 100%;
 }
 
 .comments-container button {

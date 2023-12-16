@@ -25,11 +25,12 @@ export const subredditsSlice = createSlice({
     }
 })
 
+//Thunk that fetches Subreddits
 export const fetchSubreddits = () => async (dispatch) => {
     try {
         dispatch(startGetSubreddits());
         const subreddits = await getSubreddits();
-        dispatch(getSubredditsSuccess(subreddits))
+        dispatch(getSubredditsSuccess(subreddits));
     }
     catch (error) {
         dispatch(getSubredditsFailed())
@@ -37,6 +38,7 @@ export const fetchSubreddits = () => async (dispatch) => {
 }
 
 export const selectSubreddits = state => state.subreddits.subreddits;
+export const isLoading = state => state.subreddits.isLoading;
 
 export const { startGetSubreddits, getSubredditsSuccess, getSubredditsFailed } = subredditsSlice.actions;
 

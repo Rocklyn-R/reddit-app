@@ -11,6 +11,7 @@
     margin-top: 1rem;
     margin-left: 1rem;
     margin-right: 1rem;
+    flex-wrap: wrap;
 }
 
 .user-details p {

@@ -7,3 +7,23 @@
   justify-content: space-between;
   overflow-x: auto;
 }
+
+@media (max-width: 1199px) {
+  .subreddits-dropdown {
+    display: block; /* Show SubredditsDropDown for smaller screens */
+  }
+
+  .container {
+    display: block; /* Show Subreddits for smaller screens */
+  }
+}
+
+@media (min-width: 1200px) {
+  .subreddits-dropdown {
+    display: none; /* Hide SubredditsDropDown for larger screens */
+  }
+
+  .container {
+    display: flex; /* Show Subreddits for larger screens */
+  }
+}

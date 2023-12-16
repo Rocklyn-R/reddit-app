@@ -60,6 +60,7 @@ export const redditSlice = createSlice({
 });
 
 export const selectPosts = state => state.reddit.posts;
+export const isLoading = state => state.reddit.isLoading;
 export const selectSearchTerm = state => state.reddit.searchTerm;
 export const selectSelectedSubreddit = (state) => state.reddit.selectedSubreddit;
 
@@ -84,8 +85,7 @@ export const fetchPosts = (subreddit) => async (dispatch) => {
         const postsWithMetadata = posts.map((post) => ({
             ...post,
             showingComments: false,
-            comments: []
-            ,
+            comments: [],
             loadingComments: false,
             errorComments: false
         }))
@@ -96,7 +96,7 @@ export const fetchPosts = (subreddit) => async (dispatch) => {
     }
 };
 
-
+//Thunk that will fetch comments
 export const fetchComments = (index, permalink) => async (dispatch) => {
     try {
         dispatch(startGetComments(index));

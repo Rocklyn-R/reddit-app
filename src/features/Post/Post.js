@@ -11,6 +11,7 @@ import { getTimeAgo, transformLinkUri } from '../../Utilities/Helpers';
 import MarkdownView from "react-showdown";
 import { Gallery } from './galleryDisplay/galleryDisplay';
 import ReactPlayer from 'react-player';
+import { CommentLoading } from '../Comment/commentLoading/commentLoading';
 
 
 
@@ -80,22 +81,27 @@ export const Post = ({ post, onToggleComments, mediaContent }) => {
                     <Gallery mediaContent={mediaContent} />
                 }
             </div>
-
-
-
-
-
-
             <div className="comments-container">
                 <button type="button" onClick={() => onToggleComments(post.permalink)}>
-                    Comments || <BiCommentDetail className='comment-icon' /> {post.num_comments}
+                    Comments: <BiCommentDetail className='comment-icon' /> {post.num_comments}
                 </button>
-            </div>
+           
+            {post.loadingComments &&
+                <React.Fragment>
+                    <CommentLoading/>
+                    <CommentLoading/>
+                    <CommentLoading/>
+                    <CommentLoading/>
+                    <CommentLoading/>
+                </React.Fragment>    
+            }
+
             {post.showingComments &&
                 post.comments.map(comment => {
                     return <Comment comment={comment} />
                 })
-            }
+            } 
+            </div>
         </Card>
 
     )

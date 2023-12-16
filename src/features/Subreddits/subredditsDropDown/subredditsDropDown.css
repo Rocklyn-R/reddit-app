@@ -1,0 +1,19 @@
+.drop-down-container {
+    margin-top: 2rem;
+    margin-bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;;
+}
+
+.drop-down-container h2 {
+    margin-right: 1rem;
+    text-decoration: underline;
+}
+
+.drop-down {
+    height: 3rem;
+    width: 11rem;
+    background-color: aliceblue;
+}
