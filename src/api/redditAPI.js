@@ -1,10 +1,10 @@
-import { pets, fitness, music, party, petsComments, fitnessComments, musicComments, partyComments } from '../data/fakeData';
 const baseUrl = "https://www.reddit.com";
 
 export const getSubredditPosts = async (subreddit) => {
     const response = await fetch(`${baseUrl}${subreddit}.json`)
     const json = await response.json();
     const newArray = json.data.children.map(post => post.data);
+    console.log(newArray);
     return newArray;
 }
 

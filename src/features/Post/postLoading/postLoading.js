@@ -6,8 +6,8 @@ import "./postLoading.css";
 export const PostLoading = () => {
     return (
         <Card className="post-loading">
-            <div className="details-container">
-                <div className="sub-details">
+            <div className="details-container" data-testid="post-loading">
+                <div className="sub-details" >
                     <Skeleton width={50} height={50} circle={true} />
                     <Skeleton width={100} />
                 </div>

@@ -1,13 +1,9 @@
 import React from 'react';
 import './Post.css';
 import Card from '../../components/Card';
-import { selectPosts } from '../../store/redditSlice';
-import { useSelector, useDispatch } from 'react-redux';
-import { selectSelectedSubreddit } from '../../store/redditSlice';
 import { BiCommentDetail } from 'react-icons/bi';
 import { Comment } from '../Comment/Comment';
-import { toggleShowingComments } from '../../store/redditSlice';
-import { getTimeAgo, transformLinkUri } from '../../Utilities/Helpers';
+import { getTimeAgo } from '../../Utilities/Helpers';
 import MarkdownView from "react-showdown";
 import { Gallery } from './galleryDisplay/galleryDisplay';
 import ReactPlayer from 'react-player';
@@ -19,19 +15,13 @@ import { CommentLoading } from '../Comment/commentLoading/commentLoading';
 
 export const Post = ({ post, onToggleComments, mediaContent }) => {
 
-    const selectedSub = selectSelectedSubreddit;
-    const dispatch = useDispatch();
 
-
-    const handleToggleComments = () => {
-        onToggleComments(post.permalink);
-    };
 
     return (
         <Card className="post-wrapper">
             <div className="details-container">
                 <div className="sub-details">
-                    <img src={post.icon_url} />
+                    <img src={post.icon_url} alt="Post Icon" />
                     <p>{post.subreddit_name_prefixed}</p>
                 </div>
                 <div className="author-details">
@@ -50,18 +40,23 @@ export const Post = ({ post, onToggleComments, mediaContent }) => {
                     <img
                         src={mediaContent.src}
                         className="post-image"
+                        alt="Post"
                     />
                 }
 
                 {mediaContent.type === 'video' &&
-                    <video controls className='video'>
+                    <video 
+                        controls 
+                        className='video'
+                        aria-label="Video Player"
+                    >
                         <source
                             src={mediaContent.src}
                         />
                     </video>
                 }
                 {mediaContent.type === "link" &&
-                    <a href={mediaContent.href}>{mediaContent.href}</a>
+                    <a href={mediaContent.href} aria-label="External Link">{mediaContent.href}</a>
                 }
 
                 {mediaContent.type === "text" &&
@@ -73,12 +68,19 @@ export const Post = ({ post, onToggleComments, mediaContent }) => {
                 }
 
                 {mediaContent.type === "videoEmbed" &&
-                    <div>
-                        <ReactPlayer url={mediaContent.src} controls={true} />
+                    <div aria-label="Embedded Video" data-testid="embedded-video">
+                        <ReactPlayer 
+                            url={mediaContent.src} 
+                            controls={true}
+                            className={"react-player"}
+                        />
                     </div>
                 }
                 {mediaContent.type === 'gallery' &&
-                    <Gallery mediaContent={mediaContent} />
+                    <Gallery 
+                        mediaContent={mediaContent} 
+                        data-testid="gallery-component" 
+                    />
                 }
             </div>
             <div className="comments-container">
@@ -86,7 +88,7 @@ export const Post = ({ post, onToggleComments, mediaContent }) => {
                     Comments: <BiCommentDetail className='comment-icon' /> {post.num_comments}
                 </button>
            
-            {post.loadingComments &&
+            {post.loadingComments && post.num_comments > 0 &&
                 <React.Fragment>
                     <CommentLoading/>
                     <CommentLoading/>
@@ -97,8 +99,8 @@ export const Post = ({ post, onToggleComments, mediaContent }) => {
             }
 
             {post.showingComments &&
-                post.comments.map(comment => {
-                    return <Comment comment={comment} />
+                post.comments.map((comment, index) => {
+                    return <Comment comment={comment} key={comment.id} />
                 })
             } 
             </div>

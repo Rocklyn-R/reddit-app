@@ -1,7 +1,3 @@
-import React from 'react';
-import { htmlToDOM } from 'html-react-parser';
-import { renderToString } from 'react-dom/server';
-
 export const getTimeAgo = (created_utc) => {
     const createdAt = new Date(created_utc * 1000);
     const currentTime = new Date();
@@ -90,7 +86,7 @@ export const getMediaContent = (post) => {
         }
         case ("video"): {
             mediaContent['src'] = post.secure_media.reddit_video.fallback_url;
-            const resolutions = post.preview.images[0].resolutions;
+            //const resolutions = post.preview.images[0].resolutions;
             //const height = resolutions[resolutions.length - 3].height;
             //const width = resolutions[resolutions.length - 3].width;
             //mediaContent['height'] = height;

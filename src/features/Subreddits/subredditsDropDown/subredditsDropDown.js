@@ -1,11 +1,8 @@
 import React from 'react';
 import './subredditsDropDown.css';
-import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectSubreddits } from '../../../store/subredditsSlice';
 import { selectSelectedSubreddit, setSelectedSubreddit } from '../../../store/redditSlice';
-import { selectPosts } from '../../../store/redditSlice';
-import { fetchSubreddits } from '../../../store/subredditsSlice';
 
 export const SubredditsDropDown = () => {
     const subreddits = useSelector(selectSubreddits);

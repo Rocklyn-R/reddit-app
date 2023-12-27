@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Post } from '../Post/Post';
-import { selectPosts, selectFilteredPosts } from '../../store/redditSlice';
+import { selectFilteredPosts } from '../../store/redditSlice';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchPosts, fetchComments } from '../../store/redditSlice';
 import './Home.css';
@@ -15,7 +15,7 @@ export const Home = () => {
 
     useEffect(() => {
         dispatch(fetchPosts(selectedSubreddit));
-    }, [selectedSubreddit]);
+    }, [selectedSubreddit, dispatch]);
 
 
     const onToggleComments = (index) => {

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import './galleryDisplay.css'
 import { FaChevronLeft } from "react-icons/fa";
 import { FaChevronRight } from "react-icons/fa";
@@ -21,20 +21,18 @@ export const Gallery = ({ mediaContent }) => {
       };
 
 
-    useEffect(() => {
-        console.log(slideIndex);
-      }, [slideIndex]);
 
     return (
         <div className="gallery-display">
             <img
                 src={mediaContent.gallery_data[slideIndex].src}
-                alt="Gallery Image"
+                alt="Gallery"
             />
             {slideIndex !== 0 &&
                 <button
                     className="slideButton prev"
                     onClick={prevSlide}
+                    aria-label="Previous Slide"
                 >
                     <FaChevronLeft />
                 </button>
@@ -43,6 +41,7 @@ export const Gallery = ({ mediaContent }) => {
                 <button
                     className="slideButton next"
                     onClick={nextSlide}
+                    aria-label="Next Slide"
                 >
                     <FaChevronRight />
                 </button>
