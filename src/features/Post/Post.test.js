@@ -3,9 +3,10 @@ import "@testing-library/jest-dom";
 import userEvent from "@testing-library/user-event";
 import { act } from "react-dom/test-utils";
 import { Post } from "./Post";
-import mockStore from "../../store/mockStore";
+import createMockStore from "../../store/mockStore";
 import { Provider } from "react-redux";
-import { setPosts, startGetComments } from "../../store/redditSlice";
+import { getCommentsSuccess, setPosts, startGetComments } from "../../store/redditSlice";
+import { Home } from "../Home/Home";
 
 
 
@@ -36,12 +37,29 @@ const mockPost = {
     permalink: '/r/popular',
 };
 
+const mockComments = [
+    {
+        author: "Antica",
+        created_utc: "",
+        body: "Singing!",
+        id: 123
+    },
+    {
+        author: "Rocklyn",
+        create_utc: "",
+        body: "Gym is life",
+        id: 1234
+    }
+]
+
 const defaultMockMediaContent = {
         type: "img",
         src: "image1.jpg"
 };
 
 const mockOnToggleComments = jest.fn();
+
+const mockStore = createMockStore();
 
 const renderPostWithMediaContent = (mockPost, mockMediaContent) => {
     render(
@@ -234,8 +252,8 @@ describe("Correct rendering of comments and loading state", () => {
          })
    
             
-        const currentState1 = mockStore.getState();
-        console.log("Current State:", JSON.stringify(currentState1, null, 2));
+        /*const currentState1 = mockStore.getState();
+        console.log("Current State:", JSON.stringify(currentState1, null, 2));*/
 
 
         //5 loading skeletons are visible 
@@ -246,6 +264,35 @@ describe("Correct rendering of comments and loading state", () => {
 
     it("renders the comments when startGetComments and getCommentsSuccess are called", () => {
         
-    })
+        act(() => {
+            mockStore.dispatch(setPosts([mockPost]));
+            })
 
+        //first startGetComments turns both loadingComments and showingComments to true
+       act(() => {
+            mockStore.dispatch(startGetComments(0));
+        })
+        
+        //second call toggles showingComments back to false while loadingComments is true
+        act(() => {
+            mockStore.dispatch(getCommentsSuccess({index: 0, comments: mockComments}))
+        })
+
+        const currentState = mockStore.getState();
+        const posts = currentState.reddit.posts
+
+        render( 
+            <Provider store={mockStore}>
+                <Post 
+                    post={posts[0]}
+                    onToggleComments={() => {}}
+                    mediaContent={defaultMockMediaContent}
+                />
+            </Provider>
+        )
+        
+        const newCommentText = screen.getByText("Gym is life");
+        expect(newCommentText).toBeInTheDocument();
+
+    })
 })
