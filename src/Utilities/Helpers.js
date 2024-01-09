@@ -1,17 +1,17 @@
 export const getTimeAgo = (created_utc) => {
-    const createdAt = new Date(created_utc * 1000);
-    const currentTime = new Date();
-    const timeDifferenceInMilliseconds = currentTime - createdAt;
-    const timeInSeconds = Math.floor(timeDifferenceInMilliseconds / 1000);
-    const timeInMinutes = Math.floor(timeDifferenceInMilliseconds / (1000 * 60));
-    const timeInHours = Math.floor(timeDifferenceInMilliseconds / (1000 * 60 * 60));
-    const daysAgo = Math.floor(timeInHours / 24);
+    const createdAtTimeInSeconds = created_utc;
+    const currentTimeInSeconds = Math.floor(new Date().getTime() / 1000);
+    const timeInSeconds = currentTimeInSeconds - createdAtTimeInSeconds;
+    const timeInMinutes = Math.round(timeInSeconds / 60);
+    const timeInHours = Math.round(timeInMinutes / 60);
+    const daysAgo = Math.round(timeInHours / 24);
 
-    if (timeInHours < 1 && timeInSeconds > 60) {
-        return timeInMinutes >= 1 ? `${timeInMinutes} minutes ago` : `${timeInMinutes} minute ago`;
+
+    if (timeInHours < 1 && timeInSeconds >= 60) {
+        return timeInMinutes > 1 ? `${timeInMinutes} minutes ago` : `${timeInMinutes} minute ago`;
     } else if (timeInSeconds < 60) {
         return 'Just now'
-    } else if (timeInHours < 25) {
+    } else if (timeInHours < 24) {
         return timeInHours > 1 ? `${timeInHours} hours ago` : `${timeInHours} hour ago`;
     } else {
         return daysAgo > 1 ? `${daysAgo} days ago` : `${daysAgo} day ago`;
@@ -25,6 +25,27 @@ export const cleanUrl = (imgUrl) => {
     let quadEncoded = tripleEncoded.replace("amp;v", "v");
     return quadEncoded;
 };
+
+export const checkForUrl = (text) => {
+    const urlRegex = /(https?:\/\/[^\s]+)/;
+    return urlRegex.test(text)
+}
+
+export const extractUrl = (text) => {
+    const urlRegex = /(https?:\/\/[^\s]+)/;
+    //const checkForUrl = urlRegex.test(text);
+    const match = text.match(urlRegex);
+    if (match){
+        const urlIndex = match.index
+        return {
+            before: text.substring(0, urlIndex),
+            url: match[0],
+            after: text.substring(urlIndex + match[0].length)
+        }
+    }
+
+    return match.input
+}
 
 
 export const checkMediaType = (post) => {
@@ -100,7 +121,17 @@ export const getMediaContent = (post) => {
 
         case ("text"): {
             if (post.selftext) {
-                mediaContent['selftext'] = post.selftext;
+                const containsUrl = checkForUrl(post.selftext);
+                if (!containsUrl) {
+                    mediaContent['selftext'] = post.selftext;
+                }
+                if (containsUrl) {
+                    const extractedObj = extractUrl(post.selftext);
+                    mediaContent['before'] = extractedObj.before;
+                    mediaContent['url'] = extractedObj.url;
+                    mediaContent['after'] = extractedObj.after;
+                }
+                
             } 
             return mediaContent;
         }
@@ -141,3 +172,4 @@ export const extractSrcFromBodyHtml = (comment) => {
         return null;
     } else return;
 }
+

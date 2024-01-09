@@ -8,12 +8,14 @@ import MarkdownView from "react-showdown";
 import { Gallery } from './galleryDisplay/galleryDisplay';
 import ReactPlayer from 'react-player';
 import { CommentLoading } from '../Comment/commentLoading/commentLoading';
+import { checkForUrl } from '../../Utilities/Helpers';
+import { extractUrl } from '../../Utilities/Helpers';
 
 
 
 
 
-export const Post = ({ post, onToggleComments, mediaContent }) => {
+export const Post = ({ post, onToggleComments, mediaContent, index }) => {
 
 
 
@@ -21,8 +23,8 @@ export const Post = ({ post, onToggleComments, mediaContent }) => {
         <Card className="post-wrapper">
             <div className="details-container">
                 <div className="sub-details">
-                    <img src={post.icon_url} alt="Post Icon" />
-                    <p>{post.subreddit_name_prefixed}</p>
+                    <img src={post.icon_url ? post.icon_url : 'https://b.thumbs.redditmedia.com/rmlXC779KUA2MTO4r_GJd2enqa8GKx3BOasymol6gLk.png'} alt="Post Icon" />
+                    <p data-testid="subreddit-name">{post.subreddit_name_prefixed}</p>
                 </div>
                 <div className="author-details">
                     <p>posted by {post.author}</p>
@@ -32,9 +34,9 @@ export const Post = ({ post, onToggleComments, mediaContent }) => {
                 </div>
             </div>
             <div className="post-title">
-                <h1>{post.title}</h1>
+                <h1 data-testid="title">{post.title}</h1>
             </div>
-            <div className="post-content-container">
+            <div className="post-content-container" data-testid="post-container">
 
                 {mediaContent.type === 'img' &&
                     <img
@@ -45,8 +47,8 @@ export const Post = ({ post, onToggleComments, mediaContent }) => {
                 }
 
                 {mediaContent.type === 'video' &&
-                    <video 
-                        controls 
+                    <video
+                        controls
                         className='video'
                         aria-label="Video Player"
                     >
@@ -59,7 +61,7 @@ export const Post = ({ post, onToggleComments, mediaContent }) => {
                     <a href={mediaContent.href} aria-label="External Link">{mediaContent.href}</a>
                 }
 
-                {mediaContent.type === "text" &&
+                {(mediaContent.type === "text" && mediaContent.selftext) &&
                     <MarkdownView
                         markdown={mediaContent.selftext}
                         options={{ emoji: true }}
@@ -67,42 +69,63 @@ export const Post = ({ post, onToggleComments, mediaContent }) => {
                     />
                 }
 
+                {(mediaContent.type === "text" && mediaContent.url) &&
+                    <div>
+                    <p>{mediaContent.before}</p>
+                    <a href={mediaContent.url}>{mediaContent.url}</a>
+                    <p>{mediaContent.after}</p>
+                    </div>
+                }
+
                 {mediaContent.type === "videoEmbed" &&
                     <div aria-label="Embedded Video" data-testid="embedded-video">
-                        <ReactPlayer 
-                            url={mediaContent.src} 
+                        <ReactPlayer
+                            url={mediaContent.src}
                             controls={true}
                             className={"react-player"}
                         />
                     </div>
                 }
                 {mediaContent.type === 'gallery' &&
-                    <Gallery 
-                        mediaContent={mediaContent} 
-                        data-testid="gallery-component" 
-                    />
+                    <div className='gallery'>
+                        <div className='gallery-text'>
+                            {mediaContent.type === "gallery" && post.selftext &&
+                                <p>{post.selftext}</p>
+                            }
+                        </div>
+
+                        <Gallery
+                            mediaContent={mediaContent}
+                            data-testid="gallery-component"
+                        />
+                    </div>
+
                 }
             </div>
             <div className="comments-container">
-                <button type="button" onClick={() => onToggleComments(post.permalink)}>
+                <button
+                    type="button"
+                    onClick={() => onToggleComments(post.permalink)}
+                    data-testid={index === 0 ? "comment-button-first" : "comment-button"}
+                >
                     Comments: <BiCommentDetail className='comment-icon' /> {post.num_comments}
                 </button>
-           
-            {post.loadingComments && post.num_comments > 0 &&
-                <React.Fragment>
-                    <CommentLoading/>
-                    <CommentLoading/>
-                    <CommentLoading/>
-                    <CommentLoading/>
-                    <CommentLoading/>
-                </React.Fragment>    
-            }
 
-            {post.showingComments &&
-                post.comments.map((comment, index) => {
-                    return <Comment comment={comment} key={comment.id} />
-                })
-            } 
+                {post.loadingComments && post.num_comments > 0 &&
+                    <React.Fragment>
+                        <CommentLoading />
+                        <CommentLoading />
+                        <CommentLoading />
+                        <CommentLoading />
+                        <CommentLoading />
+                    </React.Fragment>
+                }
+
+                {post.showingComments &&
+                    post.comments.map((comment) => {
+                        return <Comment comment={comment} key={comment.id} />
+                    })
+                }
             </div>
         </Card>
 

@@ -4,9 +4,14 @@ export const getSubredditPosts = async (subreddit) => {
     const response = await fetch(`${baseUrl}${subreddit}.json`)
     const json = await response.json();
     const newArray = json.data.children.map(post => post.data);
-    console.log(newArray);
+    console.log(newArray[0])
     return newArray;
 }
+
+
+
+
+
 
 export const getSubreddits = async () => {
     const response = await fetch(`${baseUrl}/subreddits.json`);
