@@ -90,12 +90,13 @@ export const fitness = [
     {
         author: 'Nikola',
         title: "King of All Exercises",
-        id: 63534, created_utc: '1687968271.0',
+        id: 63534, 
+        created_utc: '1687968271.0',
         num_comments: 25,
         url: "https://www.muscleandfitness.com/wp-content/uploads/2019/02/ronnie-coleman-squat-barbell-1109.jpg?quality=86&strip=all",
         icon_url: 'https://b.thumbs.redditmedia.com/rmlXC779KUA2MTO4r_GJd2enqa8GKx3BOasymol6gLk.png',
         subreddit_name_prefixed: 'r/fitness',
-        post_hint: 'image',
+        post_hint: 'link',
         permalink: 'fitnessComments'
     },
     {
@@ -107,7 +108,7 @@ export const fitness = [
         url: 'https://cathe.com/wp-content/uploads/2019/10/shutterstock_503061850.jpg',
         icon_url: 'https://b.thumbs.redditmedia.com/rmlXC779KUA2MTO4r_GJd2enqa8GKx3BOasymol6gLk.png',
         subreddit_name_prefixed: 'r/fitness',
-        post_hint: "image",
+        post_hint: "link",
         permalink: 'fitnessComments'
     },
     {
@@ -210,3 +211,10 @@ export const partyComments = [
         id: 575757
     }
 ]
+
+
+export const selfText = "Hey everyone!\n\nIt's Tuesday, which means that it's time to line-up and post your Tavs. Please remember to add whether or not you're using mods (and what they are if so). \n\nCheck [here](https://www.reddit.com/r/BaldursGate3/search?q=flair_name%3A%22TAV%22&amp;restrict_sr=1) if you'd like to see past Tavs.\n\nCan't wait to see what everyone's made :)"
+
+export const selfText2 = "&lt;!-- SC_OFF --&gt;&lt;div class=\"md\"&gt;&lt;p&gt;Hey everyone!&lt;/p&gt;\n\n&lt;p&gt;It&amp;#39;s Tuesday, which means that it&amp;#39;s time to line-up and post your Tavs. Please remember to add whether or not you&amp;#39;re using mods (and what they are if so). &lt;/p&gt;\n\n&lt;p&gt;Check &lt;a href=\"https://www.reddit.com/r/BaldursGate3/search?q=flair_name%3A%22TAV%22&amp;amp;restrict_sr=1\"&gt;here&lt;/a&gt; if you&amp;#39;d like to see past Tavs.&lt;/p&gt;\n\n&lt;p&gt;Can&amp;#39;t wait to see what everyone&amp;#39;s made :)&lt;/p&gt;\n&lt;/div&gt;&lt;!-- SC_ON --&gt;"
+
+export const selfTextNotMarkdown = "About to change my kitchen over and finally get to get rid of the white ceramic sink the previous owner installed. Love the ease of cleaning ceramic (just scrub and it's done) absolutely hate the colour as it shows up everything. \n\nThought about composite but the Internet has taught me it's not as durable for my needs.\n\nStainless steel would be the other option but it just looks so dull in comparison.\n\nThis is the sink that has caught my eye: https://www.tapsuk.com/astini-desire-150-1-5-bowl-matt-black-ceramic-kitchen-sink-waste-p64491/s77404?utm_medium=ppc&amp;utm_term=astini-desire-150-1-5-bowl-matt-black-ceramic-kitchen-sink-amp-waste-desire150mblk-p&amp;utm_campaign=froogle&amp;cid=GBP&amp;glCurrency=GBP&amp;glCountry=GB&amp;clickref=1011lyaD6WeW&amp;utm_source=VisualsoftAffiliates&amp;utm_medium=affiliate&amp;utm_campaign=kiesproduct-shoparize"

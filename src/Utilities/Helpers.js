@@ -26,12 +26,12 @@ export const cleanUrl = (imgUrl) => {
     return quadEncoded;
 };
 
-export const checkForUrl = (text) => {
+/*export const checkForUrl = (text) => {
     const urlRegex = /(https?:\/\/[^\s]+)/;
     return urlRegex.test(text)
-}
+}*/
 
-export const extractUrl = (text) => {
+/*export const extractUrl = (text) => {
     const urlRegex = /(https?:\/\/[^\s]+)/;
     //const checkForUrl = urlRegex.test(text);
     const match = text.match(urlRegex);
@@ -44,35 +44,70 @@ export const extractUrl = (text) => {
         }
     }
 
-    return match.input
-}
+    return text;
+}*/
+/*const checkForRedditDomain = (domain) => {
+    const redditDomain = "reddit.com/live/";
+
+}*/
 
 
-export const checkMediaType = (post) => {
+
+
+/*export const checkMediaType = (post) => {
     let mediaType = "";
-    if ((post.post_hint && post.post_hint === 'link') || 
+    if ((post.post_hint && post.post_hint === 'link') ||
     (post.url && !post.is_self && (post.thumbnail === "" || post.thumbnail === "default"))) {
         mediaType = 'link'
     } else if (!post.is_gallery &&
         !post.is_video &&
         !post.is_self &&
-        post.preview && (post.post_hint !== 'link' && post.post_hint !== "rich:video")) {
+        post.preview && (post.post_hint === "image") && (post.post_hint !== 'link' && post.post_hint !== "rich:video")) {
         mediaType = "img";
     } else if (post.is_gallery) {
         mediaType = "gallery";
     } else if (post.is_video) {
         mediaType = "video";
     } else if (post.post_hint === "rich:video" && 
-    (post.domain === "youtube.com" || post.domain === "clips.twitch.tv")) {
+    (post.domain === "youtube.com" || post.domain === "clips.twitch.tv" || post.domain === "youtu.be")) {
         mediaType = "videoEmbed";
-    } else {
+    } else if (post.is_self === true) {
         mediaType = "text"
+    } else mediaType = "text"
+    
+    return mediaType;
+}*/
+
+export const checkMediaType = (post) => {
+    let mediaType = "";
+    if ((post.post_hint === "link")||
+    (post.url && !post.is_self && (post.thumbnail === "" || post.thumbnail === "default"))) {
+        mediaType = "link"
+    } else if (post.preview && post.post_hint === "image") {
+        mediaType = "img"
+    } else if (post.is_gallery) {
+        mediaType = "gallery";
+    } else if (post.is_video) {
+        mediaType = "video";
+    } else if (post.post_hint === "rich:video" 
+    && (post.domain === "youtube.com" 
+    || post.domain === "clips.twitch.tv"
+    || post.domain === "youtu.be")) {
+        mediaType = "videoEmbed";
+    } else if (post.is_self === true) {
+        mediaType = "text"
+    } else {mediaType = "text";
+    console.log(mediaType)
+    console.log(post);
     }
     return mediaType;
 }
 
+
+
 export const getMediaContent = (post) => {
     const mediaType = checkMediaType(post);
+    //console.log(mediaType);
     const mediaContent = { type: mediaType };
     switch (mediaType) {
         case ("img"):
@@ -91,7 +126,7 @@ export const getMediaContent = (post) => {
             const mediaIds = post.gallery_data.items.map(item => item.media_id);
             const idMetadata = mediaIds.map(id => post.media_metadata[id]);
             const pData = idMetadata.map(obj => obj.p);
-            const pDataExtracted = pData.map(array => array[array.length - 1])
+            const pDataExtracted = pData.map(array => array[array.length - 1]);
             const urls = pDataExtracted.map(obj => obj.u);
             const heights = pDataExtracted.map(obj => obj.y);
             const widths = pDataExtracted.map(obj => obj.x);
@@ -101,7 +136,7 @@ export const getMediaContent = (post) => {
                 width: widths[index],
                 id: mediaIds[index]
             }));
-
+            
             mediaContent['gallery_data'] = galleryData;
             return mediaContent;
         }
@@ -120,24 +155,11 @@ export const getMediaContent = (post) => {
         }
 
         case ("text"): {
-            if (post.selftext) {
-                const containsUrl = checkForUrl(post.selftext);
-                if (!containsUrl) {
-                    mediaContent['selftext'] = post.selftext;
-                }
-                if (containsUrl) {
-                    const extractedObj = extractUrl(post.selftext);
-                    mediaContent['before'] = extractedObj.before;
-                    mediaContent['url'] = extractedObj.url;
-                    mediaContent['after'] = extractedObj.after;
-                }
-                
-            } 
+            mediaContent['selftext'] = post.selftext;
             return mediaContent;
         }
         case ("videoEmbed"): {
             mediaContent["src"] = post.url;
-            console.log(mediaContent);
             return mediaContent;
         }
         default: {
@@ -148,16 +170,6 @@ export const getMediaContent = (post) => {
 
 
 
-
-/*export const formatSelftextWithLinks = (text) => {
-    const parts = text.split(' ');
-    return parts.map((part, index) => {
-      if (part.startsWith('http://') || part.startsWith('https://')) {
-        return <a href={part} target="_blank" rel="noopener noreferrer" key={index}>{part}</a>;
-      }
-      return part + ' ';
-    });
-  };*/
 
 const he = require('he');
 
@@ -173,3 +185,17 @@ export const extractSrcFromBodyHtml = (comment) => {
     } else return;
 }
 
+
+export const removeGifFromComment = (commentBody) => {
+    // Regular expression to check for Markdown-style image syntax for gifs
+    const regex = /!\[gif\]\([^)]+\)/g;
+  
+    // Check if the commentBody contains any gifs
+    if (regex.test(commentBody)) {
+      // Replace all occurrences of the regex with an empty string
+      return commentBody.replace(regex, '').trim();
+    }
+  
+    // If no gifs are found, return the original commentBody
+    return commentBody;
+  }

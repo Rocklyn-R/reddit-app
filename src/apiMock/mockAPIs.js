@@ -28,8 +28,8 @@ export const mockGetSubredditPosts = (subreddit) => {
                 url: "https://cdn.regent.edu/wp-content/uploads/2022/03/steinway-sons-showcases-piano-spirior-regent-university-1760x990.png",
                 icon_url: 'https://b.thumbs.redditmedia.com/rmlXC779KUA2MTO4r_GJd2enqa8GKx3BOasymol6gLk.png',
                 subreddit_name_prefixed: 'r/pics',
-                post_hint: "image",
-                permalink: "picsComments"
+                post_hint: "link",
+                permalink: "picsComments",
             }
         ]
 
@@ -59,7 +59,7 @@ export const mockGetSubredditPosts = (subreddit) => {
                 url: "https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F6%2F2023%2F03%2F18%2Ftaylor-swift-031823-01-2000.jpg&q=60",
                 icon_url: 'https://b.thumbs.redditmedia.com/rmlXC779KUA2MTO4r_GJd2enqa8GKx3BOasymol6gLk.png',
                 subreddit_name_prefixed: 'r/music',
-                post_hint: "image",
+                post_hint: "link",
                 permalink: "musicComments"
             }
         ]

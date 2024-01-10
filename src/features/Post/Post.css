@@ -2,6 +2,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+   
 }
 
 .details-container {
@@ -9,6 +10,7 @@
   justify-content: space-between;
   width: 100%;
   align-items: center;
+  max-width: 80rem;
 }
 
 .sub-details {
@@ -34,8 +36,11 @@
 .post-title {
     text-align: center;
     margin: 2rem 2rem;
+    word-break: break-word;
 }
-
+.post-title h1 {
+  word-wrap: break-word;
+}
 
 
 .post-content-container {
@@ -44,17 +49,50 @@
     align-items: center;
     flex-direction: column;
     max-width: 50rem;
+    overflow: hidden;
+}
+  .img-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+.image-text {
+  line-height: 1.5rem;
+  margin-bottom: 2rem;
+  width: 100%;
+}
+
+.selftextDisplay {
+  word-wrap: break-word;
 }
   
   .post-content-container .post-image {
     max-height: 31.25rem;
-    width: 100%;
-    
+    width: 100%
   }
+
+
+
+
 
   .post-content-container .video {
     height: 100%;
     max-height: 500px;
+    width: 100%;
+  }
+
+  .link-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .link-text {
+    line-height: 1.5rem;
+    margin-bottom: 2rem;
     width: 100%;
   }
 
@@ -69,6 +107,22 @@
 .post-content-container .selftextDisplay p {
     margin-bottom: 1.5em;
 }
+
+.gallery {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 100%;
+}
+
+.gallery p {
+  margin-bottom: 2rem;
+  text-align: center;
+  word-break: break-word;
+  max-width: 100%;
+}
+
 
 .comments-container {
     margin-top: 2rem;

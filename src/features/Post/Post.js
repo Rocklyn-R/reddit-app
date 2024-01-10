@@ -8,8 +8,6 @@ import MarkdownView from "react-showdown";
 import { Gallery } from './galleryDisplay/galleryDisplay';
 import ReactPlayer from 'react-player';
 import { CommentLoading } from '../Comment/commentLoading/commentLoading';
-import { checkForUrl } from '../../Utilities/Helpers';
-import { extractUrl } from '../../Utilities/Helpers';
 
 
 
@@ -39,11 +37,24 @@ export const Post = ({ post, onToggleComments, mediaContent, index }) => {
             <div className="post-content-container" data-testid="post-container">
 
                 {mediaContent.type === 'img' &&
-                    <img
-                        src={mediaContent.src}
-                        className="post-image"
-                        alt="Post"
-                    />
+                    
+                    <div className='img-container'>
+                        
+                            {mediaContent.type === "img" && post.selftext &&
+                                <MarkdownView
+                                    className='image-text'
+                                    markdown={post.selftext}
+                                />
+                            }
+                            <img
+                                src={mediaContent.src}
+                                className="post-image"
+                                alt="Post"
+                            />
+                    
+
+                    </div>
+
                 }
 
                 {mediaContent.type === 'video' &&
@@ -58,23 +69,29 @@ export const Post = ({ post, onToggleComments, mediaContent, index }) => {
                     </video>
                 }
                 {mediaContent.type === "link" &&
-                    <a href={mediaContent.href} aria-label="External Link">{mediaContent.href}</a>
+
+                    <div className='link-container'>
+                        {mediaContent.type === "link" && post.selftext &&
+                                <MarkdownView
+                                    className='link-text'
+                                    markdown={post.selftext}
+                                />
+                            }
+                        <a 
+                            href={mediaContent.href} 
+                            aria-label="External Link">{mediaContent.href}
+                        </a>
+
+                    </div>
+                    
                 }
 
-                {(mediaContent.type === "text" && mediaContent.selftext) &&
+                {(mediaContent.type === "text") &&
                     <MarkdownView
                         markdown={mediaContent.selftext}
                         options={{ emoji: true }}
                         className="selftextDisplay"
                     />
-                }
-
-                {(mediaContent.type === "text" && mediaContent.url) &&
-                    <div>
-                    <p>{mediaContent.before}</p>
-                    <a href={mediaContent.url}>{mediaContent.url}</a>
-                    <p>{mediaContent.after}</p>
-                    </div>
                 }
 
                 {mediaContent.type === "videoEmbed" &&
@@ -88,11 +105,11 @@ export const Post = ({ post, onToggleComments, mediaContent, index }) => {
                 }
                 {mediaContent.type === 'gallery' &&
                     <div className='gallery'>
-                        <div className='gallery-text'>
+                        
                             {mediaContent.type === "gallery" && post.selftext &&
                                 <p>{post.selftext}</p>
                             }
-                        </div>
+                       
 
                         <Gallery
                             mediaContent={mediaContent}

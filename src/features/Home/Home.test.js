@@ -73,7 +73,12 @@ const mockPost = {
     author: 'Rocklyn',
     created_utc: 1638200000, // replace with an appropriate timestamp
     title: 'Test Post',
-    // Other properties of the post...
+    selftext: "This is my post",
+    is_self: true,
+    thumbnail: "self",
+    is_video: false,
+    domain: "self.nameofsubreddit",
+    url: "reddit.com/someurl",
     num_comments: 10,
     loadingComments: false,
     showingComments: false,
@@ -140,13 +145,14 @@ describe("Correct rendering of loading state and Post", () => {
         act(() => {
             mockStore.dispatch(getPostsSuccess([mockPost]))
         })
-
+        
         const loadingState = screen.queryByTestId("post-loading");
         const currentState2 = mockStore.getState();
         const newIsLoading = currentState2.reddit.isLoading;
 
         expect(loadingState).toBe(null)
         expect(newIsLoading).toBe(false);
+
 
     })
     it("tests that the useEffect loads posts on first mount", async () => {
@@ -166,7 +172,7 @@ describe("Correct rendering of loading state and Post", () => {
         })
 
         const currentState = mockStore.getState();
-        //console.log("Current State:", JSON.stringify(currentState, null, 2));
+        
 
         expect(mockStore.getState().reddit.posts.length).toBeGreaterThan(0);
         expect(expect(screen.getAllByTestId("post-container").length).toBeGreaterThan(0));
@@ -302,9 +308,7 @@ describe("Correct rendering of comments", () => {
         })
 
 
-        /*const currentState = mockStore.getState();
-        const comments = currentState.reddit.posts[0].comments;
-        expect(comments.length).toBeGreaterThan(0);*/
+        
         const comment = await screen.queryAllByTestId("comment");
         expect(comment.length).toBeGreaterThan(0);
 
@@ -325,6 +329,5 @@ describe("Correct rendering of comments", () => {
 
     })
 })
-
 
 

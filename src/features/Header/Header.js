@@ -13,7 +13,7 @@ export const Header = () => {
     }
 
     return (
-        <header>
+        <header data-testid="header">
             <div className="logo">
                 <FaReddit className="logo-icon" />
                 <p>
