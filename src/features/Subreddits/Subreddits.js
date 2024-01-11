@@ -15,7 +15,7 @@ export const Subreddits = () => {
     const loadingState = useSelector(isLoading);
 
     useEffect(() => {
-        dispatch(fetchSubreddits());
+        dispatch(fetchSubreddits()); 
     }, [dispatch])
 
 

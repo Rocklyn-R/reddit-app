@@ -107,18 +107,35 @@ export const mockGetComments = (permalink) => {
     else return ([])
 }
 
-/*export const getSubreddits = jest.fn(() => {
-    return Promise.resolve([
+export const mockGetSubreddits = () => {
+    return ([
         {
-            somekey: somevalue,
-            key2: value2
+            display_name: "Home",
+            icon_img: "",
+            url: "/r/home/",
+            id: 1234
         },
         {
-            somekey: somevalue,
-            key2: value2
+            display_name: "pics",
+            icon_img: "",
+            url: "/r/pics/",
+            id: 123
+        },
+        {
+            display_name: "LivestreamFail",
+            icon_img: "",
+            url: "/r/livestreamfail/",
+            id: 12134
+        },
+        {
+            display_name: "AskReddit",
+            icon_img: "",
+            url: "/r/askreddit/",
+            id: 1213
         }
+
     ])
-})*/
+}
 
 
 

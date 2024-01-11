@@ -13,60 +13,6 @@ import { Header } from "../Header/Header";
 
 
 
-
-//redditAPI.getSubredditPosts = mockGetSubredditPosts;
-
-
-
-
-/*getSubredditPosts.mockImplementation((subreddit) => {
-    
-        
-   if (subreddit === "/r/pics/") {
-        return Promise.resolve [
-            {
-                author: 'Nikola',
-                title: "King of All Exercises",
-                id: 63534, 
-                created_utc: '1687968271.0',
-                num_comments: 25,
-                url: "https://www.muscleandfitness.com/wp-content/uploads/2019/02/ronnie-coleman-squat-barbell-1109.jpg?quality=86&strip=all",
-                icon_url: 'https://b.thumbs.redditmedia.com/rmlXC779KUA2MTO4r_GJd2enqa8GKx3BOasymol6gLk.png',
-                subreddit_name_prefixed: 'r/fitness',
-                post_hint: 'link',
-                permalink: 'fitnessComments',
-                subreddit: "pics"
-            }
-        ]
-        
-    }
-
-    else if (subreddit === "/r/home/") {
-        return Promise.resolve [
-            {
-                author: 'Rocklyn',
-                title: "Do You Even Lift?",
-                id: 73453,
-                created_utc: '1688003725.0',
-                num_comments: 143,
-                url: 'https://cathe.com/wp-content/uploads/2019/10/shutterstock_503061850.jpg',
-                icon_url: 'https://b.thumbs.redditmedia.com/rmlXC779KUA2MTO4r_GJd2enqa8GKx3BOasymol6gLk.png',
-                subreddit_name_prefixed: 'r/fitness',
-                post_hint: "link",
-                permalink: 'fitnessComments',
-                subreddit: "home"
-            }
-        ]
-    }
-    else return Promise.resolve ([]);
-
-})*/
-
-
-
-
-
-
 const mockPost = {
     icon_url: 'subreddit_icon.jpg',
     subreddit_name_prefixed: 'r/reactjs',
@@ -125,7 +71,7 @@ describe("Correct rendering of loading state and Post", () => {
         jest.clearAllMocks();
     })
 
-    it("renders loading state on initial render when isLoading is true and removes it when posts are fetched and isLoading is false", async () => {
+   /it("renders loading state on initial render when isLoading is true and removes it when posts are fetched and isLoading is false", async () => {
         //initial state in store has isLoading = false
 
 

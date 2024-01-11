@@ -19,9 +19,19 @@ export const SubredditsDropDown = () => {
     return (
         <div className='drop-down-container'>
             <h2>Subreddits:</h2>
-            <select className='drop-down' value={selectedSub} onChange={changeSelectedSubreddit}>
+            <select 
+                className='drop-down' 
+                value={selectedSub} 
+                onChange={changeSelectedSubreddit}
+                data-testid="select"
+            >
                 {subreddits.map(subreddit => (
-                    <option key={subreddit.id} value={subreddit.url}>{subreddit.display_name}</option>
+                    <option 
+                        key={subreddit.id} 
+                        value={subreddit.url}
+                    >
+                        {subreddit.display_name}
+                    </option>
                 ))}
             </select>
         </div>
