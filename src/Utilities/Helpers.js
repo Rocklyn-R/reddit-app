@@ -49,7 +49,7 @@ export const cleanUrl = (imgUrl) => {
 /*const checkForRedditDomain = (domain) => {
     const redditDomain = "reddit.com/live/";
 
-}*/
+}
 
 
 
@@ -150,7 +150,17 @@ export const getMediaContent = (post) => {
             return mediaContent;
         }
         case ("link"): {
+
+            const shortenLink = (url) => {
+              if (url.length <= 25) {
+                return url;
+              }
+          
+              const shortenedUrl = url.substring(0, 22) + '...';
+              return shortenedUrl;
+            };
             mediaContent["href"] = post.url;
+            mediaContent["linkDisplay"] = shortenLink(post.url);
             return mediaContent;
         }
 

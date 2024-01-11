@@ -98,6 +98,13 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    overflow-wrap: break-word;
+    white-space: break-spaces;
+  }
+
+  .link-container a {
+    max-width: 100%;
+    display: flex;
   }
 
   .link-text {
@@ -108,6 +115,10 @@
 
   .post-content-container a {
     text-align: center;
+  }
+
+  .link-icon {
+    align-self: center;
   }
   
 .post-content-container .selftextDisplay {

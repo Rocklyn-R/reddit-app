@@ -8,6 +8,7 @@ import MarkdownView from "react-showdown";
 import { Gallery } from './galleryDisplay/galleryDisplay';
 import ReactPlayer from 'react-player';
 import { CommentLoading } from '../Comment/commentLoading/commentLoading';
+import { FaExternalLinkAlt } from 'react-icons/fa';
 
 
 
@@ -79,7 +80,9 @@ export const Post = ({ post, onToggleComments, mediaContent, index }) => {
                             }
                         <a 
                             href={mediaContent.href} 
-                            aria-label="External Link">{mediaContent.href}
+                            aria-label="External Link">
+                                {mediaContent.linkDisplay}
+                                <FaExternalLinkAlt className='link-icon'/>
                         </a>
 
                     </div>
