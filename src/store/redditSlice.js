@@ -36,9 +36,6 @@ export const redditSlice = createSlice({
         setSelectedSubreddit: (state, action) => {
             state.selectedSubreddit = action.payload;
         },
-        toggleShowingComments: (state, action) => {
-            state.posts[action.payload].showingComments = !state.posts[action.payload].showingComments;
-        },
         startGetComments: (state, action) => {
             state.posts[action.payload].showingComments = !state.posts[action.payload].showingComments;
             if (!state.posts[action.payload].showingComments) {
@@ -71,7 +68,6 @@ export const {
     getPostsFailed,
     setSearchTerm,
     setSelectedSubreddit,
-    toggleShowingComments,
     startGetComments,
     getCommentsSuccess,
     getCommentsFailed
@@ -91,7 +87,6 @@ export const fetchPosts = (subreddit) => async (dispatch) => {
         }))
         dispatch(getPostsSuccess(postsWithMetadata));
     } catch (error) {
-        console.log(error);
         dispatch(getPostsFailed());
     }
 };
