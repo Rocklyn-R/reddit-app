@@ -12,9 +12,10 @@ function App() {
       <div className='subreddits-dropdown'>
         <SubredditsDropDown />
       </div>
-      <div class="container">
-        <Home />
+      <div className="container">
         <Subreddits />
+        <Home />
+        
       </div>
     </div>
   );

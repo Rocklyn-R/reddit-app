@@ -13,11 +13,11 @@ export const Header = () => {
     }
 
     return (
-        <header data-testid="header">
+        <header data-testid="header" className="header">
             <div className="logo">
                 <FaReddit className="logo-icon" />
                 <p>
-                    Reddit<span>Rocklyn</span>
+                    Reddit<span>Lite</span>
                 </p>
             </div>
             <form className="search">

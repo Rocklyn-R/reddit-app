@@ -9,11 +9,27 @@
 
 .drop-down-container h2 {
     margin-right: 1rem;
-    text-decoration: underline;
 }
 
 .drop-down {
     height: 3rem;
-    width: 11rem;
     background-color: aliceblue;
+    border-radius: 4rem;
+    text-align: center;
+    font-size: 1rem;
+}
+
+.option {
+    border-radius: 4rem;
+    display: flex;
+    align-items: center;
+}
+
+.custom-select {
+    width: 30%;
+}
+
+.selected-option {
+    display: flex;
+    align-items: center;
 }

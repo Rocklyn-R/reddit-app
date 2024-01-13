@@ -4,7 +4,7 @@
 
 .container {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   overflow-x: auto;
 }
 
@@ -17,7 +17,7 @@
     display: block; /* Show Subreddits for smaller screens */
   }
 
-  .container > :nth-child(2) {
+  .container > :nth-child(1) {
     display: none;
   }
 }
@@ -31,7 +31,7 @@
     display: flex; /* Show Subreddits for larger screens */
   }
 
-  .container > :nth-child(2) {
+  .container > :nth-child(1) {
     display: block;
   }
 }

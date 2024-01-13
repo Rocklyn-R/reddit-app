@@ -127,6 +127,7 @@ export const Post = ({ post, onToggleComments, mediaContent, index }) => {
                     type="button"
                     onClick={() => onToggleComments(post.permalink)}
                     data-testid={index === 0 ? "comment-button-first" : "comment-button"}
+                    className="comment-button"
                 >
                     Comments: <BiCommentDetail className='comment-icon' /> {post.num_comments}
                 </button>

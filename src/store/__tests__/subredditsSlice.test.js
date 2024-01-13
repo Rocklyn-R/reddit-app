@@ -1,6 +1,6 @@
 import "@testing-library/jest-dom";
 import createMockStore from "../mockStore";
-//import { createMockStore } from "redux-mock-store";
+
 import {
     startGetSubreddits, 
     getSubredditsSuccess,
@@ -16,7 +16,7 @@ describe("subreddits slice", () => {
     beforeEach(() => {
         mockStore = createMockStore()
     })
-    //redditAPI.getSubreddits = mockGetSubreddits;
+   
 
     it("should handle startGetSubreddits", () => {
         mockStore.dispatch(startGetSubreddits());
