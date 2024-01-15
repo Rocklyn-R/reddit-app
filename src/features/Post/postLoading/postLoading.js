@@ -6,25 +6,25 @@ import "./postLoading.css";
 export const PostLoading = () => {
     return (
         <Card className="post-loading">
-            <div className="details-container" data-testid="post-loading">
-                <div className="sub-details" >
+            <div className="post-loading-details-container" data-testid="post-loading">
+                <div className="loading-sub-details" >
                     <Skeleton width={50} height={50} circle={true} />
                     <Skeleton width={100} />
                 </div>
-                <div className="author-details">
+                <div className="loading-author-details">
                     <Skeleton width={150} />
                 </div>
-                <div className="time-details">
+                <div className="loading-time-details">
                     <Skeleton width={100} />
                 </div>
             </div>
-            <div className="post-title">
+            <div className="loading-post-title">
                 <h1>
                     <Skeleton width={200} />
                 </h1>
             </div>
-            <div className="post-content-container">
-                <Skeleton height={200} width={800} />
+            <div className="post-content-loading-container">
+                <Skeleton height={100} width={950}/>
             </div>
             <div className="comments-container">
                 <div type="button">

@@ -4,8 +4,8 @@
 
 .container {
   display: flex;
-  justify-content: space-evenly;
   overflow-x: auto;
+  justify-content: space-evenly;
 }
 
 @media (max-width: 1023px) {
@@ -14,7 +14,7 @@
   }
 
   .container {
-    display: block; /* Show Subreddits for smaller screens */
+    display: flex; /* Show Subreddits for smaller screens */
   }
 
   .container > :nth-child(1) {

@@ -6,17 +6,17 @@ import "./commentLoading.css";
 export const CommentLoading = () => {
     return (
         <Card className="comment-loading">
-            <div className="details-container" data-testid="loading-state">
-                <div className="sub-details">
-                    <Skeleton width={50} height={50} circle={true} />
+            <div className="cmt-loading-details-container" data-testid="loading-state">
+                <div className="cmt-loading-sub-details">
+                    <Skeleton width={30} height={30} circle={true} />
                     <Skeleton width={100} />
                 </div>
-                <div className="time-details">
+                <div className="cmt-loading-time-details">
                     <Skeleton width={100} />
                 </div>
             </div>
-            <div className="comment-content">
-                <Skeleton width={200} />
+            <div className="loading-comment-content">
+                <Skeleton width={850} />
             </div>
             
         </Card>

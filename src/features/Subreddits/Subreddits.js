@@ -29,7 +29,7 @@ export const Subreddits = () => {
                         .fill()
                         .map((_, index) => (
                             <li key={index} className="skeleton-li">
-                                <Skeleton height={50} width={200} />
+                                <Skeleton height={50} width={195} />
                             </li>
                         ))
                     : subreddits.map((subreddit) => (

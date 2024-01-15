@@ -26,10 +26,16 @@
 }
 
 .custom-select {
-    width: 30%;
+    width: 50%;
 }
 
 .selected-option {
     display: flex;
     align-items: center;
+}
+
+@media only screen and (max-width: 600px) {
+    .custom-select {
+        width: 90%;
+    }
 }

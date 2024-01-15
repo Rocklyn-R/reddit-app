@@ -2,5 +2,28 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    border-radius: 2rem;
   }
+
+.post-loading-details-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+.loading-sub-details {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.post-content-loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  overflow: hidden;
+  max-width: 100%;
+}
 

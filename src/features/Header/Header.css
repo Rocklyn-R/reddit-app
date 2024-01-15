@@ -2,13 +2,13 @@ header {
    display: flex;
    background-color: pink;
    padding: 0.75rem;
+   position: relative;
 }
 
 .logo {
-    width: 45%;
-    height: auto;
     display: flex;
     align-items: center;
+    max-width: 30%;
 }
 
 .logo p {
@@ -19,6 +19,12 @@ header {
 header .logo-icon {
     font-size: 2rem;
     color: purple;
+}
+.search-container {
+    position: absolute;
+    left: 65%;
+    transform: translateX(-70%)
+    
 }
 
 .search {
@@ -47,4 +53,17 @@ header .logo-icon {
 .search-icon {
     margin-right: 1rem;
     font-size: 2rem;
+}
+
+@media only screen and (max-width: 600px) {
+    .search {
+        display: none
+    }
+    header .logo-icon {
+        font-size: 3rem;
+    }
+
+    header p {
+        font-size: 2rem;
+    }
 }

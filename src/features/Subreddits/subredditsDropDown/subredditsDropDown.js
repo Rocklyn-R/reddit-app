@@ -47,7 +47,6 @@ export const SubredditsDropDown = () => {
 
     return (
         <div className='drop-down-container'>
-            <h2>Subreddits</h2>
             <Select
                  className='custom-select'
                  value={{ 

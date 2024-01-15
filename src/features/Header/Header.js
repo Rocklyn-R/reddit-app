@@ -4,6 +4,7 @@ import { AiOutlineSearch } from 'react-icons/ai'
 import './Header.css';
 import { setSearchTerm } from '../../store/redditSlice';
 import { useDispatch } from 'react-redux';
+import { SubredditsDropDown } from '../Subreddits/subredditsDropDown/subredditsDropDown';
 
 export const Header = () => {
     const dispatch = useDispatch();
@@ -20,7 +21,9 @@ export const Header = () => {
                     Reddit<span>Lite</span>
                 </p>
             </div>
-            <form className="search">
+            <div>
+            <div className='search-container'>
+                  <form className="search">
                 <AiOutlineSearch className="search-icon" />
                 <input
                     type="text"
@@ -28,6 +31,11 @@ export const Header = () => {
                     onChange={handleInputChange}
                 />
             </form>
+            </div>
+          
+
+            </div>
+         
         </header>
     )
 }

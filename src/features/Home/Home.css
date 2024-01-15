@@ -1,3 +1,15 @@
 .all-posts-container {
-    width: 100%;
+    max-width: 70%;   
+    width: 70%;
 }
+
+.no-post-found {
+   border-radius: 2rem;
+}
+
+@media (max-width: 1023px) {
+    .all-posts-container {
+        width: 100%;
+    }
+}
+

@@ -6,6 +6,7 @@ import { fetchPosts, fetchComments } from '../../store/redditSlice';
 import './Home.css';
 import { getMediaContent } from '../../Utilities/Helpers';
 import { PostLoading } from '../Post/postLoading/postLoading';
+import Card from '../../components/Card';
 
 export const Home = () => {
     const reddit = useSelector((state) => state.reddit);
@@ -38,8 +39,9 @@ export const Home = () => {
                 <PostLoading />
             </React.Fragment>
                 
-                
-                : posts.map((post, index) => (
+                : posts.length > 0 ? (
+
+                      posts.map((post, index) => (
                     <Post
                         key={post.id}
                         post={post}
@@ -47,7 +49,16 @@ export const Home = () => {
                         mediaContent={getMediaContent(post)}
                         index={index}
                     />
-                ))}
+                ))
+                )
+                : (
+                    <Card className="no-post-found">
+                        <p>No matching titles found. Try a different keyword.</p>
+                    </Card>
+                )
+              
+            
+            }
         </div>
 
     )
