@@ -8,6 +8,7 @@ import { getMediaContent } from '../../Utilities/Helpers';
 import { PostLoading } from '../Post/postLoading/postLoading';
 import Card from '../../components/Card';
 
+
 export const Home = () => {
     const reddit = useSelector((state) => state.reddit);
     const { selectedSubreddit, isLoading } = reddit;
@@ -53,7 +54,7 @@ export const Home = () => {
                 )
                 : (
                     <Card className="no-post-found">
-                        <p>No matching titles found. Try a different keyword.</p>
+                        <p>No matching posts found. Try a different keyword.</p>
                     </Card>
                 )
               

@@ -3,15 +3,30 @@ import { FaReddit } from 'react-icons/fa'
 import { AiOutlineSearch } from 'react-icons/ai'
 import './Header.css';
 import { setSearchTerm } from '../../store/redditSlice';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { SubredditsDropDown } from '../Subreddits/subredditsDropDown/subredditsDropDown';
+import { selectSubreddits } from '../../store/subredditsSlice';
+import { selectSelectedSubreddit } from '../../store/redditSlice';
 
 export const Header = () => {
     const dispatch = useDispatch();
+    const subreddits = useSelector(selectSubreddits)
+    const selectedSubreddit = useSelector(selectSelectedSubreddit)
 
     const handleInputChange = e => {
         dispatch(setSearchTerm(e.target.value));
     }
+
+    //get the name of selected subreddit.
+    const getSubredditName = (url) => {
+        if (subreddits.length === 0) {
+            return ""
+        }
+        const subreddit = subreddits.find(subreddit => subreddit.url === url)
+        return subreddit.display_name
+    }
+
+    
 
     return (
         <header data-testid="header" className="header">
@@ -27,7 +42,7 @@ export const Header = () => {
                 <AiOutlineSearch className="search-icon" />
                 <input
                     type="text"
-                    placeholder='Search...'
+                    placeholder={`Search ${getSubredditName(selectedSubreddit)}`}
                     onChange={handleInputChange}
                 />
             </form>

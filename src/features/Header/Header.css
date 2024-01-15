@@ -30,13 +30,13 @@ header .logo-icon {
 .search {
     display: flex;
     align-items: center;
-    width: 50%;
 }
 
 .search input {
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     flex-grow: 0.4;
     height: 2rem;
+    width: 12rem;
     border-radius: .5rem;
     border: 1px solid black;
     padding-left: 1rem;

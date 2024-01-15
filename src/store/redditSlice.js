@@ -109,7 +109,10 @@ export const selectFilteredPosts = createSelector(
     (posts, searchTerm) => {
         if (searchTerm !== '') {
             return posts.filter((post) => 
-            post.title.toLowerCase().includes(searchTerm.toLowerCase()));
+            post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            post.selftext.toLowerCase().includes(searchTerm.toLowerCase())
+            );
+            
         };
     return posts;
 })
