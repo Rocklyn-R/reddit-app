@@ -80,7 +80,8 @@ export const cleanUrl = (imgUrl) => {
 
 export const checkMediaType = (post) => {
     let mediaType = "";
-    if ((post.post_hint === "link")||
+    if ((post.post_hint === "link")|| 
+    (!post.post_hint && post.domain === "reddit.com") ||
     (post.url && !post.is_self && (post.thumbnail === "" || post.thumbnail === "default"))) {
         mediaType = "link"
     } else if (post.preview && post.post_hint === "image") {
