@@ -5,6 +5,8 @@ export const getTimeAgo = (created_utc) => {
     const timeInMinutes = Math.round(timeInSeconds / 60);
     const timeInHours = Math.round(timeInMinutes / 60);
     const daysAgo = Math.round(timeInHours / 24);
+    const monthsAgo = Math.round(daysAgo / 30);
+    const yearsAgo = Math.round(monthsAgo / 12);
 
 
     if (timeInHours < 1 && timeInSeconds >= 60) {
@@ -13,7 +15,11 @@ export const getTimeAgo = (created_utc) => {
         return 'Just now'
     } else if (timeInHours < 24) {
         return timeInHours > 1 ? `${timeInHours} hours ago` : `${timeInHours} hour ago`;
-    } else {
+    } else if (yearsAgo >= 1) {
+        return yearsAgo > 1 ? `${yearsAgo} years ago` : `${yearsAgo} year ago`;
+    } else if (monthsAgo >=1 ) {
+        return monthsAgo > 1 ? `${monthsAgo} months ago` : `${monthsAgo} month ago`;    
+    } else if (daysAgo >= 1) {
         return daysAgo > 1 ? `${daysAgo} days ago` : `${daysAgo} day ago`;
     }
 };
@@ -77,6 +83,13 @@ export const cleanUrl = (imgUrl) => {
     
     return mediaType;
 }*/
+
+export const cleanHtmlText = (text) => {
+    text = text.replace(/&amp;#x200B;/g, '');
+    text = text.replace(/&gt;/g, ">");
+    text = text.replace(/&lt;/g, "<");
+    return text;
+}
 
 export const checkMediaType = (post) => {
     let mediaType = "";
@@ -166,7 +179,7 @@ export const getMediaContent = (post) => {
         }
 
         case ("text"): {
-            mediaContent['selftext'] = post.selftext;
+            mediaContent['selftext'] = cleanHtmlText(post.selftext);
             return mediaContent;
         }
         case ("videoEmbed"): {

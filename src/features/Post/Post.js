@@ -9,6 +9,7 @@ import { Gallery } from './galleryDisplay/galleryDisplay';
 import ReactPlayer from 'react-player';
 import { CommentLoading } from '../Comment/commentLoading/commentLoading';
 import { FaExternalLinkAlt } from 'react-icons/fa';
+import { cleanHtmlText } from '../../Utilities/Helpers';
 
 
 
@@ -17,6 +18,7 @@ import { FaExternalLinkAlt } from 'react-icons/fa';
 export const Post = ({ post, onToggleComments, mediaContent, index }) => {
 
 
+    
 
     return (
         <Card className="post-wrapper">
@@ -33,7 +35,7 @@ export const Post = ({ post, onToggleComments, mediaContent, index }) => {
                 </div>
             </div>
             <div className="post-title">
-                <h1 data-testid="title">{post.title}</h1>
+                <h1 data-testid="title">{cleanHtmlText(post.title)}</h1>
             </div>
             <div className="post-content-container" data-testid="post-container">
 
