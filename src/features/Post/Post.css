@@ -70,14 +70,44 @@
 
 .post-title {
   text-align: center;
-  margin: 2rem 2rem;
   word-break: break-word;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 2em;
+  margin-bottom: 2em;
 }
 
 .post-title h1 {
   word-wrap: break-word;
 }
 
+.vote-score {
+  display: flex;
+  align-items: center;
+  margin: .5em;
+}
+
+.vote-score button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.vote-score button:hover .up-arrow, button:hover .down-arrow{
+  color: pink;
+}
+
+.button-clicked .up-arrow, .button-clicked .down-arrow{
+  color: lightblue;
+}
+
+.up-arrow, .down-arrow {
+  font-size: 2em;
+}
 
 .post-content-container {
   display: flex;
@@ -102,10 +132,12 @@
   line-height: 1.5rem;
   margin-bottom: 2rem;
   width: 100%;
+  text-align: center;
 }
 
 .selftextDisplay {
   word-wrap: break-word;
+  text-align: center;
 }
 
 .img-container img {
@@ -198,6 +230,11 @@
   font-size: 1.5rem;
   margin-left: 1rem;
   margin-right: 0.5rem;
+}
+
+.post-footer {
+  display: flex;
+  justify-content: space-between;
 }
 
 @media only screen and (max-width: 450px) {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Post.css';
 import Card from '../../components/Card';
 import { BiCommentDetail } from 'react-icons/bi';
@@ -10,11 +10,12 @@ import ReactPlayer from 'react-player';
 import { CommentLoading } from '../Comment/commentLoading/commentLoading';
 import { FaExternalLinkAlt } from 'react-icons/fa';
 import { cleanHtmlText } from '../../Utilities/Helpers';
-import { selectSelectedSubreddit } from '../../store/redditSlice';
+import { selectSelectedSubreddit, setPostScore } from '../../store/redditSlice';
 import { selectSubreddits } from '../../store/subredditsSlice';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import userIcon from '../../Assets/Images/user-icon.png';
 import { cleanIconUrl } from '../../Utilities/Helpers';
+import { TbArrowBigUpFilled, TbArrowBigDownFilled } from "react-icons/tb";
 
 
 
@@ -23,6 +24,52 @@ import { cleanIconUrl } from '../../Utilities/Helpers';
 export const Post = ({ post, onToggleComments, mediaContent, index }) => {
     const subreddits = useSelector(selectSubreddits);
     const selectedSub = useSelector(selectSelectedSubreddit);
+    const [upVoteClicked, setUpVoteClicked] = useState(false);
+    const [downVoteClicked, setDownVoteClicked] = useState(false);
+    const dispatch = useDispatch();
+    //const [score, setScore] = useState(post.score);
+
+
+    const handleUpvoteClick = () => {
+        if (downVoteClicked) {
+            setDownVoteClicked(false);
+            setUpVoteClicked(true);
+            const newScore = post.score + 2;
+            dispatch(setPostScore({index, score: newScore}))
+
+        }
+        if (!upVoteClicked && !downVoteClicked) {
+            setUpVoteClicked(true);
+            setDownVoteClicked(false);
+           const newScore = post.score + 1;
+           dispatch(setPostScore({index, score: newScore}))
+        }
+        if (upVoteClicked) {
+            setUpVoteClicked(false)
+            const newScore = post.score - 1
+            dispatch(setPostScore({index, score: newScore}))
+        }
+    }
+
+    const handleDownVoteClick = () => {
+        if(upVoteClicked) {
+            setUpVoteClicked(false);
+            setDownVoteClicked(true);
+            const newScore = post.score - 2;
+            dispatch(setPostScore({index, score: newScore}))
+        }
+        if (!downVoteClicked && !upVoteClicked) {
+            setDownVoteClicked(true);
+            setUpVoteClicked(false);
+           const newScore = post.score - 1;
+           dispatch(setPostScore({index, score: newScore}))
+        }
+        if (downVoteClicked) {
+            setDownVoteClicked(false);
+            const newScore = post.score + 1;
+            dispatch(setPostScore({index, score: newScore}))
+        }
+    }   
 
     const getSubredditImage = (url) => {
         if (subreddits.length === 0) {
@@ -69,6 +116,7 @@ export const Post = ({ post, onToggleComments, mediaContent, index }) => {
             </div>
             <div className="post-title">
                 <h1 data-testid="title">{cleanHtmlText(post.title)}</h1>
+
             </div>
             <div className="post-content-container" data-testid="post-container">
 
@@ -160,7 +208,8 @@ export const Post = ({ post, onToggleComments, mediaContent, index }) => {
                 }
             </div>
             <div className="comments-container">
-                <button
+                <div className="post-footer">
+                    <button
                     type="button"
                     onClick={() => onToggleComments(post.permalink)}
                     data-testid={index === 0 ? "comment-button-first" : "comment-button"}
@@ -168,6 +217,25 @@ export const Post = ({ post, onToggleComments, mediaContent, index }) => {
                 >
                     Comments: <BiCommentDetail className='comment-icon' /> {post.num_comments}
                 </button>
+                <div class="vote-score">
+                    <button
+                        className={upVoteClicked ? 'button-clicked' : ""}
+                        onClick={handleUpvoteClick}
+                    >
+                        <TbArrowBigUpFilled className='up-arrow' />
+                    </button>
+
+                    <p>{post.score}</p>
+                    <button
+                        className={downVoteClicked ? "button-clicked" : ""}
+                        onClick={handleDownVoteClick}
+                    >
+                        <TbArrowBigDownFilled className='down-arrow' />
+                    </button>
+
+                </div>
+                </div>
+                
 
                 {post.loadingComments && post.num_comments > 0 &&
                     <React.Fragment>
