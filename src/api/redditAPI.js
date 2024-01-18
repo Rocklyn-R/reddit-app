@@ -1,6 +1,7 @@
 const baseUrl = "https://www.reddit.com";
 
 export const getSubredditPosts = async (subreddit) => {
+
     const response = await fetch(`${baseUrl}${subreddit}.json`)
     const json = await response.json();
     const newArray = json.data.children.map(post => post.data);
@@ -75,20 +76,25 @@ export const getPostComments = async (permalink) => {
 }
 
 export const getUserIcons = async (user) => {
+    const emptyIconObject = {
+        img_icon: "",
+        snoovatar: ""
+    } 
+
     if (user === "[deleted]") {
-        const emptyIconObject = {
-            img_icon: "",
-            snoovatar: ""
-        } 
         return emptyIconObject;
     }
+    try {
         const response = await fetch(`${baseUrl}/user/${user}/about.json`);
         const json = await response.json();
         const newArray = [json.data];
-        console.log(newArray);
         const updatedArray = newArray.map((item) => ({
             img_icon: item.icon_img ? item.icon_img : "",
             snoovatar: item.snoovatar_img || "",
         }));
         return updatedArray[0];
-}
+    } catch (error) {
+        console.error(`Error fetching user icons for user: ${user}`, error);
+        return emptyIconObject;
+    }
+};
