@@ -12,11 +12,14 @@
    justify-content: space-between;
    width: 100%;
    align-items: center;
+   overflow: hidden;
+
 }
 
 .cmt-loading-sub-details {
     display: flex;
     align-items: center;
+    overflow: hidden;
 }
 
 .loading-comment-content {

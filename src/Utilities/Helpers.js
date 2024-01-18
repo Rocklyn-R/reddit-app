@@ -32,6 +32,13 @@ export const cleanUrl = (imgUrl) => {
     return quadEncoded;
 };
 
+export const addBaseToUrl = (url) => {
+    if (url.startsWith("/r/")) {
+        url = "https://www.reddit.com" + url
+    }
+    return url;
+}
+
 /*export const checkForUrl = (text) => {
     const urlRegex = /(https?:\/\/[^\s]+)/;
     return urlRegex.test(text)
@@ -173,8 +180,9 @@ export const getMediaContent = (post) => {
               const shortenedUrl = url.substring(0, 22) + '...';
               return shortenedUrl;
             };
-            mediaContent["href"] = post.url;
-            mediaContent["linkDisplay"] = shortenLink(post.url);
+
+            mediaContent["href"] = addBaseToUrl(post.url);
+            mediaContent["linkDisplay"] = post.url
             return mediaContent;
         }
 
@@ -223,3 +231,12 @@ export const removeGifFromComment = (commentBody) => {
     // If no gifs are found, return the original commentBody
     return commentBody;
   }
+
+
+export const cleanIconUrl = (iconUrl) => {
+    if (iconUrl === "") {
+        return iconUrl;
+    }
+    const imageUrlWithoutParams = iconUrl.replace(/\?.*/, "");
+    return imageUrlWithoutParams;
+}

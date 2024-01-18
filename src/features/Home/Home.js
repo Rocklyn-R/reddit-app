@@ -7,16 +7,17 @@ import './Home.css';
 import { getMediaContent } from '../../Utilities/Helpers';
 import { PostLoading } from '../Post/postLoading/postLoading';
 import Card from '../../components/Card';
-
+import { selectSearchTerm } from '../../store/redditSlice';
 
 export const Home = () => {
     const reddit = useSelector((state) => state.reddit);
     const { selectedSubreddit, isLoading } = reddit;
     const posts = useSelector(selectFilteredPosts);
     const dispatch = useDispatch();
+    const searchTerm = useSelector(selectSearchTerm);
 
     useEffect(() => {
-        dispatch(fetchPosts(selectedSubreddit));
+            dispatch(fetchPosts(selectedSubreddit));
     }, [selectedSubreddit, dispatch]);
 
 
@@ -40,23 +41,23 @@ export const Home = () => {
                 <PostLoading />
             </React.Fragment>
                 
-                : posts.length > 0 ? (
-
-                      posts.map((post, index) => (
-                    <Post
-                        key={post.id}
-                        post={post}
-                        onToggleComments={onToggleComments(index)}
-                        mediaContent={getMediaContent(post)}
-                        index={index}
-                    />
-                ))
-                )
-                : (
+                : (searchTerm && posts.length === 0) ? (
                     <Card className="no-post-found">
                         <p>No matching posts found. Try a different keyword.</p>
                     </Card>
                 )
+                : (
+
+                    posts.map((post, index) => (
+                  <Post
+                      key={post.id}
+                      post={post}
+                      onToggleComments={onToggleComments(index)}
+                      mediaContent={getMediaContent(post)}
+                      index={index}
+                  />
+              ))
+              )
               
             
             }

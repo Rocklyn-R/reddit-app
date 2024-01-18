@@ -4,7 +4,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    ;
 }
 
 .drop-down-container h2 {
@@ -26,7 +27,7 @@
 }
 
 .custom-select {
-    width: 50%;
+    width: 40%;
 }
 
 .selected-option {
@@ -34,8 +35,25 @@
     align-items: center;
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 350px) {
     .custom-select {
         width: 90%;
+    }
+}
+@media only screen and (min-width: 351px) and (max-width: 600px) {
+    .custom-select {
+        width: 80%;
+    }
+}
+
+@media only screen and (min-width: 600px) {
+    .custom-select {
+        width: 60%;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .custom-select {
+        width: 50%;
     }
 }

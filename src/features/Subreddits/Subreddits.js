@@ -18,8 +18,7 @@ export const Subreddits = () => {
         dispatch(fetchSubreddits()); 
     }, [dispatch])
 
-
-
+ 
     return (
         <Card className="subreddit-card" >
             <h2>Subreddits</h2>

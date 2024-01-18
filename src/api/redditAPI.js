@@ -73,3 +73,22 @@ export const getPostComments = async (permalink) => {
         .map(comment => comment.data);
     return newArray;
 }
+
+export const getUserIcons = async (user) => {
+    if (user === "[deleted]") {
+        const emptyIconObject = {
+            img_icon: "",
+            snoovatar: ""
+        } 
+        return emptyIconObject;
+    }
+        const response = await fetch(`${baseUrl}/user/${user}/about.json`);
+        const json = await response.json();
+        const newArray = [json.data];
+        console.log(newArray);
+        const updatedArray = newArray.map((item) => ({
+            img_icon: item.icon_img ? item.icon_img : "",
+            snoovatar: item.snoovatar_img || "",
+        }));
+        return updatedArray[0];
+}

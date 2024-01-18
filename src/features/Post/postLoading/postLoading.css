@@ -3,6 +3,7 @@
     flex-direction: column;
     align-items: center;
     border-radius: 2rem;
+    
   }
 
 .post-loading-details-container {
@@ -11,11 +12,13 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  overflow: hidden;
 }
 .loading-sub-details {
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
 }
 
 .post-content-loading-container {

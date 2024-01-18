@@ -1,5 +1,5 @@
 import { createSlice, createSelector } from "@reduxjs/toolkit";
-import { getSubredditPosts, getPostComments } from "../api/redditAPI";
+import { getSubredditPosts, getPostComments, getUserIcons } from "../api/redditAPI";
 
 
    
@@ -35,6 +35,7 @@ export const redditSlice = createSlice({
         },
         setSelectedSubreddit: (state, action) => {
             state.selectedSubreddit = action.payload;
+            state.searchTerm = "";
         },
         startGetComments: (state, action) => {
             state.posts[action.payload].showingComments = !state.posts[action.payload].showingComments;
@@ -52,6 +53,9 @@ export const redditSlice = createSlice({
         getCommentsFailed: (state, action) => {
             state.posts[action.payload].loadingComments = false;
             state.posts[action.payload].errorComments = true;
+        },
+        getPostUserIconSuccess: (state, action) => {
+            state.posts[action.payload.postIndex].userIcons = action.payload.userIcons;
         }
     }
 });
@@ -70,7 +74,8 @@ export const {
     setSelectedSubreddit,
     startGetComments,
     getCommentsSuccess,
-    getCommentsFailed
+    getCommentsFailed,
+    getPostUserIconSuccess
 } = redditSlice.actions;
 
 //Thunk that will get posts
@@ -83,25 +88,58 @@ export const fetchPosts = (subreddit) => async (dispatch) => {
             showingComments: false,
             comments: [],
             loadingComments: false,
-            errorComments: false
+            errorComments: false,
+            userIcons: []
         }))
+        const userIconsPromises = posts.map(post => getUserIcons(post.author));
+        const userIcons = await Promise.all(userIconsPromises);
+        postsWithMetadata.forEach((post, index) => {
+            post.userIcons.push(userIcons[index])
+        })
         dispatch(getPostsSuccess(postsWithMetadata));
     } catch (error) {
         dispatch(getPostsFailed());
     }
 };
 
+
+
 //Thunk that will fetch comments
 export const fetchComments = (index, permalink) => async (dispatch) => {
     try {
         dispatch(startGetComments(index));
         const comments = await getPostComments(permalink);
-        dispatch(getCommentsSuccess({index, comments}));
+        //console.log(comments);
+        const commentsWithMetaData = comments.map((comment) => ({
+            ...comment,
+            userIcons: []
+        }))
+        const userIconsPromises = comments.map(comment => getUserIcons(comment.author));
+        const userIcons = await Promise.all(userIconsPromises);
+        commentsWithMetaData.forEach((comment, index) => {
+            comment.userIcons.push(userIcons[index])
+        });
+        dispatch(getCommentsSuccess({index, comments: commentsWithMetaData}));
     }
     catch (error) {
         dispatch(getCommentsFailed(index));
+        console.log(error);
     }
 }
+
+/*export const fetchUserIcons = (postIndex, commentIndex, username) => async (dispatch) => {
+    try {
+        const userInfo = await getUserInfo(username);
+        const userIcons = userInfo.map((item) => ({
+            icon_img: item.icon_img,
+            snoovatar_img: item.snoovatar_img
+        }))
+        dispatch(getUserIconSuccess({postIndex, commentIndex, userIcons}));
+    }
+    catch (error) {
+        console.log(error)
+    }
+}*/
 
 
 export const selectFilteredPosts = createSelector(

@@ -10,25 +10,58 @@ import ReactPlayer from 'react-player';
 import { CommentLoading } from '../Comment/commentLoading/commentLoading';
 import { FaExternalLinkAlt } from 'react-icons/fa';
 import { cleanHtmlText } from '../../Utilities/Helpers';
+import { selectSelectedSubreddit } from '../../store/redditSlice';
+import { selectSubreddits } from '../../store/subredditsSlice';
+import { useSelector } from 'react-redux';
+import userIcon from '../../Assets/Images/user-icon.png';
+import { cleanIconUrl } from '../../Utilities/Helpers';
 
 
 
 
 
 export const Post = ({ post, onToggleComments, mediaContent, index }) => {
+    const subreddits = useSelector(selectSubreddits);
+    const selectedSub = useSelector(selectSelectedSubreddit);
+
+    const getSubredditImage = (url) => {
+        if (subreddits.length === 0) {
+            return "";
+        }
+        const subreddit = subreddits.find(sub => sub.url === url);
+        if (subreddit && subreddit.icon_img) {
+            return subreddit.icon_img;
+        } else {
+            return 'https://b.thumbs.redditmedia.com/rmlXC779KUA2MTO4r_GJd2enqa8GKx3BOasymol6gLk.png';
+        }
+    };
+
+    const getIcon = () => {
+        const imgIcon = post.userIcons[0].img_icon;
+        const snoovatar = post.userIcons[0].snoovatar;
+        if (snoovatar) {
+            return snoovatar
+        } else if (imgIcon) {
+            return cleanIconUrl(imgIcon)
+        } else return userIcon;
+    }
 
 
-    
 
     return (
         <Card className="post-wrapper">
             <div className="details-container">
                 <div className="sub-details">
-                    <img src={post.icon_url ? post.icon_url : 'https://b.thumbs.redditmedia.com/rmlXC779KUA2MTO4r_GJd2enqa8GKx3BOasymol6gLk.png'} alt="Post Icon" />
+                    <img src={getSubredditImage(selectedSub)} alt="Post Icon" />
                     <p data-testid="subreddit-name">{post.subreddit_name_prefixed}</p>
                 </div>
-                <div className="author-details">
-                    <p>posted by {post.author}</p>
+                <div className="posted-by">
+                    <p>posted by</p>
+                    <div className="author-details">
+                        <img src={getIcon()} />
+                        <p>{post.author}</p>
+                    </div>
+
                 </div>
                 <div className="time-details">
                     <p>{getTimeAgo(post.created_utc)}</p>
@@ -40,21 +73,21 @@ export const Post = ({ post, onToggleComments, mediaContent, index }) => {
             <div className="post-content-container" data-testid="post-container">
 
                 {mediaContent.type === 'img' &&
-                    
+
                     <div className='img-container'>
-                        
-                            {mediaContent.type === "img" && post.selftext &&
-                                <MarkdownView
-                                    className='image-text'
-                                    markdown={post.selftext}
-                                />
-                            }
-                            <img
-                                src={mediaContent.src}
-                                className="post-image"
-                                alt="Post"
+
+                        {mediaContent.type === "img" && post.selftext &&
+                            <MarkdownView
+                                className='image-text'
+                                markdown={post.selftext}
                             />
-                    
+                        }
+                        <img
+                            src={mediaContent.src}
+                            className="post-image"
+                            alt="Post"
+                        />
+
 
                     </div>
 
@@ -75,20 +108,22 @@ export const Post = ({ post, onToggleComments, mediaContent, index }) => {
 
                     <div className='link-container'>
                         {mediaContent.type === "link" && post.selftext &&
-                                <MarkdownView
-                                    className='link-text'
-                                    markdown={post.selftext}
-                                />
-                            }
-                        <a 
-                            href={mediaContent.href} 
-                            aria-label="External Link">
-                                {mediaContent.linkDisplay}
-                                <FaExternalLinkAlt className='link-icon'/>
+                            <MarkdownView
+                                className='link-text'
+                                markdown={post.selftext}
+                            />
+                        }
+                        <a
+                            href={mediaContent.href}
+                            aria-label="External Link"
+                            target="_blank"
+                        >
+                            {mediaContent.linkDisplay}
+                            <FaExternalLinkAlt className='link-icon' />
                         </a>
 
                     </div>
-                    
+
                 }
 
                 {(mediaContent.type === "text") &&
@@ -110,11 +145,11 @@ export const Post = ({ post, onToggleComments, mediaContent, index }) => {
                 }
                 {mediaContent.type === 'gallery' &&
                     <div className='gallery'>
-                        
-                            {mediaContent.type === "gallery" && post.selftext &&
-                                <p>{post.selftext}</p>
-                            }
-                       
+
+                        {mediaContent.type === "gallery" && post.selftext &&
+                            <p>{post.selftext}</p>
+                        }
+
 
                         <Gallery
                             mediaContent={mediaContent}
@@ -146,7 +181,7 @@ export const Post = ({ post, onToggleComments, mediaContent, index }) => {
 
                 {post.showingComments &&
                     post.comments.map((comment) => {
-                        return <Comment comment={comment} key={comment.id} />
+                        return <Comment comment={comment} key={comment.id} post={post} />
                     })
                 }
             </div>

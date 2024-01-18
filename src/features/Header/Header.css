@@ -59,11 +59,4 @@ header .logo-icon {
     .search {
         display: none
     }
-    header .logo-icon {
-        font-size: 3rem;
-    }
-
-    header p {
-        font-size: 2rem;
-    }
 }

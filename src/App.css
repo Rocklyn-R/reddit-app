@@ -8,6 +8,7 @@
   justify-content: space-evenly;
 }
 
+
 @media (max-width: 1023px) {
   .subreddits-dropdown {
     display: block; /* Show SubredditsDropDown for smaller screens */

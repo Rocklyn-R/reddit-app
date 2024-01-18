@@ -34,10 +34,26 @@
   border: 2px solid black;
   margin-right: 0.5rem;
 }
+.posted-by {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
 .author-details {
   text-align: center;
   align-self: center;
+  display: flex;
+  align-items: center;
+}
+
+.author-details img {
+  height: 1.5rem;
+  width: 1.5rem;
+  border-radius: 50%;
+  margin-right: 0.5rem;
+  border: 1px solid black;
+  background-color: aliceblue;
 }
 
 .time-details {
@@ -161,11 +177,16 @@
   margin-top: 2rem;
   align-self: flex-start;
   width: 100%;
+  display:flex;
+  flex-direction: column;
+}
+.comment-button {
+  width: fit-content;
 }
 
 .comments-container button {
   background: none;
-  padding: 16px;
+  padding: 1em;
   display: flex;
   align-items: center;
   cursor: pointer;
@@ -179,7 +200,25 @@
   margin-right: 0.5rem;
 }
 
+@media only screen and (max-width: 450px) {
+  .comments-container {
+    align-items: center;
+  }
+  .comment-button {
+    max-width: 90%;
+    flex-wrap: wrap;
+    word-break: break-word;
+  }
+  .comment-icon {
+    margin-left: .4rem;
+  }
+}
+
 @media only screen and (max-width: 600px) {
+  .post-wrapper {
+    width: 90;
+    max-width: 100%;
+  }
   .details-container {
     flex-direction: column;
   }
