@@ -1,6 +1,8 @@
 .comment-container {
     border: 1px solid black;
     margin-top: 2rem;
+    margin-bottom: 0;
+    padding-bottom: 0;
     align-self: flex-start;
     width: 100%;
     border-radius: 1rem;
@@ -37,16 +39,59 @@
 
 .body-container {
     margin-left: 1rem;
-    padding: 2rem 1rem;
-    word-break: break-word;
+    display: flex;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    flex-direction: column;
+}
+
+.vote-container {
+    align-self: flex-end;
+    margin-bottom: 0;
 }
 
 .body-text {
-    margin-bottom: 1rem;
+    word-break: break-word;
 }
+
+.comment-vote-score {
+    display: flex;
+    align-items: center;
+    margin: .5em;
+  }
+  
+.comment-vote-score button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding: .3rem;
+  }
+.vote-score button:hover .comment-up-arrow, button:hover .comment-down-arrow{
+    color: pink;
+  }
+  
+.comment-vote-button-clicked .comment-up-arrow, .comment-vote-button-clicked .comment-down-arrow {
+    color: lightblue;
+  }
+
+.comment-up-arrow, .comment-down-arrow {
+    margin-right: 0;
+    margin-left: 0
+}
+
 .gif {
     width: 100%;
     max-width: 20rem;
+}
+
+
+
+.comment-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 @media only screen and (max-width: 450px) {

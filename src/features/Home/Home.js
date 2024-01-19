@@ -54,7 +54,7 @@ export const Home = () => {
                       post={post}
                       onToggleComments={onToggleComments(index)}
                       mediaContent={getMediaContent(post)}
-                      index={index}
+                      postIndex={index}
                   />
               ))
               )

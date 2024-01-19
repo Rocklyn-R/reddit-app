@@ -32,12 +32,7 @@ export const cleanUrl = (imgUrl) => {
     return quadEncoded;
 };
 
-export const addBaseToUrl = (url) => {
-    if (url.startsWith("/r/")) {
-        url = "https://www.reddit.com" + url
-    }
-    return url;
-}
+
 
 /*export const checkForUrl = (text) => {
     const urlRegex = /(https?:\/\/[^\s]+)/;
@@ -92,6 +87,7 @@ export const addBaseToUrl = (url) => {
 }*/
 
 export const cleanHtmlText = (text) => {
+    text = text.replace(/&amp;/g, '&');
     text = text.replace(/&amp;#x200B;/g, '');
     text = text.replace(/&gt;/g, ">");
     text = text.replace(/&lt;/g, "<");
@@ -101,7 +97,7 @@ export const cleanHtmlText = (text) => {
 export const checkMediaType = (post) => {
     let mediaType = "";
     if ((post.post_hint === "link")|| 
-    (!post.post_hint && post.domain === "reddit.com") ||
+    (!post.post_hint && !post.is_gallery && post.domain === "reddit.com") ||
     (post.url && !post.is_self && (post.thumbnail === "" || post.thumbnail === "default"))) {
         mediaType = "link"
     } else if (post.preview && post.post_hint === "image") {
@@ -181,8 +177,15 @@ export const getMediaContent = (post) => {
               return shortenedUrl;
             };
 
+            const addBaseToUrl = (url) => {
+                if (url.startsWith("/r/")) {
+                    url = "https://www.reddit.com" + url
+                }
+                return url;
+            }
+
             mediaContent["href"] = addBaseToUrl(post.url);
-            mediaContent["linkDisplay"] = post.url
+            mediaContent["linkDisplay"] = shortenLink(post.url);
             return mediaContent;
         }
 

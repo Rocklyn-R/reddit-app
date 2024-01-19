@@ -7,31 +7,39 @@ import { extractSrcFromBodyHtml } from "../../Utilities/Helpers";
 import { removeGifFromComment } from "../../Utilities/Helpers";
 import { cleanIconUrl } from "../../Utilities/Helpers";
 import { getUserIcons } from "../../api/redditAPI";
+import { useDispatch } from "react-redux";
+import { TbArrowBigUpFilled, TbArrowBigDownFilled } from "react-icons/tb";
+import { setCommentScore } from "../../store/redditSlice";
+import { VoteScore } from "../VoteScore/VoteScore";
 
 
 
 
 
 
-export const Comment = ({ comment }) => {
+export const Comment = ({ comment, postIndex, commentIndex }) => {
 
     const gifSrc = extractSrcFromBodyHtml(comment);
     const commentBody = removeGifFromComment(comment.body);
     const [showReplies, setShowReplies] = useState(false);
     const [showIcon, setShowIcon] = useState(true);
-    const [ icon, setIcon ] =useState("");
+    const [icon, setIcon] = useState("");
+    const [upVoteClicked, setUpVoteClicked] = useState(false);
+    const [downVoteClicked, setDownVoteClicked] = useState(false);
+    const dispatch = useDispatch();
+
 
 
     useEffect(() => {
-        if(!comment.userIcons) {
-          const getIcons = async () => {
-            const icons = await getUserIcons(comment.author);
-            if(icons.img_icon) {
-                setIcon(cleanIconUrl(icons.img_icon))
-            } else setIcon("");
-            
-          }  
-          getIcons();
+        if (!comment.userIcons) {
+            const getIcons = async () => {
+                const icons = await getUserIcons(comment.author);
+                if (icons.img_icon) {
+                    setIcon(cleanIconUrl(icons.img_icon))
+                } else setIcon("");
+
+            }
+            getIcons();
         }
     })
 
@@ -52,8 +60,13 @@ export const Comment = ({ comment }) => {
 
     const getReplies = () => {
         const replyComments = comment.replies.data.children.map(reply => reply.data);
-        return replyComments;
+        const lastItem = replyComments[replyComments.length - 1];
+        if ('author' in lastItem) {
+            return replyComments;
+        } else return replyComments.slice(0, -1)
     }
+
+    
 
     return (
         <div className="comment-container" data-testid="comment">
@@ -68,6 +81,7 @@ export const Comment = ({ comment }) => {
                     {!showIcon && icon &&
                         <img
                             src={icon}
+                            alt="user icon"
                         />
                     }
 
@@ -80,24 +94,49 @@ export const Comment = ({ comment }) => {
                 {gifSrc &&
                     <img src={gifSrc} alt="gif" className="gif" />
                 }
-                {comment.replies &&
-                    <div>
+
+                {(!comment.replies || (comment.replies && getReplies().length === 0)) && (
+                    <div className="vote-container">
+                        <VoteScore
+                        type="comment"
+                        postIndex={postIndex}
+                        commentIndex={commentIndex}
+                        score={comment.score}
+                    />
+                    </div>
+                    
+                )}
+
+            </div>
+            {comment.replies && getReplies().length > 0 && (
+                <div className="show-replies">
+                    <div className="comment-footer">
                         <button
                             onClick={() => setShowReplies(!showReplies)}
+                            className="replies-button"
                         >
                             {showReplies ? "Hide replies" : "Show replies"}
                         </button>
-                        {showReplies && (
-                            <div className="replies">
-                                {getReplies().map((reply, index) => (
-                                    <Comment key={index} comment={reply} />
-                                ))}
-                            </div>
-                        )}
-
+                        <VoteScore 
+                            type="comment"
+                            postIndex={postIndex}
+                            commentIndex={commentIndex}
+                            score={comment.score}
+                        />
                     </div>
-                }
-            </div>
+                    {showReplies && (
+                        <div className="replies">
+                            {getReplies().map((reply, index) => (
+                                <Comment key={index} comment={reply} />
+                            ))}
+                        </div>
+                    )}
+
+                </div>
+            )
+                
+            }
+
         </div>
 
     )

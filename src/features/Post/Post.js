@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './Post.css';
 import Card from '../../components/Card';
 import { BiCommentDetail } from 'react-icons/bi';
@@ -10,66 +10,21 @@ import ReactPlayer from 'react-player';
 import { CommentLoading } from '../Comment/commentLoading/commentLoading';
 import { FaExternalLinkAlt } from 'react-icons/fa';
 import { cleanHtmlText } from '../../Utilities/Helpers';
-import { selectSelectedSubreddit, setPostScore } from '../../store/redditSlice';
+import { selectSelectedSubreddit } from '../../store/redditSlice';
 import { selectSubreddits } from '../../store/subredditsSlice';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import userIcon from '../../Assets/Images/user-icon.png';
 import { cleanIconUrl } from '../../Utilities/Helpers';
-import { TbArrowBigUpFilled, TbArrowBigDownFilled } from "react-icons/tb";
+import { VoteScore } from "../VoteScore/VoteScore";
 
 
 
 
 
-export const Post = ({ post, onToggleComments, mediaContent, index }) => {
+export const Post = ({ post, onToggleComments, mediaContent, postIndex }) => {
     const subreddits = useSelector(selectSubreddits);
     const selectedSub = useSelector(selectSelectedSubreddit);
-    const [upVoteClicked, setUpVoteClicked] = useState(false);
-    const [downVoteClicked, setDownVoteClicked] = useState(false);
-    const dispatch = useDispatch();
-    //const [score, setScore] = useState(post.score);
 
-
-    const handleUpvoteClick = () => {
-        if (downVoteClicked) {
-            setDownVoteClicked(false);
-            setUpVoteClicked(true);
-            const newScore = post.score + 2;
-            dispatch(setPostScore({index, score: newScore}))
-
-        }
-        if (!upVoteClicked && !downVoteClicked) {
-            setUpVoteClicked(true);
-            setDownVoteClicked(false);
-           const newScore = post.score + 1;
-           dispatch(setPostScore({index, score: newScore}))
-        }
-        if (upVoteClicked) {
-            setUpVoteClicked(false)
-            const newScore = post.score - 1
-            dispatch(setPostScore({index, score: newScore}))
-        }
-    }
-
-    const handleDownVoteClick = () => {
-        if(upVoteClicked) {
-            setUpVoteClicked(false);
-            setDownVoteClicked(true);
-            const newScore = post.score - 2;
-            dispatch(setPostScore({index, score: newScore}))
-        }
-        if (!downVoteClicked && !upVoteClicked) {
-            setDownVoteClicked(true);
-            setUpVoteClicked(false);
-           const newScore = post.score - 1;
-           dispatch(setPostScore({index, score: newScore}))
-        }
-        if (downVoteClicked) {
-            setDownVoteClicked(false);
-            const newScore = post.score + 1;
-            dispatch(setPostScore({index, score: newScore}))
-        }
-    }   
 
     const getSubredditImage = (url) => {
         if (subreddits.length === 0) {
@@ -105,7 +60,7 @@ export const Post = ({ post, onToggleComments, mediaContent, index }) => {
                 <div className="posted-by">
                     <p>posted by</p>
                     <div className="author-details">
-                        <img src={getIcon()} />
+                        <img src={getIcon()} alt="user icon" />
                         <p>{post.author}</p>
                     </div>
 
@@ -165,6 +120,7 @@ export const Post = ({ post, onToggleComments, mediaContent, index }) => {
                             href={mediaContent.href}
                             aria-label="External Link"
                             target="_blank"
+                            rel="noreferrer"
                         >
                             {mediaContent.linkDisplay}
                             <FaExternalLinkAlt className='link-icon' />
@@ -210,32 +166,20 @@ export const Post = ({ post, onToggleComments, mediaContent, index }) => {
             <div className="comments-container">
                 <div className="post-footer">
                     <button
-                    type="button"
-                    onClick={() => onToggleComments(post.permalink)}
-                    data-testid={index === 0 ? "comment-button-first" : "comment-button"}
-                    className="comment-button"
-                >
-                    Comments: <BiCommentDetail className='comment-icon' /> {post.num_comments}
-                </button>
-                <div class="vote-score">
-                    <button
-                        className={upVoteClicked ? 'button-clicked' : ""}
-                        onClick={handleUpvoteClick}
+                        type="button"
+                        onClick={() => onToggleComments(post.permalink)}
+                        data-testid={postIndex === 0 ? "comment-button-first" : "comment-button"}
+                        className="comment-button"
                     >
-                        <TbArrowBigUpFilled className='up-arrow' />
+                        Comments: <BiCommentDetail className='comment-icon' /> {post.num_comments}
                     </button>
-
-                    <p>{post.score}</p>
-                    <button
-                        className={downVoteClicked ? "button-clicked" : ""}
-                        onClick={handleDownVoteClick}
-                    >
-                        <TbArrowBigDownFilled className='down-arrow' />
-                    </button>
-
+                    <VoteScore
+                        postIndex={postIndex}
+                        score={post.score}
+                        type="post"
+                    />
                 </div>
-                </div>
-                
+
 
                 {post.loadingComments && post.num_comments > 0 &&
                     <React.Fragment>
@@ -248,8 +192,8 @@ export const Post = ({ post, onToggleComments, mediaContent, index }) => {
                 }
 
                 {post.showingComments &&
-                    post.comments.map((comment) => {
-                        return <Comment comment={comment} key={comment.id} post={post} />
+                    post.comments.map((comment, index) => {
+                        return <Comment comment={comment} key={comment.id} postIndex={postIndex} commentIndex={index} />
                     })
                 }
             </div>

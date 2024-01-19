@@ -59,6 +59,9 @@ export const redditSlice = createSlice({
         },
         setPostScore: (state, action) => {
             state.posts[action.payload.index].score = action.payload.score
+        },
+        setCommentScore: (state, action) => {
+            state.posts[action.payload.postIndex].comments[action.payload.commentIndex].score = action.payload.score
         }
     }
 });
@@ -79,7 +82,8 @@ export const {
     getCommentsSuccess,
     getCommentsFailed,
     getPostUserIconSuccess,
-    setPostScore
+    setPostScore,
+    setCommentScore
 } = redditSlice.actions;
 
 //Thunk that will get posts
