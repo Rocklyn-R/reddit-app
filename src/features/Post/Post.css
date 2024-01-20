@@ -181,65 +181,42 @@
 }
 
 
-.comments-container {
-  margin-top: 2rem;
-  align-self: flex-start;
-  width: 100%;
-  display:flex;
-  flex-direction: column;
-}
 .comment-button {
   width: fit-content;
 }
 
-.comments-container button {
+.comment-button {
   background: none;
-  padding: 1em;
+  padding: 0;
+  margin: 0 0.5em;
   display: flex;
   align-items: center;
   cursor: pointer;
   font-size: 1rem;
-  border-radius: 1rem;
+  border: none;
+  text-decoration: underline;
+  transition: color 0.3s ease, border-bottom 0.3s ease;
+}
+
+.comment-button:hover {
+  color: pink;
+  text-decoration: none; /* Optional: Remove underline on hover */
 }
 
 .comment-icon {
-  font-size: 1.5rem;
-  margin-left: 1rem;
+  font-size: 1.3rem;
   margin-right: 0.5rem;
+  padding-top: .2em;
 }
 
 .post-footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin: 1.5em 1em;
 }
 
-.vote-score {
-  display: flex;
-  align-items: center;
-  margin: .5em;
-}
 
-.vote-score button {
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  padding: 0.3rem;
-}
-
-.vote-score button:hover .up-arrow, button:hover .down-arrow{
-  color: pink;
-}
-
-.button-clicked .up-arrow, .button-clicked .down-arrow{
-  color: lightblue;
-}
-
-.up-arrow, .down-arrow {
-  font-size: 2em;
-}
 
 @media only screen and (max-width: 450px) {
   .comments-container {

@@ -1,19 +1,35 @@
 .comment-container {
-    border: 1px solid black;
-    margin-top: 2rem;
+    margin-top: 0;
     margin-bottom: 0;
-    padding-bottom: 0;
+    padding: 0.5em 1em;
     align-self: flex-start;
-    width: 100%;
-    border-radius: 1rem;
+    max-width: 100%;
+    border-left: 1px solid lightblue;
+    justify-self: center;
+}
+
+
+
+.reply-container {
+    margin-right: 0;
+    padding-right: 0;
+}
+
+.first-comment {
+    border-top: 1px solid lightblue;
+}
+
+.all-comments {
+    border-right: 1px solid lightblue;
+}
+
+.last-comment {
+    border-bottom: 1px solid lightblue;
 }
 
 .user-details {
     display: flex;
     align-items: center;
-    margin-top: 1rem;
-    margin-left: 1rem;
-    margin-right: 1rem;
     flex-wrap: wrap;
     word-break: break-word;
 }
@@ -41,7 +57,6 @@
     margin-left: 1rem;
     display: flex;
     margin-top: 1em;
-    margin-bottom: 1em;
     flex-direction: column;
 }
 
@@ -54,44 +69,40 @@
     word-break: break-word;
 }
 
-.comment-vote-score {
-    display: flex;
-    align-items: center;
-    margin: .5em;
-  }
-  
-.comment-vote-score button {
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    padding: .3rem;
-  }
-.vote-score button:hover .comment-up-arrow, button:hover .comment-down-arrow{
-    color: pink;
-  }
-  
-.comment-vote-button-clicked .comment-up-arrow, .comment-vote-button-clicked .comment-down-arrow {
-    color: lightblue;
-  }
-
-.comment-up-arrow, .comment-down-arrow {
-    margin-right: 0;
-    margin-left: 0
-}
 
 .gif {
     width: 100%;
     max-width: 20rem;
 }
 
-
+.show-replies {
+    margin-left: 1em;
+}
 
 .comment-footer {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    margin: 0;
+    justify-content: space-between;
+}
+.comment-footer button {
+    padding: .5em;
+}
+
+.replies-button {
+    color: black; /* Text color */
+    padding: 0; /* No padding */
+    border: none;
+    font-size: 16px; /* Font size */
+    cursor: pointer; /* Cursor to indicate it's clickable */
+    text-decoration: underline; /* Underline text */
+    transition: color 0.3s ease; /* Smooth transition for color change */
+    background: none;
+}
+
+.replies-button:hover {
+    color: pink; /* Pink color on hover */
+    text-decoration: none; /* Optional: Remove underline on hover */
 }
 
 @media only screen and (max-width: 450px) {

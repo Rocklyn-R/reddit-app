@@ -171,7 +171,7 @@ export const Post = ({ post, onToggleComments, mediaContent, postIndex }) => {
                         data-testid={postIndex === 0 ? "comment-button-first" : "comment-button"}
                         className="comment-button"
                     >
-                        Comments: <BiCommentDetail className='comment-icon' /> {post.num_comments}
+                       <BiCommentDetail className='comment-icon' /> View {post.num_comments} comments
                     </button>
                     <VoteScore
                         postIndex={postIndex}
@@ -193,7 +193,8 @@ export const Post = ({ post, onToggleComments, mediaContent, postIndex }) => {
 
                 {post.showingComments &&
                     post.comments.map((comment, index) => {
-                        return <Comment comment={comment} key={comment.id} postIndex={postIndex} commentIndex={index} />
+                        const isLastComment = index === post.comments.length -1;
+                        return <Comment comment={comment} key={comment.id} postIndex={postIndex} commentIndex={index} type={"comment"} isLastComment={isLastComment}  />
                     })
                 }
             </div>

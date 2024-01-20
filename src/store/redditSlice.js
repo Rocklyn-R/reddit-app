@@ -70,6 +70,7 @@ export const selectPosts = state => state.reddit.posts;
 export const isLoading = state => state.reddit.isLoading;
 export const selectSearchTerm = state => state.reddit.searchTerm;
 export const selectSelectedSubreddit = (state) => state.reddit.selectedSubreddit;
+export const isError = (state) => state.reddit.error;
 
 export const {
     setPosts,

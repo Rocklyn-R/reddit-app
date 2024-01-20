@@ -1,0 +1,29 @@
+.vote-score {
+    display: flex;
+    align-items: center;
+  }
+  
+  .vote-score button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding: 0.3rem;
+  }
+  
+  .vote-score button:hover .up-arrow, button:hover .down-arrow{
+    color: pink;
+  }
+  
+  .button-clicked .up-arrow, .button-clicked .down-arrow{
+    color: lightblue;
+  }
+  
+  .post-up-arrow, .post-down-arrow {
+    font-size: 2em;
+  }
+
+  .comment-up-arrow, .comment-down-arrow {
+    font-size: 1.3em;
+  }

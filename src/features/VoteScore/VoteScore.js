@@ -91,7 +91,7 @@ export const VoteScore = ({ type, score, postIndex, commentIndex }) => {
                 className={upVoteClicked ? 'button-clicked' : ""}
                 onClick={handleUpvoteClick}
             >
-                <TbArrowBigUpFilled className={type === "post" ? "post-up-arrow" : "comment-up-arrow"} />
+                <TbArrowBigUpFilled className={`up-arrow ${type === "post" ? "post-up-arrow" : "comment-up-arrow"}`} />
             </button>
 
             <p>{score}</p>
@@ -99,7 +99,7 @@ export const VoteScore = ({ type, score, postIndex, commentIndex }) => {
                 className={downVoteClicked ? "button-clicked" : ""}
                 onClick={handleDownVoteClick}
             >
-                <TbArrowBigDownFilled className={type === "post" ? "post-up-arrow" : "comment-up-arrow"} />
+                <TbArrowBigDownFilled className={`down-arrow ${type === "post" ? "post-up-arrow" : "comment-up-arrow"}`} />
             </button>
 
         </div>
