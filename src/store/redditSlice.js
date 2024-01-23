@@ -2,7 +2,7 @@ import { createSlice, createSelector } from "@reduxjs/toolkit";
 import { getSubredditPosts, getPostComments, getUserIcons } from "../api/redditAPI";
 
 
-   
+
 
 export const redditSlice = createSlice({
     name: 'reddit',
@@ -45,6 +45,9 @@ export const redditSlice = createSlice({
             state.posts[action.payload].loadingComments = true;
             state.posts[action.payload].errorComments = false;
         },
+        toggleShowingComments: (state, action) => {
+            state.posts[action.payload].showingComments = !state.posts[action.payload].showingComments;
+        },
         getCommentsSuccess: (state, action) => {
             state.posts[action.payload.index].comments = action.payload.comments;
             state.posts[action.payload.index].loadingComments = false;
@@ -62,6 +65,35 @@ export const redditSlice = createSlice({
         },
         setCommentScore: (state, action) => {
             state.posts[action.payload.postIndex].comments[action.payload.commentIndex].score = action.payload.score
+        },
+        setReplyScore: (state, action) => {
+            const { postIndex, replyId, score } = action.payload;
+            const post = state.posts[postIndex];
+            console.log(post);
+            //recursive function to find matching comment id to update its score in setReplyScore
+            const updateCommentScore = (comments, replyId, newScore) => {
+                // Find the comment or reply in the array
+                const commentToUpdate = comments.find(comment => comment.id === replyId);
+
+                if (commentToUpdate) {
+                    // If the comment is found, update its score
+                    commentToUpdate.score = newScore;
+                    return true;
+                } else {
+                    // If not found, recursively search in replies
+                    for (let comment of comments) {
+                        if (comment.replies && comment.replies.length > 0) {
+                            const updated = updateCommentScore(comment.replies, replyId, newScore);
+                            if (updated) return true; // Comment was found and updated in nested replies
+                        }
+                    }
+                }
+
+                return false; // Comment not found
+            };
+            console.log(replyId);
+            console.log(updateCommentScore(post.comments, replyId, score));
+            
         }
     }
 });
@@ -84,8 +116,13 @@ export const {
     getCommentsFailed,
     getPostUserIconSuccess,
     setPostScore,
-    setCommentScore
+    setCommentScore,
+    setReplies,
+    toggleShowingComments,
+    setReplyScore
 } = redditSlice.actions;
+
+
 
 //Thunk that will get posts
 export const fetchPosts = (subreddit) => async (dispatch) => {
@@ -111,9 +148,23 @@ export const fetchPosts = (subreddit) => async (dispatch) => {
     }
 };
 
+//recursive function to modify all nested replies objects into arrays 
+const flattenReplies = (replies) => {
+    if (!replies || !replies.data || !replies.data.children) {
+        return [];
+    }
+    return replies.data.children.map(reply => {
+        // Recursively flatten nested replies
+        const flattenedReply = { ...reply.data }
+        if (reply.data && reply.data.replies) {
+            flattenedReply.replies = flattenReplies(reply.data.replies);
+        }
+        return reply.data;
+    });
+}
 
 
-//Thunk that will fetch comments
+//Thunk that will fetch comments and their user icons
 export const fetchComments = (index, permalink) => async (dispatch) => {
     try {
         dispatch(startGetComments(index));
@@ -121,14 +172,15 @@ export const fetchComments = (index, permalink) => async (dispatch) => {
         //console.log(comments);
         const commentsWithMetaData = comments.map((comment) => ({
             ...comment,
-            userIcons: []
+            userIcons: [],
+            replies: comment.replies ? flattenReplies(comment.replies) : []
         }))
         const userIconsPromises = comments.map(comment => getUserIcons(comment.author));
         const userIcons = await Promise.all(userIconsPromises);
         commentsWithMetaData.forEach((comment, index) => {
             comment.userIcons.push(userIcons[index])
         });
-        dispatch(getCommentsSuccess({index, comments: commentsWithMetaData}));
+        dispatch(getCommentsSuccess({ index, comments: commentsWithMetaData }));
     }
     catch (error) {
         dispatch(getCommentsFailed(index));
@@ -152,17 +204,17 @@ export const fetchComments = (index, permalink) => async (dispatch) => {
 
 
 export const selectFilteredPosts = createSelector(
-    [selectPosts, selectSearchTerm], 
+    [selectPosts, selectSearchTerm],
     (posts, searchTerm) => {
         if (searchTerm !== '') {
-            return posts.filter((post) => 
-            post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            post.selftext.toLowerCase().includes(searchTerm.toLowerCase())
+            return posts.filter((post) =>
+                post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                post.selftext.toLowerCase().includes(searchTerm.toLowerCase())
             );
-            
+
         };
-    return posts;
-})
+        return posts;
+    })
 
 
 

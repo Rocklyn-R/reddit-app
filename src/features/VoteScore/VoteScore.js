@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import "./VoteScore.css";
 import { useDispatch } from "react-redux";
-import { setPostScore, setCommentScore } from "../../store/redditSlice";
+import { setPostScore, setCommentScore, setReplyScore } from "../../store/redditSlice";
 import { TbArrowBigUpFilled, TbArrowBigDownFilled } from "react-icons/tb";
 
-export const VoteScore = ({ type, score, postIndex, commentIndex }) => {
+export const VoteScore = ({ type, score, postIndex, commentIndex, replyId }) => {
     const [upVoteClicked, setUpVoteClicked] = useState(false);
     const [downVoteClicked, setDownVoteClicked] = useState(false);
     const dispatch = useDispatch();
@@ -18,9 +18,11 @@ export const VoteScore = ({ type, score, postIndex, commentIndex }) => {
             if(type === "post") {
                 dispatch(setPostScore({ index: postIndex, score: newScore }))
             }
-            
             if(type === "comment") {
                 dispatch(setCommentScore({ postIndex, commentIndex, score: newScore }))
+            }
+            if(type === "reply") {
+                dispatch(setReplyScore({ postIndex, replyId, score: newScore }))
             }
         }
         if (!upVoteClicked && !downVoteClicked) {
@@ -33,6 +35,9 @@ export const VoteScore = ({ type, score, postIndex, commentIndex }) => {
             if (type === "comment") {
                 dispatch(setCommentScore({ postIndex, commentIndex, score: newScore }))
             }
+            if(type === "reply") {
+                dispatch(setReplyScore({ postIndex, replyId, score: newScore }))
+            }
         }
         if (upVoteClicked) {
             setUpVoteClicked(false)
@@ -43,6 +48,10 @@ export const VoteScore = ({ type, score, postIndex, commentIndex }) => {
             if (type === "comment") {
                 dispatch(setCommentScore({ postIndex, commentIndex, score: newScore}))
             }
+            if(type === "reply") {
+                dispatch(setReplyScore({ postIndex, replyId, score: newScore }))
+            }
+            
         }
 
     }
@@ -59,6 +68,9 @@ export const VoteScore = ({ type, score, postIndex, commentIndex }) => {
             if (type === "comment") {
                 dispatch(setCommentScore({ postIndex, commentIndex, score: newScore }))
             }
+            if(type === "reply") {
+                dispatch(setReplyScore({ postIndex, replyId, score: newScore }))
+            }
             
         }
         if (!downVoteClicked && !upVoteClicked) {
@@ -71,6 +83,9 @@ export const VoteScore = ({ type, score, postIndex, commentIndex }) => {
             if (type === "comment") {
                 dispatch(setCommentScore({ postIndex, commentIndex, score: newScore }))
             }
+            if(type === "reply") {
+                dispatch(setReplyScore({ postIndex, replyId, score: newScore }))
+            }
             
         }
         if (downVoteClicked) {
@@ -81,6 +96,9 @@ export const VoteScore = ({ type, score, postIndex, commentIndex }) => {
             }
             if (type === "comment") {
                 dispatch(setCommentScore({ postIndex, commentIndex, score: newScore }))
+            }
+            if(type === "reply") {
+                dispatch(setReplyScore({ postIndex, replyId, score: newScore }))
             }
         }
     }
