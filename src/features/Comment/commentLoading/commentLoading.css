@@ -1,10 +1,11 @@
 .comment-loading {
     display: flex;
     flex-direction: column;
-    border: 1px solid black;
-    border-radius: 1rem;
-    margin: 2rem 0;
+    margin: 0;
+    padding-top: 1em;
+    padding-bottom: 1em;
   }
+
 
 .cmt-loading-details-container {
     display: flex;
@@ -29,4 +30,11 @@
     margin-top: 1rem;
     margin-left: 1rem;
     margin-right: 1rem;
+    justify-content: spa;
+}
+
+@media only screen and (max-width: 600px) {
+    .cmt-loading-details-container {
+        flex-direction: column;
+    }
 }

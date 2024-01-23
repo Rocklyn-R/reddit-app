@@ -11,7 +11,7 @@ export const redditSlice = createSlice({
         error: false,
         isLoading: false,
         searchTerm: '',
-        selectedSubreddit: '/r/pics/',
+        selectedSubreddit: '/r/Home/',
     },
     reducers: {
         setPosts: (state, action) => {

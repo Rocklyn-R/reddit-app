@@ -1,14 +1,15 @@
 .comment-container {
-    margin-top: 0;
-    margin-bottom: 0;
-    padding: 0.5em 1em;
-    align-self: flex-start;
-    max-width: 100%;
+    margin: 0;
+    padding: 0.5em 0em;
     border-left: 1px solid lightblue;
-    justify-self: center;
+    display: flex;
 }
 
-
+.comment-body {
+    padding-left: 1em;
+    padding-right: 1em;
+    width: 100%;
+}
 
 .reply-container {
     margin-right: 0;
@@ -17,6 +18,9 @@
 
 .first-comment {
     border-top: 1px solid lightblue;
+    border-top-left-radius: 2em;
+    border-top-right-radius: 2em;
+    padding-top: 1em;
 }
 
 .all-comments {
@@ -25,9 +29,12 @@
 
 .last-comment {
     border-bottom: 1px solid lightblue;
+    border-bottom-left-radius: 2em;
+    border-bottom-right-radius: 2em;
 }
 
-.user-details {
+
+.comment-user-details {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
@@ -39,25 +46,28 @@
     align-items: center;
 }
 
-.user-details p {
+.comment-user-details p {
     margin-left: auto;
 }
 
-.user-details img {
+.comment-user-details img {
     height: 25px;
-    width: 25px;
+    width: fit-content;
     max-width: fit-content;
     border-radius: 50%;
     margin-right: .5rem;
-    border: 1px solid black;
     background-color: aliceblue;
 }
 
-.body-container {
+
+.comment-text-container {
     margin-left: 1rem;
     display: flex;
-    margin-top: 1em;
-    flex-direction: column;
+    margin-top: .5em;
+    margin-bottom: .5em;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .vote-container {
@@ -82,7 +92,6 @@
 .comment-footer {
     display: flex;
     align-items: center;
-    margin: 0;
     justify-content: space-between;
 }
 .comment-footer button {
@@ -91,7 +100,6 @@
 
 .replies-button {
     color: black; /* Text color */
-    padding: 0; /* No padding */
     border: none;
     font-size: 16px; /* Font size */
     cursor: pointer; /* Cursor to indicate it's clickable */
@@ -105,14 +113,34 @@
     text-decoration: none; /* Optional: Remove underline on hover */
 }
 
-@media only screen and (max-width: 450px) {
+@media only screen and (max-width: 600px) {
 
-    .user-details {
+    .comment-user-details {
        justify-content: center;
        flex-direction: column;
     }
    
-    .user-details p {
+    .comment-user-details p {
+        margin-left: 0;
+        font-size: .8em;
+    }
+
+    .comment-text-container {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 0;
+        padding-top: 0;
         margin-left: 0;
     }
+
+    .comment-body {
+        text-align: center;
+    }
+
+    .vote-container {
+        align-self: center;
+    }
+
 }
+

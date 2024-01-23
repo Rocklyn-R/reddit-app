@@ -41,6 +41,9 @@ export const getPostComments = async (permalink) => {
     return newArray;
 }
 
+
+
+
 export const getUserIcons = async (user) => {
     // Check if the response is already cached
     if (cache[user] && cache[user].timestamp + CACHE_EXPIRY_MS > Date.now()) {

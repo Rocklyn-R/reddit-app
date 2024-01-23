@@ -7,7 +7,9 @@ import './Home.css';
 import { getMediaContent } from '../../Utilities/Helpers';
 import { PostLoading } from '../Post/postLoading/postLoading';
 import Card from '../../components/Card';
-import { selectSearchTerm } from '../../store/redditSlice';
+import { selectSearchTerm, toggleShowingComments } from '../../store/redditSlice';
+
+
 
 export const Home = () => {
     const reddit = useSelector((state) => state.reddit);
@@ -23,7 +25,9 @@ export const Home = () => {
 
     const onToggleComments = (index) => {
         const getComments = (permalink) => {
-            dispatch(fetchComments(index, permalink))
+            if( posts[index].comments && posts[index].comments.length > 0) {
+                dispatch(toggleShowingComments(index));
+            } else dispatch(fetchComments(index, permalink))
         }
         return getComments;
     }

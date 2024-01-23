@@ -8,11 +8,12 @@ export const PostLoading = () => {
         <Card className="post-loading">
             <div className="post-loading-details-container" data-testid="post-loading">
                 <div className="loading-sub-details" >
-                    <Skeleton width={50} height={50} circle={true} />
+                    <Skeleton width={30} height={30} circle={true} />
                     <Skeleton width={100} />
                 </div>
                 <div className="loading-author-details">
-                    <Skeleton width={150} />
+                    <Skeleton width={30} height={30} circle={true} />
+                    <Skeleton width={100} />
                 </div>
                 <div className="loading-time-details">
                     <Skeleton width={100} />
@@ -24,7 +25,7 @@ export const PostLoading = () => {
                 </h1>
             </div>
             <div className="post-content-loading-container">
-                <Skeleton height={100} width={950}/>
+                <Skeleton height={100} width={950} />
             </div>
             <div className="comments-container">
                 <div type="button">

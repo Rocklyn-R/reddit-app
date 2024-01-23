@@ -13,6 +13,7 @@ import { setCommentScore } from "../../store/redditSlice";
 import { VoteScore } from "../VoteScore/VoteScore";
 import Card from "../../components/Card";
 import { setReplies } from "../../store/redditSlice";
+import { cleanHtmlText } from "../../Utilities/Helpers";
 
 
 
@@ -22,7 +23,7 @@ import { setReplies } from "../../store/redditSlice";
 export const Comment = ({ comment, postIndex, commentIndex, type, isLastComment, replyId }) => {
 
     const gifSrc = extractSrcFromBodyHtml(comment);
-    const commentBody = removeGifFromComment(comment.body);
+    const commentBody = removeGifFromComment(cleanHtmlText(comment.body));
     const [showReplies, setShowReplies] = useState(false);
     const [showIcon, setShowIcon] = useState(true);
     const [icon, setIcon] = useState("");
@@ -90,13 +91,15 @@ export const Comment = ({ comment, postIndex, commentIndex, type, isLastComment,
             ${(type === "comment" && isLastComment) ? "last-comment" : ""}`
         }>
             <div className="comment-body" data-testid="comment">
-                <div className="user-details">
+                <div className="comment-user-details">
                     <div className="user-info">
                         {showIcon &&
                             <img
                                 src={getIcon()}
                                 alt="user icon"
                                 className="user-icon-img"
+                                width={50}
+                                height={50}
                             />
                         }
                         {!showIcon && icon &&

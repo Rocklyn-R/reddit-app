@@ -45,6 +45,8 @@ export const Subreddits = () => {
                                     src={subreddit.icon_img ? subreddit.icon_img : 'https://b.thumbs.redditmedia.com/rmlXC779KUA2MTO4r_GJd2enqa8GKx3BOasymol6gLk.png'}
                                     className="subreddit-icon"
                                     alt="subreddit-icon"
+                                    width={50}
+                                    height={50}
                                 />
                                 {subreddit.display_name}
                             </button>

@@ -54,14 +54,22 @@ export const Post = ({ post, onToggleComments, mediaContent, postIndex }) => {
         <Card className="post-wrapper">
             <div className="details-container">
                 <div className="sub-details">
-                    <img src={getSubredditImage(selectedSub)} alt="Post Icon" />
-                    <p data-testid="subreddit-name">{post.subreddit_name_prefixed}</p>
+                    <img 
+                        src={getSubredditImage(selectedSub)} 
+                        alt="Post Icon" 
+                        width={50}
+                        height={50}
+                    />
+                    <h4 data-testid="subreddit-name">{post.subreddit_name_prefixed}</h4>
                 </div>
                 <div className="posted-by">
                     <p>posted by</p>
                     <div className="author-details">
-                        <img src={getIcon()} alt="user icon" />
-                        <p>{post.author}</p>
+                        <img src={getIcon()} alt="user icon" 
+                            width={50}
+                            height={50}
+                        />
+                        <h4>{post.author}</h4>
                     </div>
 
                 </div>
@@ -182,15 +190,14 @@ export const Post = ({ post, onToggleComments, mediaContent, postIndex }) => {
 
 
                 {post.loadingComments && post.num_comments > 0 &&
-                    <React.Fragment>
+                    <div className='comment-loading-container'>
                         <CommentLoading />
                         <CommentLoading />
                         <CommentLoading />
                         <CommentLoading />
                         <CommentLoading />
-                    </React.Fragment>
+                    </div>
                 }
-
                 {post.showingComments &&
                     post.comments.map((comment, index) => {
                         const isLastComment = index === post.comments.length -1;

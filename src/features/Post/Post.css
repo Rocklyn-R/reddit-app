@@ -18,6 +18,7 @@
 .details-container {
   display: flex;
   justify-content: space-between;
+  word-break: break-word;
 }
 
 
@@ -31,9 +32,9 @@
   height: 1.5rem;
   width: 1.5rem;
   border-radius: 50%;
-  border: 2px solid black;
   margin-right: 0.5rem;
 }
+
 .posted-by {
   display: flex;
   flex-direction: column;
@@ -52,7 +53,6 @@
   width: 1.5rem;
   border-radius: 50%;
   margin-right: 0.5rem;
-  border: 1px solid black;
   background-color: aliceblue;
 }
 
@@ -216,6 +216,11 @@
   margin: 1.5em 1em;
 }
 
+.comment-loading-container {
+  border: 1px solid lightblue;
+  border-radius: 2em;
+  overflow: hidden;
+}
 
 
 @media only screen and (max-width: 450px) {
@@ -226,6 +231,7 @@
     max-width: 90%;
     flex-wrap: wrap;
     word-break: break-word;
+    flex-direction: column;
   }
   .comment-icon {
     margin-left: .4rem;
@@ -241,9 +247,6 @@
     flex-direction: column;
   }
 
-  .details-container p {
-    font-size: .8rem;
-  }
   .post-title {
       margin: 1rem 0;
   }

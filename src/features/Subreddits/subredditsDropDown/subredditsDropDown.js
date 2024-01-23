@@ -48,47 +48,62 @@ export const SubredditsDropDown = () => {
     return (
         <div className='drop-down-container'>
             <Select
-                 className='custom-select'
-                 value={{ 
-                     value: selectedSub, 
-                     label: 
-                         (
-                             <div className='selected-option'>
+                className='custom-select'
+                value={{
+                    value: selectedSub,
+                    label:
+                        (
+                            <div className='selected-option'>
                                 {getSubredditImage(selectSelectedSubreddit) && (
                                     <img
-                                     src={getSubredditImage(selectedSub)}
-                                     className="subreddit-icon"
-                                     alt="subreddit-icon"
-                                 /> 
+                                        src={getSubredditImage(selectedSub)}
+                                        className="subreddit-icon"
+                                        alt="subreddit-icon"
+                                    />
                                 )}
-                                 
-                                 {getSubredditName(selectedSub)}
-                             </div>
-                         )
-                 }}
-            onChange={changeSelectedSubreddit}
-            options={subreddits.map(subreddit => ({
-                value: subreddit.url,
-                label: (
-                    <div className="option">
-                        <img
-                            src={subreddit.icon_img ? subreddit.icon_img : 'https://b.thumbs.redditmedia.com/rmlXC779KUA2MTO4r_GJd2enqa8GKx3BOasymol6gLk.png'}
-                            className="subreddit-icon"
-                            alt="subreddit-icon"
-                        />
-                        {subreddit.display_name}
-                    </div>
-                ),
-            }))}
-            styles={{
-                control: (baseStyles, state) => ({
-                    ...baseStyles,
-                    backgroundColor: 'aliceblue',
-                    border: state.isSelected ? "none" : "none",
-                    borderColor: state.isSelected ? "aliceblue" : "aliceblue",
-                    borderRadius: "1rem"
-                })
-            }}
+
+                                {getSubredditName(selectedSub)}
+                            </div>
+                        )
+                }}
+                onChange={changeSelectedSubreddit}
+                options={subreddits.map(subreddit => ({
+                    value: subreddit.url,
+                    label: (
+                        <div className="option">
+                            <img
+                                src={subreddit.icon_img ? subreddit.icon_img : 'https://b.thumbs.redditmedia.com/rmlXC779KUA2MTO4r_GJd2enqa8GKx3BOasymol6gLk.png'}
+                                className="subreddit-icon"
+                                alt="subreddit-icon"
+                            />
+                            {subreddit.display_name}
+                        </div>
+                    ),
+                }))}
+                styles={{
+                    control: (baseStyles, state) => ({
+                        ...baseStyles,
+                        backgroundColor: 'aliceblue',
+                        border: state.isFocused ? "1px solid aliceblue" : "none",
+                        borderColor: state.isFocused ? "aliceblue" : "aliceblue",
+                        borderRadius: "1rem",
+                        boxShadow: state.isFocused ? "0 0 0 1px desiredBorderColor" : "none",
+                        ':hover': {
+                            borderColor: 'lightblue', // This sets the hover border color
+                        }
+                    }),
+                    option: (baseStyles, state) => ({
+                        ...baseStyles,
+                        backgroundColor: state.isSelected ? 'lightblue' : 'aliceblue',
+                        ':hover': {
+                            backgroundColor: 'pink',
+                        },
+                    }),
+                    singleValue: (baseStyles, state) => ({
+                        ...baseStyles,
+                        color: 'black !important', // Set the text color to black
+                    }),
+                }}
             />
         </div>
     )
