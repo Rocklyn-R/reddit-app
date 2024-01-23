@@ -7,12 +7,8 @@ import { extractSrcFromBodyHtml } from "../../Utilities/Helpers";
 import { removeGifFromComment } from "../../Utilities/Helpers";
 import { cleanIconUrl } from "../../Utilities/Helpers";
 import { getUserIcons } from "../../api/redditAPI";
-import { useDispatch, useSelector } from "react-redux";
-import { TbArrowBigUpFilled, TbArrowBigDownFilled } from "react-icons/tb";
-import { setCommentScore } from "../../store/redditSlice";
 import { VoteScore } from "../VoteScore/VoteScore";
 import Card from "../../components/Card";
-import { setReplies } from "../../store/redditSlice";
 import { cleanHtmlText } from "../../Utilities/Helpers";
 
 
@@ -27,11 +23,6 @@ export const Comment = ({ comment, postIndex, commentIndex, type, isLastComment,
     const [showReplies, setShowReplies] = useState(false);
     const [showIcon, setShowIcon] = useState(true);
     const [icon, setIcon] = useState("");
-    const [upVoteClicked, setUpVoteClicked] = useState(false);
-    const [downVoteClicked, setDownVoteClicked] = useState(false);
-    const dispatch = useDispatch();
-    const [repliesProcessed, setRepliesProcessed] = useState(false);
-    const isTopLevelComment = type === "comment";
     const isReplyComment = type === "reply"
     const hasReplies = comment.replies && comment.replies.length > 0;
 
