@@ -27,6 +27,7 @@ export const Gallery = ({ mediaContent }) => {
             <img
                 src={mediaContent.gallery_data[slideIndex].src}
                 alt="Gallery"
+                loading="lazy"
             />
             {slideIndex !== 0 &&
                 <button

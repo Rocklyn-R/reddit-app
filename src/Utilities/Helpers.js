@@ -34,57 +34,7 @@ export const cleanUrl = (imgUrl) => {
 
 
 
-/*export const checkForUrl = (text) => {
-    const urlRegex = /(https?:\/\/[^\s]+)/;
-    return urlRegex.test(text)
-}*/
 
-/*export const extractUrl = (text) => {
-    const urlRegex = /(https?:\/\/[^\s]+)/;
-    //const checkForUrl = urlRegex.test(text);
-    const match = text.match(urlRegex);
-    if (match){
-        const urlIndex = match.index
-        return {
-            before: text.substring(0, urlIndex),
-            url: match[0],
-            after: text.substring(urlIndex + match[0].length)
-        }
-    }
-
-    return text;
-}*/
-/*const checkForRedditDomain = (domain) => {
-    const redditDomain = "reddit.com/live/";
-
-}
-
-
-
-
-/*export const checkMediaType = (post) => {
-    let mediaType = "";
-    if ((post.post_hint && post.post_hint === 'link') ||
-    (post.url && !post.is_self && (post.thumbnail === "" || post.thumbnail === "default"))) {
-        mediaType = 'link'
-    } else if (!post.is_gallery &&
-        !post.is_video &&
-        !post.is_self &&
-        post.preview && (post.post_hint === "image") && (post.post_hint !== 'link' && post.post_hint !== "rich:video")) {
-        mediaType = "img";
-    } else if (post.is_gallery) {
-        mediaType = "gallery";
-    } else if (post.is_video) {
-        mediaType = "video";
-    } else if (post.post_hint === "rich:video" && 
-    (post.domain === "youtube.com" || post.domain === "clips.twitch.tv" || post.domain === "youtu.be")) {
-        mediaType = "videoEmbed";
-    } else if (post.is_self === true) {
-        mediaType = "text"
-    } else mediaType = "text"
-    
-    return mediaType;
-}*/
 
 export const cleanHtmlText = (text) => {
     text = text.replace(/&amp;/g, '&');

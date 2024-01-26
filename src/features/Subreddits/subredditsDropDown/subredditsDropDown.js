@@ -48,7 +48,9 @@ export const SubredditsDropDown = () => {
     return (
         <div className='drop-down-container'>
             <Select
+                aria-label="Select Subreddit"
                 className='custom-select'
+                data-testid="select"
                 value={{
                     value: selectedSub,
                     label:
@@ -59,6 +61,7 @@ export const SubredditsDropDown = () => {
                                         src={getSubredditImage(selectedSub)}
                                         className="subreddit-icon"
                                         alt="subreddit-icon"
+                                        loading="lazy"
                                     />
                                 )}
 
@@ -75,6 +78,7 @@ export const SubredditsDropDown = () => {
                                 src={subreddit.icon_img ? subreddit.icon_img : 'https://b.thumbs.redditmedia.com/rmlXC779KUA2MTO4r_GJd2enqa8GKx3BOasymol6gLk.png'}
                                 className="subreddit-icon"
                                 alt="subreddit-icon"
+                                loading="lazy"
                             />
                             {subreddit.display_name}
                         </div>
@@ -98,10 +102,6 @@ export const SubredditsDropDown = () => {
                         ':hover': {
                             backgroundColor: 'pink',
                         },
-                    }),
-                    singleValue: (baseStyles, state) => ({
-                        ...baseStyles,
-                        color: 'black !important', // Set the text color to black
                     }),
                 }}
             />

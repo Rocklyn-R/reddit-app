@@ -104,10 +104,11 @@ export const VoteScore = ({ type, score, postIndex, commentIndex, replyId }) => 
     }
 
     return (
-        <div class="vote-score">
+        <div className="vote-score">
             <button
                 className={upVoteClicked ? 'button-clicked' : ""}
                 onClick={handleUpvoteClick}
+                aria-label="upvote"
             >
                 <TbArrowBigUpFilled className={`up-arrow ${type === "post" ? "post-up-arrow" : "comment-up-arrow"}`} />
             </button>
@@ -116,6 +117,7 @@ export const VoteScore = ({ type, score, postIndex, commentIndex, replyId }) => 
             <button
                 className={downVoteClicked ? "button-clicked" : ""}
                 onClick={handleDownVoteClick}
+                aria-label="downvote"
             >
                 <TbArrowBigDownFilled className={`down-arrow ${type === "post" ? "post-up-arrow" : "comment-up-arrow"}`} />
             </button>

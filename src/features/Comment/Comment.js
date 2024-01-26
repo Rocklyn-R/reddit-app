@@ -35,7 +35,6 @@ export const Comment = ({ comment, postIndex, commentIndex, type, isLastComment,
                 if (icons.img_icon) {
                     setIcon(cleanIconUrl(icons.img_icon))
                 } else setIcon("");
-
             }
             getIcons();
         }
@@ -45,10 +44,10 @@ export const Comment = ({ comment, postIndex, commentIndex, type, isLastComment,
         if (comment.userIcons) {
             const imgIcon = comment.userIcons[0].img_icon;
             const snoovatar = comment.userIcons[0].snoovatar;
-            if (snoovatar) {
-                return snoovatar;
-            } else if (imgIcon) {
-                return cleanIconUrl(imgIcon)
+            if (imgIcon) {
+                return cleanIconUrl(imgIcon);
+            } else if (snoovatar) {
+                return snoovatar
             } else return userIcon;
         } else {
             setShowIcon(false);
@@ -87,7 +86,7 @@ export const Comment = ({ comment, postIndex, commentIndex, type, isLastComment,
                         {showIcon &&
                             <img
                                 src={getIcon()}
-                                alt="user icon"
+                                alt="user-icon"
                                 className="user-icon-img"
                                 width={50}
                                 height={50}
@@ -159,8 +158,8 @@ export const Comment = ({ comment, postIndex, commentIndex, type, isLastComment,
                     {showReplies && hasReplies && (
                         <div className="replies">
                             {getReplies().map((reply, index) => (
-                                <div>
-                                    <Comment key={reply.id} comment={reply} type="reply" commentIndex={commentIndex} postIndex={postIndex} replyId={reply.id} />
+                                <div key={reply.id}>
+                                    <Comment comment={reply} type="reply" commentIndex={commentIndex} postIndex={postIndex} replyId={reply.id} />
                                 </div>
                             ))}
 

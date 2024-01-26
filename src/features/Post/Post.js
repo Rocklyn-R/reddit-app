@@ -54,22 +54,20 @@ export const Post = ({ post, onToggleComments, mediaContent, postIndex }) => {
         <Card className="post-wrapper">
             <div className="details-container">
                 <div className="sub-details">
-                    <img 
-                        src={getSubredditImage(selectedSub)} 
-                        alt="Post Icon" 
-                        width={50}
-                        height={50}
+                    <img
+                        src={getSubredditImage(selectedSub)}
+                        alt="Post Icon"
+                        loading="lazy"
                     />
-                    <h4 data-testid="subreddit-name">{post.subreddit_name_prefixed}</h4>
+                    <p data-testid="subreddit-name">{post.subreddit_name_prefixed}</p>
                 </div>
                 <div className="posted-by">
                     <p>posted by</p>
                     <div className="author-details">
-                        <img src={getIcon()} alt="user icon" 
-                            width={50}
-                            height={50}
+                        <img src={getIcon()} alt="user icon"
+                            loading="lazy"
                         />
-                        <h4>{post.author}</h4>
+                        <p>{post.author}</p>
                     </div>
 
                 </div>
@@ -79,7 +77,6 @@ export const Post = ({ post, onToggleComments, mediaContent, postIndex }) => {
             </div>
             <div className="post-title">
                 <h1 data-testid="title">{cleanHtmlText(post.title)}</h1>
-
             </div>
             <div className="post-content-container" data-testid="post-container">
 
@@ -97,6 +94,7 @@ export const Post = ({ post, onToggleComments, mediaContent, postIndex }) => {
                             src={mediaContent.src}
                             className="post-image"
                             alt="Post"
+                            loading="lazy"
                         />
 
 
@@ -157,51 +155,54 @@ export const Post = ({ post, onToggleComments, mediaContent, postIndex }) => {
                 }
                 {mediaContent.type === 'gallery' &&
                     <div className='gallery'>
-
-                        {mediaContent.type === "gallery" && post.selftext &&
-                            <p>{post.selftext}</p>
-                        }
-
-
                         <Gallery
                             mediaContent={mediaContent}
                             data-testid="gallery-component"
                         />
+
+                        {mediaContent.type === "gallery" && post.selftext &&
+                            <MarkdownView
+                                markdown={post.selftext}
+                                options={{ emoji: true }}
+                                className="galleryTextDisplay"
+                            />
+                        }
                     </div>
 
                 }
             </div>
             <div className="comments-container">
-                <div className="post-footer">
-                    <button
-                        type="button"
-                        onClick={() => onToggleComments(post.permalink)}
-                        data-testid={postIndex === 0 ? "comment-button-first" : "comment-button"}
-                        className="comment-button"
-                    >
-                       <BiCommentDetail className='comment-icon' /> View {post.num_comments} comments
-                    </button>
+                <div className={`${post.num_comments > 0 ? "post-footer" : "post-score-footer"}`}>
+                    {post.num_comments > 0 &&
+                        <button
+                            type="button"
+                            onClick={() => onToggleComments(post.permalink)}
+                            data-testid={postIndex === 0 ? "comment-button-first" : "comment-button"}
+                            className="comment-button"
+                        >
+                            <BiCommentDetail className='comment-icon' /> View {post.num_comments} comments
+                        </button>
+                    }
+
                     <VoteScore
                         postIndex={postIndex}
                         score={post.score}
                         type="post"
+                        className="post-vote"
                     />
                 </div>
 
-
-                {post.loadingComments && post.num_comments > 0 &&
+                {post.loadingComments && (
                     <div className='comment-loading-container'>
-                        <CommentLoading />
-                        <CommentLoading />
-                        <CommentLoading />
-                        <CommentLoading />
-                        <CommentLoading />
+                        {Array.from({ length: Math.min(post.num_comments, 5) }, (_, index) => (
+                            <CommentLoading key={index} />
+                        ))}
                     </div>
-                }
+                )}
                 {post.showingComments &&
                     post.comments.map((comment, index) => {
-                        const isLastComment = index === post.comments.length -1;
-                        return <Comment comment={comment} key={comment.id} postIndex={postIndex} commentIndex={index} type={"comment"} isLastComment={isLastComment}  />
+                        const isLastComment = index === post.comments.length - 1;
+                        return <Comment comment={comment} key={comment.id} postIndex={postIndex} commentIndex={index} type={"comment"} isLastComment={isLastComment} />
                     })
                 }
             </div>

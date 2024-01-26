@@ -16,6 +16,10 @@
     padding-right: 0;
 }
 
+.reply-container .comment-body {
+    padding-right: 0em;
+}
+
 .first-comment {
     border-top: 1px solid lightblue;
     border-top-left-radius: 2em;

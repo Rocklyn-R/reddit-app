@@ -29,7 +29,7 @@
 }
 
 .sub-details img {
-  height: 1.5rem;
+  height: auto;
   width: 1.5rem;
   border-radius: 50%;
   margin-right: 0.5rem;
@@ -49,7 +49,7 @@
 }
 
 .author-details img {
-  height: 1.5rem;
+  height: auto;
   width: 1.5rem;
   border-radius: 50%;
   margin-right: 0.5rem;
@@ -173,13 +173,11 @@
   max-width: 100%;
 }
 
-.gallery p {
-  margin-bottom: 2rem;
+.galleryTextDisplay {
+  margin-top: 2rem;
   text-align: center;
-  word-break: break-word;
-  max-width: 100%;
+  line-height: 1.5rem;
 }
-
 
 .comment-button {
   width: fit-content;
@@ -213,7 +211,14 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 1.5em 1em;
+  margin: 1.5em auto;
+}
+
+.post-score-footer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin: 1.5em auto;
 }
 
 .comment-loading-container {
@@ -252,5 +257,8 @@
   }
   .post-title h1 {
     font-size: 1rem;
+  }
+  .post-score-footer {
+    justify-content: center;
   }
  }

@@ -46,7 +46,8 @@ export const Subreddits = () => {
                                     className="subreddit-icon"
                                     alt="subreddit-icon"
                                     width={50}
-                                    height={50}
+                                    height="auto"
+                                    loading="lazy"
                                 />
                                 {subreddit.display_name}
                             </button>

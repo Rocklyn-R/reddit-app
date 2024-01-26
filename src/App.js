@@ -12,7 +12,7 @@ function App() {
   const error = useSelector(isError);;
 
   if (error) {
-    return <Card className='error-message'>Reddit API rate limit reached. Try again later.</Card>
+    return <Card className='error-message'>Reddit server is busy. Try again in a minute.</Card>
   } else {
     return (
     <div className="app">
