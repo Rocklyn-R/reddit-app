@@ -109,13 +109,9 @@
     cursor: pointer; /* Cursor to indicate it's clickable */
     text-decoration: underline; /* Underline text */
     transition: color 0.3s ease; /* Smooth transition for color change */
-    background: none;
+    background: transparent;
 }
 
-.replies-button:hover {
-    color: pink; /* Pink color on hover */
-    text-decoration: none; /* Optional: Remove underline on hover */
-}
 
 @media only screen and (max-width: 600px) {
 
@@ -148,3 +144,37 @@
 
 }
 
+@media (hover: hover) {
+    .replies-button:hover {
+        color: pink; /* Pink color on hover */
+        text-decoration: none; /* Optional: Remove underline on hover */
+        background: transparent;
+    }
+    
+}
+
+@media (hover: none) {
+    .replies-button:hover {
+      color: black;
+      text-decoration: underline;
+      background: transparent !important;
+    }
+
+    .replies-button:active {
+        color: pink;
+        text-decoration: none;
+        background: transparent !important; /* Ensure the background remains transparent on active */
+    }
+  }
+
+@media only screen and (max-width: 600px) {
+    .replies-button {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+
+    .comment-body {
+        padding-left: 0;
+        padding-right: 0;
+    }
+}

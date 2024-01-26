@@ -198,8 +198,9 @@
 
 .comment-button:hover {
   color: pink;
-  text-decoration: none; /* Optional: Remove underline on hover */
+  text-decoration: none; 
 }
+
 
 .comment-icon {
   font-size: 1.3rem;
@@ -262,3 +263,15 @@
     justify-content: center;
   }
  }
+
+ @media (hover: none) {
+  .comment-button:hover {
+    color: black;
+    text-decoration: underline;
+  }
+
+  .comment-button:active {
+    color: pink;
+    text-decoration: none;
+  }
+}

@@ -12,10 +12,6 @@
     padding: 0.3rem;
   }
   
-  .vote-score button:hover .up-arrow, button:hover .down-arrow{
-    color: pink;
-  }
-  
   .button-clicked .up-arrow, .button-clicked .down-arrow{
     color: lightblue;
   }
@@ -26,4 +22,17 @@
 
   .comment-up-arrow, .comment-down-arrow {
     font-size: 1.3em;
+  }
+
+  @media (hover: hover) {
+    .vote-score button:hover .up-arrow, button:hover .down-arrow {
+      color: pink;
+    }
+  }
+
+  @media (hover: none) {
+    .vote-score button:hover .up-arrow, button:hover .down-arrow {
+      color: none;
+    }
+
   }
