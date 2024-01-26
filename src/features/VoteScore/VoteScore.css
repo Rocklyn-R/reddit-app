@@ -25,13 +25,13 @@
   }
 
   @media (hover: hover) {
-    .vote-score button:hover .up-arrow, button:hover .down-arrow {
+    .vote-score button:hover .up-arrow, .vote-score button:hover .down-arrow {
       color: pink;
     }
   }
 
   @media (hover: none) {
-    .vote-score button:hover .up-arrow, button:hover .down-arrow {
+    .vote-score button:active .up-arrow, button:hover .down-arrow {
       color: none;
     }
 

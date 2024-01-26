@@ -38,7 +38,7 @@ export const Header = () => {
             <div className="logo">
                 <FaReddit className="logo-icon" />
                 <p>
-                    Reddit<span>Minimal</span>
+                    Reddit<span>Lite</span>
                 </p>
             </div>
             <div>
