@@ -2,12 +2,12 @@ import "@testing-library/jest-dom";
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { act } from "react-dom/test-utils";
-import createMockStore from "../../store/mockStore";
+import createMockStore from "../../../store/mockStore";
 import { Provider } from "react-redux";
-import { Subreddits } from "./Subreddits";
+import { Subreddits } from "../Subreddits";
 import { toBeChecked } from "@testing-library/jest-dom/matchers";
-import { mockGetSubreddits } from "../../apiMock/mockAPIs";
-import * as redditAPI from "../../api/redditAPI";
+import { mockGetSubreddits } from "../../../apiMock/mockAPIs";
+import * as redditAPI from "../../../api/redditAPI";
 
 describe("Proper rendering of Subreddits", () => {
     let mockStore;
@@ -65,17 +65,17 @@ describe("Proper rendering of Subreddits", () => {
         })
         const currentState = mockStore.getState();
         const selectedSubreddit = currentState.reddit.selectedSubreddit;
-        expect(selectedSubreddit).toBe("/r/pics/")
+        expect(selectedSubreddit).toBe("/r/Home/")
 
-        const homeSubreddit = screen.getByText("Home");
+        const picsSubreddit = screen.getByText("pics");
         act(() => {
-            userEvent.click(homeSubreddit)
+            userEvent.click(picsSubreddit)
         });
 
         const updatedState = mockStore.getState();
         const newSelectedSubreddit = updatedState.reddit.selectedSubreddit;
-        expect(newSelectedSubreddit).toBe("/r/home/");
-        const homeLiElement = screen.getByText("Home").closest("li")
-        expect(homeLiElement).toHaveClass("selected-subreddit");
+        expect(newSelectedSubreddit).toBe("/r/pics/");
+        const picsLiElement = screen.getByText("pics").closest("li")
+        expect(picsLiElement).toHaveClass("selected-subreddit");
     })
 })

@@ -48,7 +48,8 @@ export const music = [
         icon_url: 'https://b.thumbs.redditmedia.com/rmlXC779KUA2MTO4r_GJd2enqa8GKx3BOasymol6gLk.png',
         subreddit_name_prefixed: 'r/music',
         post_hint: "image",
-        permalink: "musicComments"
+        permalink: "musicComments",
+        selftext: ""
     },
     {
         author: 'Rocklyn',
@@ -60,7 +61,8 @@ export const music = [
         icon_url: 'https://b.thumbs.redditmedia.com/rmlXC779KUA2MTO4r_GJd2enqa8GKx3BOasymol6gLk.png',
         subreddit_name_prefixed: 'r/music',
         post_hint: "image",
-        permalink: "musicComments"
+        permalink: "musicComments",
+        selftext: ""
     },
     {
         author: 'Miro',
@@ -72,7 +74,8 @@ export const music = [
         icon_url: 'https://b.thumbs.redditmedia.com/rmlXC779KUA2MTO4r_GJd2enqa8GKx3BOasymol6gLk.png',
         subreddit_name_prefixed: 'r/music',
         post_hint: "image",
-        permalink: "musicComments"
+        permalink: "musicComments",
+        selftext: "mus"
     },
     {
         author: 'Rocklyn',

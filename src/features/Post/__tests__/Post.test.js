@@ -2,11 +2,11 @@ import { render, screen, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import userEvent from "@testing-library/user-event";
 import { act } from "react-dom/test-utils";
-import { Post } from "./Post";
-import createMockStore from "../../store/mockStore";
+import { Post } from "../Post";
+import createMockStore from "../../../store/mockStore";
 import { Provider } from "react-redux";
-import { getCommentsSuccess, setPosts, startGetComments } from "../../store/redditSlice";
-import { Home } from "../Home/Home";
+import { getCommentsSuccess, setPosts, startGetComments } from "../../../store/redditSlice";
+import { Home } from "../../Home/Home";
 
 
 
@@ -33,8 +33,15 @@ const mockPost = {
             body: 'Ma samo veslanje',
             id: 183433
         }
-    ], // Mock comments as needed
+    ],
+    userIcons: [
+        {
+            img_icon: "",
+            snoovatar: ""
+        }
+    ],
     permalink: '/r/popular',
+    score: 15
 };
 
 const mockComments = [
@@ -53,8 +60,8 @@ const mockComments = [
 ]
 
 const defaultMockMediaContent = {
-        type: "img",
-        src: "image1.jpg"
+    type: "img",
+    src: "image1.jpg"
 };
 
 const mockOnToggleComments = jest.fn();
@@ -72,7 +79,9 @@ const renderPostWithMediaContent = (mockPost, mockMediaContent) => {
         </Provider>
     );
 };
+it("something", () => {
 
+})
 describe("Correct media rendering", () => {
 
     it("renders an image with correct src when mediaContent.type is img", () => {
@@ -133,7 +142,7 @@ describe("Correct media rendering", () => {
         await act(async () => {
             renderPostWithMediaContent(mockPost, mockMediaContent);
         })
-        
+
 
 
         waitFor(() => {
@@ -152,19 +161,26 @@ describe("Correct media rendering", () => {
         const mockMediaContent = {
             type: "gallery",
             gallery_data: [
-                {src: 'image1.jpg'},
-                {src: 'image2.jpg'},
-                {src: 'image3.jpg'}
+                { src: 'image1.jpg' },
+                { src: 'image2.jpg' },
+                { src: 'image3.jpg' }
             ]
         }
 
-        renderPostWithMediaContent(mockPost, mockMediaContent);  
-        
+        renderPostWithMediaContent(mockPost, mockMediaContent);
+
         waitFor(() => {
             const galleryElement = screen.getByTestId("gallery-component");
             expect(galleryElement).toBeInTheDocument();
         })
-        
+
+    })
+    it("renders the VoteScore component", async () => {
+        renderPostWithMediaContent(mockPost, defaultMockMediaContent);
+        expect(screen.getByText("15")).toBeInTheDocument();
+        const upvoteButton = await screen.findByLabelText("upvote");
+        expect(upvoteButton).toBeInTheDocument();
+        expect(upvoteButton).toBeInTheDocument();
     })
 })
 
@@ -172,7 +188,7 @@ describe("Correct rendering of comments and loading state", () => {
     it("renders comment button & clicking it calls function with correct permalink", async () => {
 
         renderPostWithMediaContent(mockPost, defaultMockMediaContent)
-        const button = screen.getByRole('button', { name: /Comments/i});
+        const button = screen.getByRole('button', { name: /Comments/i });
         expect(button).toBeInTheDocument();
         act(() => {
             userEvent.click(button);
@@ -181,7 +197,7 @@ describe("Correct rendering of comments and loading state", () => {
     });
 
     it("does not render the loading state when loadingComments is false", () => {
-        
+
         renderPostWithMediaContent(mockPost, defaultMockMediaContent);
 
         const loadingState = screen.queryByTestId("loading-state");
@@ -198,11 +214,11 @@ describe("Correct rendering of comments and loading state", () => {
 
         renderPostWithMediaContent(modifiedMockPost, defaultMockMediaContent);
 
-        
+
         //This will return an array of elements with the testId
         const loadingState = screen.queryAllByTestId("loading-state");
-        
-        //We expect 5 instances of the CommentLoading component. 
+
+        //We expect 5 instances of the CommentLoading component.
         expect(loadingState.length).toBe(5);
     });
 
@@ -220,17 +236,17 @@ describe("Correct rendering of comments and loading state", () => {
     });
 
     it("renders loading State when startGetComments is dispatched", async () => {
-        
-        
+
+
         act(() => {
             mockStore.dispatch(setPosts([mockPost]));
-            })
+        })
 
         //first startGetComments turns both loadingComments and showingComments to true
-       act(() => {
+        act(() => {
             mockStore.dispatch(startGetComments(0));
         })
-        
+
         //second call toggles showingComments back to false while loadingComments is true
         act(() => {
             mockStore.dispatch(startGetComments(0));
@@ -241,20 +257,18 @@ describe("Correct rendering of comments and loading state", () => {
 
         act(() => {
             render(
-             <Provider store={mockStore}>
-                 <Post 
-                    post={posts[0]}
-                    onToggleComments={() => {}}
-                     mediaContent={defaultMockMediaContent}
-                 />
-             </Provider>
+                <Provider store={mockStore}>
+                    <Post
+                        post={posts[0]}
+                        onToggleComments={() => { }}
+                        mediaContent={defaultMockMediaContent}
+                    />
+                </Provider>
             )
-         })
-   
-            
-        /*const currentState1 = mockStore.getState();
-        console.log("Current State:", JSON.stringify(currentState1, null, 2));*/
+        })
 
+
+        const currentState1 = mockStore.getState();
 
         //5 loading skeletons are visible 
         const loadingState = screen.queryAllByTestId("loading-state");
@@ -263,34 +277,34 @@ describe("Correct rendering of comments and loading state", () => {
     });
 
     it("renders the comments when startGetComments and getCommentsSuccess are called", () => {
-        
+
         act(() => {
             mockStore.dispatch(setPosts([mockPost]));
-            })
+        })
 
         //first startGetComments turns both loadingComments and showingComments to true
-       act(() => {
+        act(() => {
             mockStore.dispatch(startGetComments(0));
         })
-        
+
         //second call toggles showingComments back to false while loadingComments is true
         act(() => {
-            mockStore.dispatch(getCommentsSuccess({index: 0, comments: mockComments}))
+            mockStore.dispatch(getCommentsSuccess({ index: 0, comments: mockComments }))
         })
 
         const currentState = mockStore.getState();
         const posts = currentState.reddit.posts
 
-        render( 
+        render(
             <Provider store={mockStore}>
-                <Post 
+                <Post
                     post={posts[0]}
-                    onToggleComments={() => {}}
+                    onToggleComments={() => { }}
                     mediaContent={defaultMockMediaContent}
                 />
             </Provider>
         )
-        
+
         const newCommentText = screen.getByText("Gym is life");
         expect(newCommentText).toBeInTheDocument();
 

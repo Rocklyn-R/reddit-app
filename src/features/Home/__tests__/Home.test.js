@@ -2,14 +2,14 @@ import { render, screen, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import userEvent from "@testing-library/user-event";
 import { act } from "react-dom/test-utils";
-import { Home } from "./Home";
-import createMockStore from "../../store/mockStore";
+import { Home } from "../Home";
+import createMockStore from "../../../store/mockStore";
 import { Provider } from "react-redux";
-import { getPostsFailed, getPostsSuccess, setSelectedSubreddit, startGetPosts } from "../../store/redditSlice";
-import { mockGetSubredditPosts } from "../../apiMock/mockAPIs";
-import * as redditAPI from "../../api/redditAPI";
-import { mockGetComments } from "../../apiMock/mockAPIs";
-import { Header } from "../Header/Header";
+import { getPostsFailed, getPostsSuccess, setSelectedSubreddit, startGetPosts } from "../../../store/redditSlice";
+import { mockGetSubredditPosts } from "../../../apiMock/mockAPIs";
+import * as redditAPI from "../../../api/redditAPI";
+import { mockGetComments } from "../../../apiMock/mockAPIs";
+import { Header } from "../../Header/Header";
 
 
 
@@ -41,7 +41,13 @@ const mockPost = {
             body: 'Ma samo veslanje',
             id: 183433
         }
-    ], // Mock comments as needed
+    ],
+    userIcons: [
+        {
+            img_icon: "",
+            snoovatar: ""
+        }
+    ],
     permalink: '/this/isatest',
     id: 1234
 };
@@ -71,11 +77,11 @@ describe("Correct rendering of loading state and Post", () => {
         jest.clearAllMocks();
     })
 
-   /it("renders loading state on initial render when isLoading is true and removes it when posts are fetched and isLoading is false", async () => {
+    it("renders loading state on initial render when isLoading is true and removes it when posts are fetched and isLoading is false", async () => {
         //initial state in store has isLoading = false
 
 
-        await act(async () => {
+        act(() => {
             renderHome(mockStore);
         })
 
@@ -91,7 +97,7 @@ describe("Correct rendering of loading state and Post", () => {
         act(() => {
             mockStore.dispatch(getPostsSuccess([mockPost]))
         })
-        
+
         const loadingState = screen.queryByTestId("post-loading");
         const currentState2 = mockStore.getState();
         const newIsLoading = currentState2.reddit.isLoading;
@@ -107,7 +113,6 @@ describe("Correct rendering of loading state and Post", () => {
 
         act(() => {
             renderHome(mockStore);
-
         })
 
 
@@ -118,7 +123,7 @@ describe("Correct rendering of loading state and Post", () => {
         })
 
         const currentState = mockStore.getState();
-        
+
 
         expect(mockStore.getState().reddit.posts.length).toBeGreaterThan(0);
         expect(expect(screen.getAllByTestId("post-container").length).toBeGreaterThan(0));
@@ -148,76 +153,74 @@ describe("Correct rendering of loading state and Post", () => {
 
         //renders posts
         expect(screen.getAllByTestId("post-container").length).toBeGreaterThan(0);
-        const firstH1Content = (await screen.queryAllByTestId("subreddit-name")[0]).textContent;
+        const firstH1Content = screen.queryAllByTestId("subreddit-name")[0].textContent;
 
         await act(async () => {
-            mockStore.dispatch(setSelectedSubreddit("/r/home/"))
+            mockStore.dispatch(setSelectedSubreddit("/r/pics/"))
         })
-
-        const updatedState = mockStore.getState();
-
-        const updatedH1Content = (await screen.queryAllByTestId("subreddit-name")[0]).textContent;
+        await waitFor(() => {
+            expect(screen.getAllByTestId("post-container").length).toBeGreaterThan(0);
+        })
+        
+        const updatedH1Content = screen.queryAllByTestId("subreddit-name")[0].textContent;
 
         expect(updatedH1Content).not.toBe(firstH1Content);
     })
 
     it("renders filtered posts when input in header changes", async () => {
-       redditAPI.getSubredditPosts = mockGetSubredditPosts;
-
-        await act(async () => {
-            render(
-                <Provider store={mockStore}>
-                    <Header />
-                    <Home />
-                </Provider>
-            )
-
-        })
-
-        //wait for posts to become populated in state
-        let posts;
-        await waitFor(() => {
-            const state = mockStore.getState();
-            posts = state.reddit.posts;
-            expect(posts.length).toBe(2);
-        })
+        redditAPI.getSubredditPosts = mockGetSubredditPosts;
+ 
+         await act(async () => {
+             render(
+                 <Provider store={mockStore}>
+                     <Header />
+                     <Home />
+                 </Provider>
+             )
+ 
+         })
+ 
+         //wait for posts to become populated in state
+         let posts;
+         await waitFor(() => {
+             const state = mockStore.getState();
+             posts = state.reddit.posts;
+             expect(posts.length).toBe(2);
+         })
+         
+         const input = screen.getByPlaceholderText((text) => text.includes("Search"));
+         //verify that there are two rendered posts (two titles)
+         const allRenderedPostTItles = screen.queryAllByTestId("title");
+         expect(allRenderedPostTItles.length).toBe(2);
+         const title1 = screen.getByText("Do You Even Lift?");
+         const title2 = screen.getByText("Taylor Swift Eras Tour")
+         
+         expect(title1).toBeInTheDocument();
+         expect(title2).toBeInTheDocument();
+ 
+         //type into the search bar
+         act(() => {
+             userEvent.type(input, "swift");
+         })
         
-        const input = screen.getByPlaceholderText('Search...');
-        //verify that there are two rendered posts (two titles)
-        const allRenderedPostTItles = screen.queryAllByTestId("title");
-        expect(allRenderedPostTItles.length).toBe(2);
-        const title1 = screen.getByText("King of All Exercises");
-        const title2 = screen.getByText("Best Pianos in the World")
-        
-        expect(title1).toBeInTheDocument();
-        expect(title2).toBeInTheDocument();
-
-        //type into the search bar
-        act(() => {
-            userEvent.type(input, "best");
-        })
-       
-        //verify that there is one post being rendered and title matches search input
-        const updatedRenderedPostTitles = screen.queryAllByTestId('title');
-        const remainingTitle = updatedRenderedPostTitles[0].textContent;
-        expect(remainingTitle.toLowerCase()).toContain("best");
-        expect(updatedRenderedPostTitles.length).toBe(1);
-
-        //verify that first post is no longer in the document
-        expect(title1).not.toBeInTheDocument();
-        expect(title2).toBeInTheDocument();
-        expect(title2.textContent.toLowerCase()).toContain("best")
-        
-
-        //check that the posts in state did not change
-        const stateAfterEvent = mockStore.getState();
-        const postsAfterEvent = stateAfterEvent.reddit.posts;
-        expect(postsAfterEvent).toBe(posts);
-
-    })
-
-
-
+         //verify that there is one post being rendered and title matches search input
+         const updatedRenderedPostTitles = screen.queryAllByTestId('title');
+         const remainingTitle = updatedRenderedPostTitles[0].textContent;
+         expect(remainingTitle.toLowerCase()).toContain("swift");
+         expect(updatedRenderedPostTitles.length).toBe(1);
+ 
+         //verify that first post is no longer in the document
+         expect(title1).not.toBeInTheDocument();
+         expect(title2).toBeInTheDocument();
+         expect(title2.textContent.toLowerCase()).toContain("swift")
+         
+ 
+         //check that the posts in state did not change
+         const stateAfterEvent = mockStore.getState();
+         const postsAfterEvent = stateAfterEvent.reddit.posts;
+         expect(postsAfterEvent).toBe(posts);
+ 
+     })
 });
 
 describe("Correct rendering of comments", () => {
@@ -254,13 +257,11 @@ describe("Correct rendering of comments", () => {
         })
 
 
+        await waitFor(() => {
+            const comment = screen.queryAllByTestId("comment");
+            expect(comment.length).toBeGreaterThan(0);
+        })
         
-        const comment = await screen.queryAllByTestId("comment");
-        expect(comment.length).toBeGreaterThan(0);
-
-
-
-
         const updatedState = mockStore.getState();
         const posts = updatedState.reddit.posts;
 
@@ -272,7 +273,6 @@ describe("Correct rendering of comments", () => {
 
         const commentsAfterSecondClick = screen.queryAllByAltText("comment");
         expect(commentsAfterSecondClick.length).toBe(0);
-
     })
 })
 

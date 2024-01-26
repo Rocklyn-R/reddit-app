@@ -2,11 +2,11 @@ import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import userEvent from "@testing-library/user-event";
 import { act } from "react-dom/test-utils";
-import { Header } from "./Header";
-import createMockStore from "../../store/mockStore";
+import { Header } from "../Header";
+import createMockStore from "../../../store/mockStore";
 import { Provider } from "react-redux";
-import store from "../../store/store";
-import { setSearchTerm } from "../../store/redditSlice";
+import store from "../../../store/store";
+import { setSearchTerm } from "../../../store/redditSlice";
 
 
 
@@ -27,7 +27,7 @@ describe("Rendering and function", () => {
         )
 
         expect(screen.getByTestId("header")).toBeInTheDocument();
-        const searchInputElement = screen.getByPlaceholderText('Search...');
+        const searchInputElement = screen.getByPlaceholderText(text => text.includes("Search"));
         expect(searchInputElement).toBeInTheDocument();
     })
 
@@ -38,7 +38,7 @@ describe("Rendering and function", () => {
             </Provider>
         )
         
-        const input = screen.getByPlaceholderText('Search...');
+        const input = screen.getByPlaceholderText(text => text.includes("Search"));
         
         act(() => {
            userEvent.type(input, "test") 

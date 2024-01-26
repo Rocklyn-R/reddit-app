@@ -1,10 +1,10 @@
 import "@testing-library/jest-dom";
-import { getTimeAgo } from "./Helpers";
-import { cleanUrl } from "./Helpers";
-import { checkMediaType } from "./Helpers";
-import { getMediaContent } from "./Helpers";
-import { extractSrcFromBodyHtml } from "./Helpers";
-import { removeGifFromComment } from "./Helpers";
+import { getTimeAgo } from "../Helpers";
+import { cleanUrl } from "../Helpers";
+import { checkMediaType } from "../Helpers";
+import { getMediaContent } from "../Helpers";
+import { extractSrcFromBodyHtml } from "../Helpers";
+import { removeGifFromComment, cleanIconUrl } from "../Helpers";
 
 
 describe("tests getTimeAgo function & cleanUrl", () => {
@@ -47,12 +47,12 @@ describe("tests getTimeAgo function & cleanUrl", () => {
         expect(getTimeAgo(fiveHoursAgoUtc)).toBe("5 hours ago")
         expect(getTimeAgo(oneDayAgoUtc)).toBe("1 day ago")
         expect(getTimeAgo(fiveDaysAgoUtc)).toBe("5 days ago")
-    }),
-        it("removes amp; from the URL", () => {
-            const inputUrl = "https://example.com/page?param1=value1&amp;param2=value2&amp;v=video&amp;s=image";
-            const newUrl = cleanUrl(inputUrl);
-            expect(newUrl).toBe("https://example.com/page?param1=value1&param2=value2&v=video&s=image")
-        });
+    });
+    it("removes amp; from the URL", () => {
+        const inputUrl = "https://example.com/page?param1=value1&amp;param2=value2&amp;v=video&amp;s=image";
+        const newUrl = cleanUrl(inputUrl);
+        expect(newUrl).toBe("https://example.com/page?param1=value1&param2=value2&v=video&s=image")
+    });
 });
 
 
@@ -300,18 +300,18 @@ describe("test checkMediaType and getMediaContent", () => {
         expect(mediaContent.gallery_data).toStrictEqual(
             [
                 {
-                  src: 'https://preview.redd.it/8lpwzoxkkhbc1.jpg?width=1080&crop=smart&auto=webp&s=374d7b359ccf7a583f07f000805ef96580868463',
-                  height: 1440,
-                  width: 1080,
-                  id: '8lpwzoxkkhbc1'
+                    src: 'https://preview.redd.it/8lpwzoxkkhbc1.jpg?width=1080&crop=smart&auto=webp&s=374d7b359ccf7a583f07f000805ef96580868463',
+                    height: 1440,
+                    width: 1080,
+                    id: '8lpwzoxkkhbc1'
                 },
                 {
-                  src: 'https://preview.redd.it/fh35un0lkhbc1.jpg?width=1080&crop=smart&auto=webp&s=4144721f3007de3bfc4ec8f41224322951785daf',
-                  height: 1440,
-                  width: 1080,
-                  id: 'fh35un0lkhbc1'
+                    src: 'https://preview.redd.it/fh35un0lkhbc1.jpg?width=1080&crop=smart&auto=webp&s=4144721f3007de3bfc4ec8f41224322951785daf',
+                    height: 1440,
+                    width: 1080,
+                    id: 'fh35un0lkhbc1'
                 }
-              ]
+            ]
         )
     })
     it("should return media content for video post", () => {
@@ -342,6 +342,21 @@ describe("tests extractSrcFromBodyHtml and removeGifFromComment", () => {
         expect(removeGifFromComment(sampleComment.body)).toBe("TIL the sun is fluffy.")
     })
 })
+
+describe("tests cleanIconUrl", () => {
+    it("returns same URL if empty string", () => {
+        const input = "";
+        const output = cleanIconUrl(input);
+        expect(output).toBe(input);
+    })
+    it("removes query paramaters from the URL", () => {
+        const input = "https://example.com/icon.png?height=100&width=500"
+        const expectedOutput = "https://example.com/icon.png";
+        const output = cleanIconUrl(input);
+        expect(output).toBe(expectedOutput)
+    })
+})
+
 
 
 

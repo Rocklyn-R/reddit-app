@@ -18,7 +18,14 @@ export const mockGetSubredditPosts = (subreddit) => {
                 subreddit_name_prefixed: 'r/pics',
                 post_hint: 'link',
                 permalink: 'picsComments',
-                subreddit: "pics"
+                userIcons: [
+                    {
+                        img_icon: "",
+                        snoovatar: ""
+                    }
+                ],
+                subreddit: "pics",
+                selftext: ""
             },
             {
                 author: 'Frane',
@@ -30,12 +37,19 @@ export const mockGetSubredditPosts = (subreddit) => {
                 subreddit_name_prefixed: 'r/pics',
                 post_hint: "link",
                 permalink: "picsComments",
+                userIcons: [
+                    {
+                        img_icon: "",
+                        snoovatar: ""
+                    }
+                ],
+                selftext: ""
             }
         ]
 
     }
 
-    else if (subreddit === "/r/home/") {
+    else if (subreddit === "/r/Home/") {
         return [
             {
                 author: 'Rocklyn',
@@ -48,7 +62,14 @@ export const mockGetSubredditPosts = (subreddit) => {
                 subreddit_name_prefixed: 'r/home',
                 post_hint: "link",
                 permalink: 'homeComments',
-                subreddit: "home"
+                subreddit: "home",
+                userIcons: [
+                    {
+                        img_icon: "",
+                        snoovatar: ""
+                    }
+                ],
+                selftext: ""
             },
             {
                 author: 'Rocklyn',
@@ -60,7 +81,14 @@ export const mockGetSubredditPosts = (subreddit) => {
                 icon_url: 'https://b.thumbs.redditmedia.com/rmlXC779KUA2MTO4r_GJd2enqa8GKx3BOasymol6gLk.png',
                 subreddit_name_prefixed: 'r/music',
                 post_hint: "link",
-                permalink: "musicComments"
+                permalink: "musicComments",
+                userIcons: [
+                    {
+                        img_icon: "",
+                        snoovatar: ""
+                    }
+                ],
+                selftext: ""
             }
         ]
     }
@@ -76,13 +104,15 @@ export const mockGetComments = (permalink) => {
                 author: 'Marena',
                 created_utc: '1688003725.0',
                 body: 'Omg what a great post I love this',
-                id: 19129
+                id: 19129,
+                score: 5
             },
             {
                 author: 'Antica',
                 created_utc: '1688003725.0',
                 body: 'Cutest pets ever!',
-                id: 13141
+                id: 13141,
+                score: 3
             }
         ]
     }
