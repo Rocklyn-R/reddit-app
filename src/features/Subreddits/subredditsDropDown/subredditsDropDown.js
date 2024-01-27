@@ -47,6 +47,7 @@ export const SubredditsDropDown = () => {
 
     return (
         <div className='drop-down-container'>
+            <label className='subreddits-label'>Select subreddit: </label>
             <Select
                 aria-label="Select Subreddit"
                 className='custom-select'
