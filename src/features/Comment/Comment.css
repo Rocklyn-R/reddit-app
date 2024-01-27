@@ -55,9 +55,8 @@
 }
 
 .comment-user-details img {
-    height: 25px;
-    width: fit-content;
-    max-width: fit-content;
+    height: auto;
+    width: 25px;
     border-radius: 50%;
     margin-right: .5rem;
     background-color: aliceblue;
