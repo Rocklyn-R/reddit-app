@@ -146,7 +146,7 @@
 
 }
 
-@media (hover: hover) and (min-width: 500px) {
+@media (hover: hover) and (min-width: 501px) {
     .replies-button:hover {
         color: pink; /* Pink color on hover */
         text-decoration: none; /* Optional: Remove underline on hover */
@@ -163,8 +163,16 @@
     }
 
     .replies-button:active {
+        color: pink;
         text-decoration: none;
         background-color: aliceblue !important; /* Ensure the background remains transparent on active */
+    }
+  }
+/* Samsung */
+@media (hover:hover) and (max-width: 500px) {
+    .replies-button:active {
+        color: pink;
+        text-decoration: none;
     }
   }
 
@@ -179,3 +187,4 @@
         padding-right: 0;
     }
 }
+

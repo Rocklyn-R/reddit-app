@@ -259,6 +259,7 @@
   }
  }
 
+ /* Screens that don't have hover (most mobile devices) */
  @media (hover: none) {
   .comment-button:hover {
     color: none;
@@ -267,17 +268,26 @@
   }
 
   .comment-button:active {
+      color: pink;
       text-decoration: none;
       background-color: aliceblue !important; /* Ensure the background remains transparent on active */
   }
 }
 
-
-@media (hover: hover) and (min-width: 500px) {
+/* Screens that have hover and are not Samsung */
+@media (hover: hover) and (min-width: 501px) {
   .comment-button:hover {
       color: pink; /* Pink color on hover */
       text-decoration: none; /* Optional: Remove underline on hover */
       background-color: aliceblue;
+  }
+}
+
+/* Samsung screens that are mousepads (have hover) but don't behave like they do*/ 
+@media (hover:hover) and (max-width: 500px) {
+  .comment-button:active {
+      color: pink;
+      text-decoration: none;
   }
 }
 
