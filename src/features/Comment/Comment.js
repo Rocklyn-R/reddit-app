@@ -96,6 +96,8 @@ export const Comment = ({ comment, postIndex, commentIndex, type, isLastComment,
                             <img
                                 src={icon}
                                 alt="user icon"
+                                width={50}
+                                height={50}
                             />
                         }
 

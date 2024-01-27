@@ -72,6 +72,8 @@ export const checkMediaType = (post) => {
 
 
 
+
+
 export const getMediaContent = (post) => {
     const mediaType = checkMediaType(post);
     //console.log(mediaType);
