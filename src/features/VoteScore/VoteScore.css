@@ -24,7 +24,8 @@
     font-size: 1.3em;
   }
 
-  @media (hover: hover) {
+
+  @media (hover: hover) and (min-width: 500px) {
     .vote-score button:hover .up-arrow, .vote-score button:hover .down-arrow {
       color: pink;
     }

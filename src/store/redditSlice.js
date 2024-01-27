@@ -71,23 +71,24 @@ export const redditSlice = createSlice({
             const post = state.posts[postIndex];
             //recursive function to find matching comment id to update its score in setReplyScore
             const updateCommentScore = (comments, replyId, newScore) => {
-                // Find the comment or reply in the array
+                //find the comment or reply in the array
                 const commentToUpdate = comments.find(comment => comment.id === replyId);
                 if (commentToUpdate) {
-                    // If the comment is found, update its score
+                    //if comment is found, update its score
                     commentToUpdate.score = newScore;
                     return true;
                 } else {
-                    // If not found, recursively search in replies
+                    //if not found, recursively search in replies
                     for (let comment of comments) {
                         if (comment.replies && comment.replies.length > 0) {
                             const updated = updateCommentScore(comment.replies, replyId, newScore);
-                            if (updated) return true; // Comment was found and updated in nested replies
+                            //comment was found and updated in nested replies
+                            if (updated) return true;
                         }
                     }
                 }
 
-                return false; // Comment not found
+                return false; //comment not found
             };
             updateCommentScore(post.comments, replyId, score);
         }
@@ -149,7 +150,7 @@ export const flattenReplies = (replies) => {
         return [];
     }
     return replies.data.children.map(reply => {
-        // Recursively flatten nested replies
+        //recursively flatten nested replies but immutably because it's cached data
         const flattenedReply = { ...reply.data }
         if (reply.data && reply.data.replies) {
             flattenedReply.replies = flattenReplies(reply.data.replies);

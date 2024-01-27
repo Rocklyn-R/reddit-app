@@ -131,7 +131,8 @@
         align-items: center;
         margin-bottom: 0;
         padding-top: 0;
-        margin-left: 0;
+        margin-left: 1em;
+        margin-right: 1em;
     }
 
     .comment-body {
@@ -144,14 +145,14 @@
 
 }
 
-@media (hover: hover) {
+@media (hover: hover) and (min-width: 500px) {
     .replies-button:hover {
         color: pink; /* Pink color on hover */
         text-decoration: none; /* Optional: Remove underline on hover */
         background: transparent;
     }
-    
 }
+
 
 @media (hover: none) {
     .replies-button:hover {
