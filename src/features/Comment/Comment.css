@@ -110,6 +110,7 @@
     text-decoration: underline; /* Underline text */
     transition: color 0.3s ease; /* Smooth transition for color change */
     background: transparent;
+    -webkit-tap-highlight-color: transparent;
 }
 
 
@@ -149,22 +150,21 @@
     .replies-button:hover {
         color: pink; /* Pink color on hover */
         text-decoration: none; /* Optional: Remove underline on hover */
-        background: transparent;
+        background-color: aliceblue;
     }
 }
 
 
 @media (hover: none) {
     .replies-button:hover {
-      color: black;
+      color: none;
       text-decoration: underline;
-      background: transparent !important;
+      background-color: transparent !important;
     }
 
     .replies-button:active {
-        color: pink;
         text-decoration: none;
-        background: transparent !important; /* Ensure the background remains transparent on active */
+        background-color: aliceblue !important; /* Ensure the background remains transparent on active */
     }
   }
 

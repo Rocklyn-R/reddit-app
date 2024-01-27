@@ -28,12 +28,17 @@
   @media (hover: hover) and (min-width: 500px) {
     .vote-score button:hover .up-arrow, .vote-score button:hover .down-arrow {
       color: pink;
+      background-color: aliceblue;
     }
   }
 
   @media (hover: none) {
-    .vote-score button:active .up-arrow, button:hover .down-arrow {
+    .vote-score button:hover .up-arrow, button:hover .down-arrow {
       color: none;
+      background-color: aliceblue;
+    }
+    .vote-score button:active .up-arrow, button:hover .down-arrow {
+      background-color: aliceblue;
     }
 
   }

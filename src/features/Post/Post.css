@@ -196,11 +196,6 @@
   transition: color 0.3s ease, border-bottom 0.3s ease;
 }
 
-.comment-button:hover {
-  color: pink;
-  text-decoration: none; 
-}
-
 
 .comment-icon {
   font-size: 1.3rem;
@@ -266,12 +261,23 @@
 
  @media (hover: none) {
   .comment-button:hover {
-    color: black;
+    color: none;
     text-decoration: underline;
+    background-color: transparent !important;
   }
 
   .comment-button:active {
-    color: pink;
-    text-decoration: none;
+      text-decoration: none;
+      background-color: aliceblue !important; /* Ensure the background remains transparent on active */
   }
 }
+
+
+@media (hover: hover) and (min-width: 500px) {
+  .comment-button:hover {
+      color: pink; /* Pink color on hover */
+      text-decoration: none; /* Optional: Remove underline on hover */
+      background-color: aliceblue;
+  }
+}
+
