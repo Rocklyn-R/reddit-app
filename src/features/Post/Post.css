@@ -234,6 +234,7 @@
     flex-wrap: wrap;
     word-break: break-word;
     flex-direction: column;
+    font-size: .8rem;
   }
   .comment-icon {
     margin-left: .4rem;

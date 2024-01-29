@@ -12,6 +12,10 @@
     padding: 0.3rem;
     color: black;
   }
+
+  .vote-score p {
+    font-size: 1em;
+  }
   
   .button-clicked .up-arrow, .button-clicked .down-arrow{
     color: lightblue;
@@ -25,6 +29,20 @@
     font-size: 1.3em;
   }
 
+  @media only screen and (max-width: 450px) {
+    .comment-up-arrow, .comment-down-arrow {
+      font-size: 1.2em;
+    }
+
+    .post-up-arrow, .post-down-arrow {
+      font-size: 1.5em;
+    }
+
+    .vote-score p {
+      font-size: .8em;
+    }
+  
+  }
 
   @media (hover: hover) and (min-width: 500px) {
     .vote-score button:hover .up-arrow, .vote-score button:hover .down-arrow {

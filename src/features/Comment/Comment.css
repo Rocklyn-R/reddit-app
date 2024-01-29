@@ -104,7 +104,7 @@
 .replies-button {
     color: black; /* Text color */
     border: none;
-    font-size: 16px; /* Font size */
+    font-size: 1em; /* Font size */
     cursor: pointer; /* Cursor to indicate it's clickable */
     text-decoration: underline; /* Underline text */
     transition: color 0.3s ease; /* Smooth transition for color change */
@@ -112,6 +112,11 @@
     -webkit-tap-highlight-color: transparent;
 }
 
+@media only screen and (max-width: 450px) {
+    .replies-button {
+        font-size: .8em;
+    }
+}
 
 @media only screen and (max-width: 600px) {
 

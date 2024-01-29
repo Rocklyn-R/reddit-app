@@ -28,7 +28,7 @@ export const getSubreddits = async () => {
 
 
 export const getPostComments = async (permalink) => {
-    if (cache[permalink] && cache[permalink].timestamp + CACHE_EXPIRY_MS > Date.now()) {
+   if (cache[permalink] && cache[permalink].timestamp + CACHE_EXPIRY_MS > Date.now()) {
         return cache[permalink].data;
     }
 
@@ -40,8 +40,6 @@ export const getPostComments = async (permalink) => {
     cache[permalink] = { data: newArray, timestamp: Date.now() };
     return newArray;
 }
-
-
 
 
 export const getUserIcons = async (user) => {
