@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { FaReddit } from 'react-icons/fa'
-import { AiOutlineSearch } from 'react-icons/ai'
+import { AiOutlineSearch } from 'react-icons/ai';
 import './Header.css';
 import { setSearchTerm } from '../../store/redditSlice';
 import { useDispatch, useSelector } from 'react-redux';
@@ -18,11 +18,7 @@ export const Header = () => {
 
     //get the name of selected subreddit.
     const getSubredditName = (url) => {
-        if (subreddits.length === 0) {
-            return ""
-        }
-        const subreddit = subreddits.find(subreddit => subreddit.url === url)
-        return subreddit.display_name
+        return url.substring(3, url.length -1);
     }
 
     //clear the search input when switching to another subreddit

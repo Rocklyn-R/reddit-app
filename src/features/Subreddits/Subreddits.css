@@ -10,7 +10,7 @@
   margin-bottom: 1rem;
 }
 
-.subreddit-card button {
+.subreddit-button {
   border: none;
   background: none;
   border-radius: 4px;
@@ -21,13 +21,13 @@
   font-size: 1rem;
 }
 
-.selected-subreddit button {
+.selected-subreddit .subreddit-button {
   color: black;
   background-color: lightblue;
 }
 
 
-.subreddit-card button:hover {
+.subreddit-button:hover {
   background-color: pink;
   color: black;
   cursor: pointer;
@@ -58,3 +58,4 @@
   margin-right: .5rem;
   background-color: aliceblue;
 }
+

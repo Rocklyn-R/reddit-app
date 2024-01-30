@@ -1,27 +1,38 @@
 import React, { useEffect } from 'react';
 import './Subreddits.css';
-import { selectSubreddits, fetchSubreddits, isLoading } from '../../store/subredditsSlice';
+import { selectSubreddits, fetchSubreddits, isLoadingSubreddits, selectCustomSubredditInput, getCustomSubreddit } from '../../store/subredditsSlice';
 import { useSelector, useDispatch } from 'react-redux';
-import { setSelectedSubreddit, selectSelectedSubreddit } from '../../store/redditSlice';
+import { setSelectedSubreddit, selectSelectedSubreddit, isLoadingPosts, isCustomPostsError } from '../../store/redditSlice';
 import Card from '../../components/Card';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
-
+import { CustomSubreddit } from './customSubreddit/CustomSubreddit';
 
 export const Subreddits = () => {
     const dispatch = useDispatch();
     const subreddits = useSelector(selectSubreddits);
     const selectedSub = useSelector(selectSelectedSubreddit);
-    const loadingState = useSelector(isLoading);
+    const loadingState = useSelector(isLoadingSubreddits);
+    const postsLoading = useSelector(isLoadingPosts);
+    const errorCustomPosts = useSelector(isCustomPostsError);
+    const customSubredditInput = useSelector(selectCustomSubredditInput);
 
     useEffect(() => {
-        dispatch(fetchSubreddits()); 
+        dispatch(fetchSubreddits());
     }, [dispatch])
 
- 
+    useEffect(() => {
+        if (!postsLoading && !errorCustomPosts && customSubredditInput !== "") {
+            dispatch(getCustomSubreddit())
+        }
+    }, [postsLoading, errorCustomPosts, customSubredditInput, dispatch])
+    
+
     return (
         <Card className="subreddit-card" >
-            <h2>Subreddits</h2>
+            <h2>Your Subreddits</h2>
+            <CustomSubreddit />
+            <h2>Popular Subreddits</h2>
             <ul className="subreddits-list">
                 {loadingState ?
                     Array(10) // Render 5 skeleton items for loading state
@@ -34,10 +45,11 @@ export const Subreddits = () => {
                     : subreddits.map((subreddit) => (
                         <li
                             key={subreddit.id}
-                            className={`${selectedSub === subreddit.url ? `selected-subreddit` : ""
+                            className={`${selectedSub.toLowerCase() === subreddit.url.toLowerCase() ? `selected-subreddit` : ""
                                 }`}
                         >
                             <button
+                                className='subreddit-button'
                                 type="button"
                                 onClick={() => dispatch(setSelectedSubreddit(subreddit.url))}
                             >

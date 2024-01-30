@@ -6,6 +6,16 @@
   align-items: center;
 }
 
+.custom-error-message {
+  height: 100%;
+  width: 65%;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 2em;
+}
+
 
 .subreddits-drop-down {
   width: 100%;

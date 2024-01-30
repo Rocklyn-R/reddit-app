@@ -44,6 +44,16 @@ export const cleanHtmlText = (text) => {
     return text;
 }
 
+export const fingPngUrl = (text) => {
+    const regex = /https:\/\/\S+\.png/g;
+    const match = text.match(regex);
+    return match ? match[0] : null
+}
+
+export const removePngUrl = (text, url) => {
+    return text.replace(url, "")
+}
+
 export const checkMediaType = (post) => {
     let mediaType = "";
     if ((post.post_hint === "link")|| 

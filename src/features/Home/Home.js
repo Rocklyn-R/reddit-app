@@ -7,7 +7,7 @@ import './Home.css';
 import { getMediaContent } from '../../Utilities/Helpers';
 import { PostLoading } from '../Post/postLoading/postLoading';
 import Card from '../../components/Card';
-import { selectSearchTerm, toggleShowingComments } from '../../store/redditSlice';
+import { selectSearchTerm, toggleShowingComments, isCustomPostsError, selectSelectedSubreddit } from '../../store/redditSlice';
 
 
 
@@ -18,6 +18,8 @@ export const Home = () => {
     const filteredPosts = useSelector(selectFilteredPosts);
     const dispatch = useDispatch();
     const searchTerm = useSelector(selectSearchTerm);
+    const customPostsError = useSelector(isCustomPostsError);
+    const selectedSub = useSelector(selectSelectedSubreddit);
 
     useEffect(() => {
         dispatch(fetchPosts(selectedSubreddit));
@@ -49,10 +51,14 @@ export const Home = () => {
                     <PostLoading />
                 </React.Fragment>
 
-                : (searchTerm && posts.length === 0) ? (
+                : (searchTerm && posts.length === 0
+                    
+                ) ? (
                     <Card className="no-post-found">
                         <p>No matching posts found. Try a different keyword.</p>
                     </Card>
+                ) : (customPostsError && selectedSub === "") ? (
+                    <Card className="no-post-found">Subreddit not found. Try a different keyword.</Card>
                 )
                     : (
 
@@ -66,8 +72,6 @@ export const Home = () => {
                             />
                         ))
                     )
-
-
             }
         </div>
 

@@ -1,5 +1,6 @@
 import { createSlice, createSelector } from "@reduxjs/toolkit";
 import { getSubredditPosts, getPostComments, getUserIcons } from "../api/redditAPI";
+import { addCustomSubreddit, startAddCustomSubreddit, addCustomSubredditFailed } from "./subredditsSlice";
 
 
 
@@ -12,6 +13,7 @@ export const redditSlice = createSlice({
         isLoading: false,
         searchTerm: '',
         selectedSubreddit: '/r/Home/',
+        errorCustomPosts: false
     },
     reducers: {
         setPosts: (state, action) => {
@@ -20,15 +22,18 @@ export const redditSlice = createSlice({
         startGetPosts: (state) => {
             state.error = false;
             state.isLoading = true;
+            state.errorCustomPosts = false;
         },
         getPostsSuccess: (state, action) => {
             state.error = false;
             state.isLoading = false;
             state.posts = action.payload;
+            state.errorCustomPosts = false;
         },
         getPostsFailed: (state) => {
             state.error = true;
             state.isLoading = false;
+            state.errorCustomPosts = false;
         },
         setSearchTerm: (state, action) => {
             state.searchTerm = action.payload;
@@ -91,15 +96,26 @@ export const redditSlice = createSlice({
                 return false; //comment not found
             };
             updateCommentScore(post.comments, replyId, score);
+        },
+        startGetCustomPosts: (state) => {
+            state.errorCustomPosts = false;
+            state.isLoading = true;
+            state.error = false;
+        },
+        getCustomPostsFailed: (state) => {
+            state.errorCustomPosts = true;
+            state.isLoading = false;
+            state.error = false;
         }
     }
 });
 
 export const selectPosts = state => state.reddit.posts;
-export const isLoading = state => state.reddit.isLoading;
+export const isLoadingPosts = state => state.reddit.isLoading;
 export const selectSearchTerm = state => state.reddit.searchTerm;
 export const selectSelectedSubreddit = (state) => state.reddit.selectedSubreddit;
 export const isError = (state) => state.reddit.error;
+export const isCustomPostsError = (state) => state.reddit.errorCustomPosts
 
 export const {
     setPosts,
@@ -115,7 +131,9 @@ export const {
     setPostScore,
     setCommentScore,
     toggleShowingComments,
-    setReplyScore
+    setReplyScore,
+    startGetCustomPosts,
+    getCustomPostsFailed
 } = redditSlice.actions;
 
 
@@ -140,7 +158,13 @@ export const fetchPosts = (subreddit) => async (dispatch) => {
         })
         dispatch(getPostsSuccess(postsWithMetadata));
     } catch (error) {
-        dispatch(getPostsFailed());
+        console.log("Error caught in fetchPosts:", error.message); // For debugging
+        if (error.message === 'Subreddit not found' 
+        || error.message === "Subreddit doesn't exist"
+        || error.message === "Network error (possibly CORS)") {
+            dispatch(getCustomPostsFailed());
+            dispatch(setSelectedSubreddit(""))
+        } else dispatch(getPostsFailed());
     }
 };
 
@@ -196,6 +220,7 @@ export const selectFilteredPosts = createSelector(
         };
         return posts;
     })
+
 
 
 

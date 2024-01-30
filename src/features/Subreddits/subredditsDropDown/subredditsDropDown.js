@@ -24,11 +24,7 @@ export const SubredditsDropDown = () => {
 
 
     const getSubredditName = (url) => {
-        if (subreddits.length === 0) {
-            return ""
-        }
-        const subreddit = subreddits.find(subreddit => subreddit.url === url)
-        return subreddit.display_name
+        return url.substring(3, url.length -1);
     }
 
     const getSubredditImage = (url) => {
