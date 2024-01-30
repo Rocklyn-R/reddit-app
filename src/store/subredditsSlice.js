@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { getSubredditInfo, getSubreddits } from "../api/redditAPI";
-import { getSubredditPosts } from '../api/redditAPI';
 import { isCustomPostsError } from './redditSlice';
 
 export const subredditsSlice = createSlice({

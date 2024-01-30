@@ -1,6 +1,5 @@
 import { createSlice, createSelector } from "@reduxjs/toolkit";
 import { getSubredditPosts, getPostComments, getUserIcons } from "../api/redditAPI";
-import { addCustomSubreddit, startAddCustomSubreddit, addCustomSubredditFailed } from "./subredditsSlice";
 
 
 

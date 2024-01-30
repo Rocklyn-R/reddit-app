@@ -4,12 +4,10 @@ import { AiOutlineSearch } from 'react-icons/ai';
 import './Header.css';
 import { setSearchTerm } from '../../store/redditSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectSubreddits } from '../../store/subredditsSlice';
 import { selectSelectedSubreddit } from '../../store/redditSlice';
 
 export const Header = () => {
     const dispatch = useDispatch();
-    const subreddits = useSelector(selectSubreddits)
     const selectedSubreddit = useSelector(selectSelectedSubreddit)
 
     const handleInputChange = e => {
