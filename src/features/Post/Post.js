@@ -13,7 +13,6 @@ import { cleanHtmlText } from '../../Utilities/Helpers';
 import { selectSelectedSubreddit } from '../../store/redditSlice';
 import { selectSubreddits } from '../../store/subredditsSlice';
 import { useSelector } from 'react-redux';
-import userIcon from '../../Assets/Images/user-icon.png';
 import { cleanIconUrl } from '../../Utilities/Helpers';
 import { VoteScore } from "../VoteScore/VoteScore";
 
@@ -30,7 +29,7 @@ export const Post = ({ post, onToggleComments, mediaContent, postIndex }) => {
         if (subreddits.length === 0) {
             return "";
         }
-        const subreddit = subreddits.find(sub => sub.url === url);
+        const subreddit = subreddits.find(sub => sub.url.toLowerCase() === url.toLowerCase());
         if (subreddit && subreddit.icon_img) {
             return subreddit.icon_img;
         } else {
@@ -41,11 +40,11 @@ export const Post = ({ post, onToggleComments, mediaContent, postIndex }) => {
     const getIcon = () => {
         const imgIcon = post.userIcons[0].img_icon;
         const snoovatar = post.userIcons[0].snoovatar;
-        if (snoovatar) {
-            return snoovatar
-        } else if (imgIcon) {
+        if (imgIcon) {
             return cleanIconUrl(imgIcon)
-        } else return userIcon;
+        } else if (snoovatar) {
+            return cleanIconUrl(imgIcon)
+        } else return snoovatar;
     }
 
 
@@ -55,7 +54,7 @@ export const Post = ({ post, onToggleComments, mediaContent, postIndex }) => {
             <div className="details-container">
                 <div className="sub-details">
                     <img
-                        src={getSubredditImage(selectedSub)}
+                        src={getSubredditImage(selectedSub.toLowerCase())}
                         alt="Post Icon"
                         loading="lazy"
                     />

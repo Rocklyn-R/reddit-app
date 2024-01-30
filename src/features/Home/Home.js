@@ -51,7 +51,7 @@ export const Home = () => {
                     <PostLoading />
                 </React.Fragment>
 
-                : (searchTerm && posts.length === 0
+                : (searchTerm && filteredPosts.length === 0
                     
                 ) ? (
                     <Card className="no-post-found">
