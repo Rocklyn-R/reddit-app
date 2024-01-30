@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectSelectedSubreddit, setSelectedSubreddit, startGetCustomPosts } from '../../../store/redditSlice';
 import { AiOutlineSearch } from 'react-icons/ai';
@@ -9,19 +9,19 @@ export const CustomSubreddit = () => {
     const dispatch = useDispatch();
     const selectedSubreddit = useSelector(selectSelectedSubreddit);
     const subredditCustomInput = useSelector(selectCustomSubredditInput);
-
+    const [ localInput, setLocalInput ] = useState("")
 
 
     const handleInputChange = (e) => {
-        dispatch(setCustomSubredditInput(e.target.value));
+        setLocalInput(e.target.value)
     }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const newSelectedSubreddit = "/r/" + subredditCustomInput + "/";
+        const newSelectedSubreddit = "/r/" + localInput + "/";
         if (selectedSubreddit.toLowerCase() !== newSelectedSubreddit.toLowerCase()) {
-            dispatch(setSelectedSubreddit("/r/" + subredditCustomInput + "/"));
-            dispatch(setCustomSubredditInput(""));
+            dispatch(setCustomSubredditInput(e.target.value));
+            dispatch(setSelectedSubreddit("/r/" + localInput + "/"));
             dispatch(startGetCustomPosts());
         } else return;
 
@@ -31,7 +31,7 @@ export const CustomSubreddit = () => {
         <form className='subreddit-search' onSubmit={handleSubmit}>
             <input
                 placeholder='Search subreddit'
-                value={subredditCustomInput}
+                value={localInput}
                 onChange={handleInputChange}
             />
             <button className='subreddit-search-button' type="submit"><AiOutlineSearch className='subreddit-search-icon' /></button>

@@ -35,9 +35,11 @@ export const subredditsSlice = createSlice({
         },
         startAddCustomSubreddit: (state) => {
             state.customSubredditsIsLoading = true;
+            state.customSubredditsError = false;
         },
         addCustomSubredditFailed: (state) => {
             state.customSubredditsError = true;
+            state.customSubredditsIsLoading = false;
         }
     }
 })
@@ -77,6 +79,7 @@ export const getCustomSubreddit = (subredditName) => async (dispatch) => {
     try {
         dispatch(startAddCustomSubreddit());
         const customSubreddit = await getSubredditInfo(subredditName);
+        console.log(customSubreddit);
         dispatch(addCustomSubredditSuccess(customSubreddit));
     }
     catch (error) {

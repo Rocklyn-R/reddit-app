@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import './Subreddits.css';
 import { selectSubreddits, fetchSubreddits, isLoadingSubreddits, selectCustomSubredditInput, getCustomSubreddit } from '../../store/subredditsSlice';
 import { useSelector, useDispatch } from 'react-redux';
-import { setSelectedSubreddit, selectSelectedSubreddit, isLoadingPosts, isCustomPostsError } from '../../store/redditSlice';
+import { setSelectedSubreddit, selectSelectedSubreddit, isLoadingPosts, isCustomPostsError, setSearchTerm } from '../../store/redditSlice';
 import Card from '../../components/Card';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
@@ -22,10 +22,10 @@ export const Subreddits = () => {
     }, [dispatch])
 
     useEffect(() => {
-        if (!postsLoading && !errorCustomPosts && customSubredditInput !== "") {
-            dispatch(getCustomSubreddit())
+        if (customSubredditInput !== "") {
+            dispatch(getCustomSubreddit(customSubredditInput));
         }
-    }, [postsLoading, errorCustomPosts, customSubredditInput, dispatch])
+    }, [customSubredditInput, dispatch])
     
 
     return (
@@ -51,7 +51,7 @@ export const Subreddits = () => {
                             <button
                                 className='subreddit-button'
                                 type="button"
-                                onClick={() => dispatch(setSelectedSubreddit(subreddit.url))}
+                                onClick={() => {dispatch(setSelectedSubreddit(subreddit.url))}}
                             >
                                 <img
                                     src={subreddit.icon_img ? subreddit.icon_img : 'https://b.thumbs.redditmedia.com/rmlXC779KUA2MTO4r_GJd2enqa8GKx3BOasymol6gLk.png'}
