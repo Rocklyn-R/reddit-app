@@ -49,6 +49,7 @@ export const Post = ({ post, onToggleComments, mediaContent, postIndex }) => {
 
 
 
+
     return (
         <Card className="post-wrapper">
             <div className="details-container">
@@ -63,9 +64,12 @@ export const Post = ({ post, onToggleComments, mediaContent, postIndex }) => {
                 <div className="posted-by">
                     <p>posted by</p>
                     <div className="author-details">
-                        <img src={getIcon()} alt="user icon"
-                            loading="lazy"
-                        />
+                        {post.author !== "[deleted]" &&
+                            <img src={getIcon()} alt="user icon"
+                                loading="lazy"
+                            />
+                        }
+
                         <p>{post.author}</p>
                     </div>
 
@@ -171,8 +175,8 @@ export const Post = ({ post, onToggleComments, mediaContent, postIndex }) => {
                 }
             </div>
             <div className="comments-container">
-                <div className={`${post.num_comments > 0 ? "post-footer" : "post-score-footer"}`}>
-                    {post.num_comments > 0 &&
+                <div className={`${post.num_comments - 1 > 0 ? "post-footer" : "post-score-footer"}`}>
+                    {post.num_comments - 1 > 0 &&
                         <button
                             type="button"
                             onClick={() => onToggleComments(post.permalink)}

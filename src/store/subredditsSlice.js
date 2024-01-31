@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { getSubredditInfo, getSubreddits } from "../api/redditAPI";
-import { isCustomPostsError } from './redditSlice';
 
 export const subredditsSlice = createSlice({
     name: 'subreddits',
@@ -32,6 +31,8 @@ export const subredditsSlice = createSlice({
         },
         addCustomSubredditSuccess: (state, action) => {
             state.customSubreddits.unshift(action.payload);
+            state.customSubredditsIsLoading = false;
+            state.customSubredditsError = false;
         },
         startAddCustomSubreddit: (state) => {
             state.customSubredditsIsLoading = true;
@@ -58,29 +59,43 @@ export const fetchSubreddits = () => async (dispatch) => {
 
 
 export const selectSubreddits = state => state.subreddits.subreddits;
+export const selectCustomSubreddits = state => state.subreddits.customSubreddits;
 export const isLoadingSubreddits = state => state.subreddits.isLoading;
 export const selectCustomSubredditInput = state => state.subreddits.customSubredditInput;
+export const isLoadingCustomSubreddit = state => state.subreddits.customSubredditsIsLoading;
 
-export const { 
-    startGetSubreddits, 
-    getSubredditsSuccess, 
+export const {
+    startGetSubreddits,
+    getSubredditsSuccess,
     getSubredditsFailed,
     setCustomSubredditInput,
     startAddCustomSubreddit,
     addCustomSubreddit,
     addCustomSubredditFailed,
-    addCustomSubredditSuccess 
+    addCustomSubredditSuccess
 } = subredditsSlice.actions;
 
-export const getCustomSubreddit = (subredditName) => async (dispatch) => {
-    if (!isCustomPostsError) {
+export const getCustomSubreddit = (subredditName) => async (dispatch, getState) => {
+    if (!subredditName) {
+        return;
+    }
+
+    const state = getState();
+    console.log(state);
+    const subredditExists = state.subreddits.customSubreddits.some(subreddit =>
+        subreddit.display_name.toLowerCase() === subredditName.toLowerCase()
+    )
+    if (subredditExists) {
         return;
     }
     try {
         dispatch(startAddCustomSubreddit());
         const customSubreddit = await getSubredditInfo(subredditName);
-        console.log(customSubreddit);
-        dispatch(addCustomSubredditSuccess(customSubreddit));
+        if (customSubreddit) {
+            dispatch(addCustomSubredditSuccess(customSubreddit));
+        } else {
+            dispatch(addCustomSubredditFailed())
+        }
     }
     catch (error) {
         dispatch(addCustomSubredditFailed())

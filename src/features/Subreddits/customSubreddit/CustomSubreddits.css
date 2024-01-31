@@ -32,3 +32,8 @@
     font-size: 1em; /* Adjust font size as needed */
   }
   
+  .selected-subreddit .subreddit-button {
+    color: black;
+    background-color: lightblue;
+  }
+  

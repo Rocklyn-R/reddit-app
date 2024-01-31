@@ -8,7 +8,6 @@ export const getSubredditPosts = async (subreddit) => {
         if (cache[subreddit] && cache[subreddit].timestamp + CACHE_EXPIRY_MS > Date.now()) {
             return cache[subreddit].data;
         }
-        console.log(subreddit);
         const response = await fetch(`${baseUrl}${subreddit}.json`);
 
         // Check for 429 Too Many Requests
@@ -103,8 +102,14 @@ export const getUserIcons = async (user) => {
 };
 
 export const getSubredditInfo = async (subredditName) => {
-    const response = await fetch(`${baseUrl}/r/${subredditName}about.json`);
+    try {
+        console.log(subredditName);
+        const response = await fetch(`${baseUrl}/r/${subredditName}/about.json`);
     const json = await response.json();
     const newArray = [json.data];
     return newArray[0];
+    }
+    catch (error) {
+        console.log(error)
+    }
 }

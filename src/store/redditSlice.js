@@ -157,7 +157,6 @@ export const fetchPosts = (subreddit) => async (dispatch) => {
         })
         dispatch(getPostsSuccess(postsWithMetadata));
     } catch (error) {
-        console.log("Error caught in fetchPosts:", error.message); // For debugging
         if (error.message === 'Subreddit not found' 
         || error.message === "Subreddit doesn't exist"
         || error.message === "Network error (possibly CORS)") {
