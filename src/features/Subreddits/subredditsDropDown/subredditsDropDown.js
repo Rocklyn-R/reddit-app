@@ -11,6 +11,7 @@ export const SubredditsDropDown = () => {
     const selectedSub = useSelector(selectSelectedSubreddit);
 
 
+
     /* const changeSelectedSubreddit = (e) => {
          const selectedSubreddit = e.target.value;
          dispatch(setSelectedSubreddit(selectedSubreddit))
@@ -24,7 +25,10 @@ export const SubredditsDropDown = () => {
 
 
     const getSubredditName = (url) => {
-        return url.substring(3, url.length -1);
+        if (selectedSub !== "none found") {
+            return url.substring(3, url.length - 1);
+        }
+        else return ""
     }
 
     const getSubredditImage = (url) => {
@@ -40,20 +44,24 @@ export const SubredditsDropDown = () => {
         }
     };
 
+    const selectedSubInSubreddits = (sub) => {
+        return subreddits.some(subreddit => subreddit.url === sub);
+    };
+
 
     return (
         <div className='drop-down-container'>
-            <label className='subreddits-label'>Select subreddit: </label>
+            <label className='subreddits-label'>Popular Subreddits: </label>
             <Select
                 aria-label="Select Subreddit"
                 className='custom-select'
                 data-testid="select"
                 value={{
                     value: selectedSub,
-                    label:
+                    label: selectedSubInSubreddits(selectedSub) ?
                         (
                             <div className='selected-option'>
-                                {getSubredditImage(selectSelectedSubreddit) && (
+                                {getSubredditImage(selectedSub) && (
                                     <img
                                         src={getSubredditImage(selectedSub)}
                                         className="subreddit-icon"
@@ -64,7 +72,7 @@ export const SubredditsDropDown = () => {
 
                                 {getSubredditName(selectedSub)}
                             </div>
-                        )
+                        ) : "Select popular subreddit"
                 }}
                 onChange={changeSelectedSubreddit}
                 options={subreddits.map(subreddit => ({

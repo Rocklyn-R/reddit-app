@@ -1,0 +1,12 @@
+.custom-subreddit-search {
+    display: flex;
+    justify-content: center;
+}
+
+.search-input {
+    width: 12em;
+    height: 3em;
+    border: 1px solid black;
+    border-radius: .5em;
+    margin: 1em;
+}

@@ -66,7 +66,7 @@ export const Home = () => {
                     : (selectedSub === "") ? (
                         <Card className="no-post-found">Select or search for a subreddit.</Card>
                     )
-                        : (customPostsError && selectedSub === "") ? (
+                        : (customPostsError && selectedSub === "none found") ? (
                             <Card className="no-post-found">Subreddit not found. Try a different keyword.</Card>
                         )
                             : (

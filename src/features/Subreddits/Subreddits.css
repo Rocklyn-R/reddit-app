@@ -3,6 +3,7 @@
   display: flex;
   flex-direction: column;
   border-radius: 2rem;
+
 }
 
 .subreddit-card h2 {
@@ -56,6 +57,24 @@
   width: 25px;
   border-radius: 50%;
   margin-right: .5rem;
+  background-color: aliceblue;
+}
+
+.subreddit-img-name {
+  display: flex;
+  align-items: center;
+}
+
+.remove-subreddit {
+  font-size: 1.2em;
+  background-color: transparent;
+  border-radius: .5em;
+  border: none;
+  cursor: pointer;
+}
+
+.remove-subreddit:active {
+  font-size: 1.4em;
   background-color: aliceblue;
 }
 

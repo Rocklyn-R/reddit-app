@@ -6,6 +6,7 @@ import { Subreddits } from './features/Subreddits/Subreddits';
 import { SubredditsDropDown } from './features/Subreddits/subredditsDropDown/subredditsDropDown';
 import { isError } from './store/redditSlice';
 import Card from './components/Card';
+import { CustomSubredditsDropDown } from './features/Subreddits/subredditsDropDown/customSubredditsDropDown/customSubredditsDropDown';
 
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
     <div className="app">
       <Header />
       <div className='subreddits-dropdown'>
+        <CustomSubredditsDropDown/>
         <SubredditsDropDown />
       </div>
       <div className="container">

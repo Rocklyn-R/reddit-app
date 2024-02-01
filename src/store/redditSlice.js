@@ -161,7 +161,7 @@ export const fetchPosts = (subreddit) => async (dispatch) => {
         || error.message === "Subreddit doesn't exist"
         || error.message === "Network error (possibly CORS)") {
             dispatch(getCustomPostsFailed());
-            dispatch(setSelectedSubreddit(""))
+            dispatch(setSelectedSubreddit("none found"))
         } else dispatch(getPostsFailed());
     }
 };
