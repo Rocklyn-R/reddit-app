@@ -87,7 +87,6 @@ export const getCustomSubreddit = (subredditName) => async (dispatch, getState) 
     }
 
     const state = getState();
-    console.log(state);
     const subredditExists = state.subreddits.customSubreddits.some(subreddit =>
         subreddit.display_name.toLowerCase() === subredditName.toLowerCase()
     )

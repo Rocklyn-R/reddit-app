@@ -24,7 +24,7 @@ export const Home = () => {
     const subError = useSelector(subredditsError);
 
     useEffect(() => {
-        if (selectedSubreddit === "none found") {
+        if (selectedSubreddit === "none found" || selectedSubreddit === "") {
             return;
         }
         dispatch(fetchPosts(selectedSubreddit));

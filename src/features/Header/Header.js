@@ -19,7 +19,7 @@ export const Header = () => {
 
     //get the name of selected subreddit.
     const getSubredditName = () => {
-        if (posts.length > 0 && !postsLoading) {
+        if (posts.length > 0 && !postsLoading && selectedSubreddit !== "") {
            return posts[0].subreddit; 
         } else return ""  
     }
