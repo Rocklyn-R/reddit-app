@@ -85,6 +85,10 @@
     color: gray;
     box-shadow: 0 2px 4px grey; /* Add shadow here */
   }
+  .gallery-display button:active {
+    border: 0.25rem solid pink;
+    color: pink; 
+  }
 }
 
 
