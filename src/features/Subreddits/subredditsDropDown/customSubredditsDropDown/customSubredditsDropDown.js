@@ -86,7 +86,6 @@ export const CustomSubredditsDropDown = () => {
                 <button className='subreddit-search-button' type="submit"><AiOutlineSearch className='subreddit-search-icon' /></button>
             </form>
             <div className='drop-down-container'>
-                <label className='subreddits-label'>Your Subreddits: </label>
                 <Select
                     aria-label="Select Subreddit"
                     className='custom-select'
@@ -107,7 +106,8 @@ export const CustomSubredditsDropDown = () => {
 
                                     {getSubredditName(selectedSubreddit)}
                                 </div>
-                            ) : "Search or select a subreddit"
+                            ) : customSubreddits.length === 0 ? ""
+                            : "Custom Subreddits"
                     }}
                     onChange={changeSelectedSubreddit}
                     options={customSubreddits.map(subreddit => ({
@@ -141,6 +141,7 @@ export const CustomSubredditsDropDown = () => {
                     styles={{
                         control: (baseStyles, state) => ({
                             ...baseStyles,
+                            zIndex: 1000,
                             backgroundColor: 'aliceblue',
                             border: state.isFocused ? "1px solid aliceblue" : "none",
                             borderColor: state.isFocused ? "aliceblue" : "aliceblue",
@@ -149,6 +150,10 @@ export const CustomSubredditsDropDown = () => {
                             ':hover': {
                                 borderColor: 'lightblue', // This sets the hover border color
                             }
+                        }),
+                        menu: (baseStyles) => ({
+                            ...baseStyles,
+                            zIndex: 1000
                         }),
                         option: (baseStyles, state) => ({
                             ...baseStyles,

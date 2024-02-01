@@ -51,7 +51,6 @@ export const SubredditsDropDown = () => {
 
     return (
         <div className='drop-down-container'>
-            <label className='subreddits-label'>Popular Subreddits: </label>
             <Select
                 aria-label="Select Subreddit"
                 className='custom-select'
@@ -72,7 +71,7 @@ export const SubredditsDropDown = () => {
 
                                 {getSubredditName(selectedSub)}
                             </div>
-                        ) : "Select popular subreddit"
+                        ) : "Popular Subreddits"
                 }}
                 onChange={changeSelectedSubreddit}
                 options={subreddits.map(subreddit => ({
@@ -92,6 +91,7 @@ export const SubredditsDropDown = () => {
                 styles={{
                     control: (baseStyles, state) => ({
                         ...baseStyles,
+                        zIndex: 1000,
                         backgroundColor: 'aliceblue',
                         border: state.isFocused ? "1px solid aliceblue" : "none",
                         borderColor: state.isFocused ? "aliceblue" : "aliceblue",
@@ -100,6 +100,10 @@ export const SubredditsDropDown = () => {
                         ':hover': {
                             borderColor: 'lightblue', // This sets the hover border color
                         }
+                    }),
+                    menu: (baseStyles) => ({
+                        ...baseStyles,
+                        zIndex: 1000
                     }),
                     option: (baseStyles, state) => ({
                         ...baseStyles,

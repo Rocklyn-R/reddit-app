@@ -54,9 +54,16 @@ header .logo-icon {
     font-size: 2rem;
 }
 
+@media only screen and (max-width: 400px) {
+    .logo p {
+        display: none;
+    }
+}
+
+
 @media only screen and (max-width: 600px) {
     .search-icon {
-        font-size: 1.5rem;
+        display: none;
     }
 
     .search input {
