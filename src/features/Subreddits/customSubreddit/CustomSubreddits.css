@@ -31,9 +31,35 @@
     padding: 5px 10px; /* Adjust padding as needed */
     font-size: 1em; /* Adjust font size as needed */
   }
+
+  .custom-subreddit-button {
+    border: none;
+    background: none;
+    border-radius: 4px;
+    padding: 16px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+    justify-content: space-between;
+  }
   
-  .selected-subreddit .subreddit-button {
+  
+  .selected-subreddit .custom-subreddit-button {
     color: black;
     background-color: lightblue;
   }
   
+
+  .remove-subreddit {
+    font-size: 1.2em;
+    background-color: transparent;
+    border-radius: .5em;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .remove-subreddit:active {
+    font-size: 1.4em;
+    background-color: aliceblue;
+  }

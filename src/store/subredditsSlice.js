@@ -41,6 +41,10 @@ export const subredditsSlice = createSlice({
         addCustomSubredditFailed: (state) => {
             state.customSubredditsError = true;
             state.customSubredditsIsLoading = false;
+        },
+        removeCustomSubreddit: (state, action) => {
+            state.customSubreddits = state.customSubreddits.filter(
+                subreddit => subreddit.id !== action.payload)
         }
     }
 })
@@ -72,7 +76,8 @@ export const {
     startAddCustomSubreddit,
     addCustomSubreddit,
     addCustomSubredditFailed,
-    addCustomSubredditSuccess
+    addCustomSubredditSuccess,
+    removeCustomSubreddit
 } = subredditsSlice.actions;
 
 export const getCustomSubreddit = (subredditName) => async (dispatch, getState) => {

@@ -22,6 +22,9 @@ export const Home = () => {
     const selectedSub = useSelector(selectSelectedSubreddit);
 
     useEffect(() => {
+        if (selectedSubreddit === "") {
+            return;
+        }
         dispatch(fetchPosts(selectedSubreddit));
     }, [selectedSubreddit, dispatch]);
 
@@ -52,26 +55,32 @@ export const Home = () => {
                 </React.Fragment>
 
                 : (searchTerm && filteredPosts.length === 0
-                    
-                ) ? (
-                    <Card className="no-post-found">
-                        <p>No matching posts found. Try a different keyword.</p>
-                    </Card>
-                ) : (customPostsError && selectedSub === "") ? (
-                    <Card className="no-post-found">Subreddit not found. Try a different keyword.</Card>
-                )
-                    : (
 
-                        filteredPosts.map((post, index) => (
-                            <Post
-                                key={post.id}
-                                post={post}
-                                onToggleComments={onToggleComments(post.id)}
-                                mediaContent={getMediaContent(post)}
-                                postIndex={index}
-                            />
-                        ))
+                )
+                    ?
+                    (
+                        <Card className="no-post-found">
+                            <p>No matching posts found. Try a different keyword.</p>
+                        </Card>
                     )
+                    : (selectedSub === "") ? (
+                        <Card className="no-post-found">Select or search for a subreddit.</Card>
+                    )
+                        : (customPostsError && selectedSub === "") ? (
+                            <Card className="no-post-found">Subreddit not found. Try a different keyword.</Card>
+                        )
+                            : (
+
+                                filteredPosts.map((post, index) => (
+                                    <Post
+                                        key={post.id}
+                                        post={post}
+                                        onToggleComments={onToggleComments(post.id)}
+                                        mediaContent={getMediaContent(post)}
+                                        postIndex={index}
+                                    />
+                                ))
+                            )
             }
         </div>
 

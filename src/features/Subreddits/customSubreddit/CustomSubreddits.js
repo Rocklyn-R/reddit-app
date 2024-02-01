@@ -3,7 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectSelectedSubreddit, setSelectedSubreddit, startGetCustomPosts } from '../../../store/redditSlice';
 import { AiOutlineSearch } from 'react-icons/ai';
 import "./CustomSubreddits.css";
-import { setCustomSubredditInput, getCustomSubreddit, selectCustomSubreddits } from '../../../store/subredditsSlice';
+import { setCustomSubredditInput, getCustomSubreddit, selectCustomSubreddits, removeCustomSubreddit } from '../../../store/subredditsSlice';
+
 
 export const CustomSubreddits = () => {
     const dispatch = useDispatch();
@@ -34,6 +35,8 @@ export const CustomSubreddits = () => {
         };
     }
 
+ 
+
     return (
         <div>
             <form className='subreddit-search' onSubmit={handleSubmit}>
@@ -50,22 +53,37 @@ export const CustomSubreddits = () => {
                         <li
                             key={subreddit.id}
                             className={`${selectedSub.toLowerCase() === subreddit.url.toLowerCase() ? "selected-subreddit" : ""
-                        }`}
+                                }`}
                         >
                             <button
-                                className='subreddit-button'
+                                className='custom-subreddit-button'
                                 type="button"
                                 onClick={() => { dispatch(setSelectedSubreddit(subreddit.url)) }}
                             >
-                                <img
-                                    src={subreddit.icon_img ? subreddit.icon_img : 'https://b.thumbs.redditmedia.com/rmlXC779KUA2MTO4r_GJd2enqa8GKx3BOasymol6gLk.png'}
-                                    className="subreddit-icon"
-                                    alt="subreddit-icon"
-                                    width={50}
-                                    height="auto"
-                                    loading="lazy"
-                                />
-                                {subreddit.display_name}
+                                <div className='subreddit-img-name'>
+                                    <img
+                                        src={subreddit.icon_img ? subreddit.icon_img : 'https://b.thumbs.redditmedia.com/rmlXC779KUA2MTO4r_GJd2enqa8GKx3BOasymol6gLk.png'}
+                                        className="subreddit-icon"
+                                        alt="subreddit-icon"
+                                        width={50}
+                                        height="auto"
+                                        loading="lazy"
+                                    />
+                                    <p>{subreddit.display_name}</p>
+                                </div>
+
+                                <button
+                                    className='remove-subreddit'
+                                    onClick={(event) => {
+                                        event.stopPropagation();
+                                        if(subreddit.url.toLowerCase() === selectedSub.toLowerCase()) {
+                                            dispatch(setSelectedSubreddit(""));
+                                        }
+                                        dispatch(removeCustomSubreddit(subreddit.id));
+                                    }}
+                                >
+                                    x
+                                </button>
                             </button>
                         </li>
                     ))

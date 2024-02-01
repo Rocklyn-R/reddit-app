@@ -17,7 +17,7 @@ export const Subreddits = () => {
     useEffect(() => {
         dispatch(fetchSubreddits());
     }, [dispatch])
-    
+
 
     return (
         <Card className="subreddit-card" >
@@ -42,7 +42,7 @@ export const Subreddits = () => {
                             <button
                                 className='subreddit-button'
                                 type="button"
-                                onClick={() => {dispatch(setSelectedSubreddit(subreddit.url))}}
+                                onClick={() => { dispatch(setSelectedSubreddit(subreddit.url)) }}
                             >
                                 <img
                                     src={subreddit.icon_img ? subreddit.icon_img : 'https://b.thumbs.redditmedia.com/rmlXC779KUA2MTO4r_GJd2enqa8GKx3BOasymol6gLk.png'}
@@ -52,7 +52,9 @@ export const Subreddits = () => {
                                     height="auto"
                                     loading="lazy"
                                 />
-                                {subreddit.display_name}
+                                <p>{subreddit.display_name}</p>
+
+
                             </button>
                         </li>
                     ))}
