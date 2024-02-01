@@ -10,3 +10,8 @@
     border-radius: .5em;
     margin: 1em;
 }
+
+.custom-option {
+    display: flex;
+    justify-content: space-between;
+}
