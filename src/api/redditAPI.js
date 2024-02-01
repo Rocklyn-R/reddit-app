@@ -4,40 +4,22 @@ const cache = {};
 const CACHE_EXPIRY_MS = 4 * 60 * 60 * 1000; //4 hours in miliseconds
 
 export const getSubredditPosts = async (subreddit) => {
-    try {
+   
+
         if (cache[subreddit] && cache[subreddit].timestamp + CACHE_EXPIRY_MS > Date.now()) {
             return cache[subreddit].data;
         }
         const response = await fetch(`${baseUrl}${subreddit}.json`);
 
-        // Check for 429 Too Many Requests
-        if (response.status === 429) {
-            throw new Error('Rate limit exceeded');
-        }
 
-        if (response.status === 404) {
-            throw new Error('Subreddit not found');
-        }
 
         const json = await response.json();
-        if (!json.data.children || json.data.children.length === 0) {
-            throw new Error("Subreddit does not exist");
-        }
 
         const newArray = json.data.children.map(post => post.data);
         cache[subreddit] = { data: newArray, timestamp: Date.now() };
         return newArray;
-    } catch (error) {
-        if (error.name === 'TypeError' && error.message === 'Failed to fetch') {
-            // Assuming CORS error (since specific status code cannot be accessed)
-            throw new Error('Network error (possibly CORS)');
-        } else {
-            // Re-throw the original error for other cases
-            throw error;
-        }
-    }
+ 
 }
-
 
 
 export const getSubreddits = async () => {
@@ -102,14 +84,10 @@ export const getUserIcons = async (user) => {
 };
 
 export const getSubredditInfo = async (subredditName) => {
-    try {
-        console.log(subredditName);
+
         const response = await fetch(`${baseUrl}/r/${subredditName}/about.json`);
     const json = await response.json();
     const newArray = [json.data];
     return newArray[0];
-    }
-    catch (error) {
-        console.log(error)
-    }
+   
 }

@@ -2,22 +2,26 @@ import React, { useEffect } from 'react';
 import { FaReddit } from 'react-icons/fa'
 import { AiOutlineSearch } from 'react-icons/ai';
 import './Header.css';
-import { setSearchTerm } from '../../store/redditSlice';
+import { selectPosts, setSearchTerm } from '../../store/redditSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectSelectedSubreddit, selectSearchTerm } from '../../store/redditSlice';
+import { selectSelectedSubreddit, selectSearchTerm, isLoadingPosts } from '../../store/redditSlice';
 
 export const Header = () => {
     const dispatch = useDispatch();
     const selectedSubreddit = useSelector(selectSelectedSubreddit);
     const searchTerm = useSelector(selectSearchTerm);
+    const posts = useSelector(selectPosts);
+    const postsLoading = useSelector(isLoadingPosts)
 
     const handleInputChange = e => {
         dispatch(setSearchTerm(e.target.value));
     }
 
     //get the name of selected subreddit.
-    const getSubredditName = (url) => {
-        return url.substring(3, url.length - 1);
+    const getSubredditName = () => {
+        if (posts.length > 0 && !postsLoading) {
+           return posts[0].subreddit; 
+        } else return ""  
     }
 
     //clear the search input when switching to another subreddit
@@ -42,11 +46,11 @@ export const Header = () => {
             </div>
             <div>
                 <div className='search-container'>
-                    <form className="search">
+                    <form className="search" onSubmit={(e) => e.preventDefault()}>
                         <AiOutlineSearch className="search-icon" />
                         <input
                             type="text"
-                            placeholder={`Search ${getSubredditName(selectedSubreddit)}`}
+                            placeholder={`Search ${getSubredditName()}`}
                             onChange={handleInputChange}
                         />
                     </form>

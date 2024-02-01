@@ -7,12 +7,14 @@ import { SubredditsDropDown } from './features/Subreddits/subredditsDropDown/sub
 import { isError } from './store/redditSlice';
 import Card from './components/Card';
 import { CustomSubredditsDropDown } from './features/Subreddits/subredditsDropDown/customSubredditsDropDown/customSubredditsDropDown';
+import { subredditsError } from './store/subredditsSlice';
 
 
 function App() {
-  const error = useSelector(isError);
+  const redditError = useSelector(isError);
+  const subError = useSelector(subredditsError);
 
-  if (error) {
+  if (redditError && subError) {
     return <Card className='error-message'>Reddit server is busy. Try again in a minute.</Card>
     
   } else {

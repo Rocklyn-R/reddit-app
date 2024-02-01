@@ -7,6 +7,7 @@ import './Home.css';
 import { getMediaContent } from '../../Utilities/Helpers';
 import { PostLoading } from '../Post/postLoading/postLoading';
 import Card from '../../components/Card';
+import { subredditsError } from '../../store/subredditsSlice';
 import { selectSearchTerm, toggleShowingComments, isCustomPostsError, selectSelectedSubreddit } from '../../store/redditSlice';
 
 
@@ -20,9 +21,10 @@ export const Home = () => {
     const searchTerm = useSelector(selectSearchTerm);
     const customPostsError = useSelector(isCustomPostsError);
     const selectedSub = useSelector(selectSelectedSubreddit);
+    const subError = useSelector(subredditsError);
 
     useEffect(() => {
-        if (selectedSubreddit === "") {
+        if (selectedSubreddit === "none found") {
             return;
         }
         dispatch(fetchPosts(selectedSubreddit));
@@ -66,7 +68,7 @@ export const Home = () => {
                     : (selectedSub === "") ? (
                         <Card className="no-post-found">Select or search for a subreddit.</Card>
                     )
-                        : (customPostsError && selectedSub === "none found") ? (
+                        : (customPostsError && selectedSub === "none found" && !subError) ? (
                             <Card className="no-post-found">Subreddit not found. Try a different keyword.</Card>
                         )
                             : (

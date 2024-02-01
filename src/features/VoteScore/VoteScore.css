@@ -1,6 +1,7 @@
 .vote-score {
     display: flex;
     align-items: center;
+    justify-content: flex-end;
   }
   
   .vote-score button {

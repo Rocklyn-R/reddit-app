@@ -157,12 +157,9 @@ export const fetchPosts = (subreddit) => async (dispatch) => {
         })
         dispatch(getPostsSuccess(postsWithMetadata));
     } catch (error) {
-        if (error.message === 'Subreddit not found' 
-        || error.message === "Subreddit doesn't exist"
-        || error.message === "Network error (possibly CORS)") {
-            dispatch(getCustomPostsFailed());
-            dispatch(setSelectedSubreddit("none found"))
-        } else dispatch(getPostsFailed());
+        dispatch(getCustomPostsFailed());
+        dispatch(setSelectedSubreddit("none found"))
+        dispatch(getPostsFailed());
     }
 };
 

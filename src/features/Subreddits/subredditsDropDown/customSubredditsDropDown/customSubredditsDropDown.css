@@ -1,14 +1,19 @@
 .custom-subreddit-search {
     display: flex;
     justify-content: center;
+    margin-top: 1rem;
 }
 
 .search-input {
-    width: 12em;
-    height: 3em;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    height: 2rem;
+    width: 12rem;
+    border-radius: 4px;
     border: 1px solid black;
-    border-radius: .5em;
-    margin: 1em;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    margin-right: 1em;
+    margin-left: 4em;
 }
 
 .custom-option {

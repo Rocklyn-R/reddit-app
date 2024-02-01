@@ -53,6 +53,42 @@
 
   }
 
+  /* Screens that don't have hover (most mobile devices) */
+ @media (hover: none) {
+  .gallery-display button:hover {
+    border: 0.25rem solid aliceblue;
+    background-color: transparent;
+    color: gray;
+    box-shadow: 0 2px 4px grey; /* Add shadow here */
+  }
+
+  .gallery-display button:active {
+    border: 0.25rem solid pink;
+    color: pink; 
+  }
+}
+
+/* Screens that have hover and are not Samsung */
+@media (hover: hover) and (min-width: 501px) {
+  .gallery-display button:hover {
+    border: 0.25rem solid pink;
+    color: pink;
+    box-shadow: 0 2px 4px grey; /* Add shadow here */
+  }
+}
+
+/* Samsung screens that are mousepads (have hover) but don't behave like they do*/ 
+@media (hover:hover) and (max-width: 500px) {
+  .gallery-display button:hover {
+    border: 0.25rem solid aliceblue;
+    background-color: transparent;
+    color: gray;
+    box-shadow: 0 2px 4px grey; /* Add shadow here */
+  }
+}
+
+
+
 
   @media only screen and (max-width: 900px) {
     .gallery-display .slideButton {

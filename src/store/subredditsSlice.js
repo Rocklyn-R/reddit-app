@@ -65,6 +65,7 @@ export const fetchSubreddits = () => async (dispatch) => {
 export const selectSubreddits = state => state.subreddits.subreddits;
 export const selectCustomSubreddits = state => state.subreddits.customSubreddits;
 export const isLoadingSubreddits = state => state.subreddits.isLoading;
+export const subredditsError = state => state.subreddits.error;
 export const selectCustomSubredditInput = state => state.subreddits.customSubredditInput;
 export const isLoadingCustomSubreddit = state => state.subreddits.customSubredditsIsLoading;
 

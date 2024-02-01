@@ -108,12 +108,10 @@
   line-height: 1.5rem;
   margin-bottom: 2rem;
   width: 100%;
-  text-align: center;
 }
 
 .selftextDisplay {
   word-wrap: break-word;
-  text-align: center;
 }
 
 .img-container img {
@@ -175,7 +173,6 @@
 
 .galleryTextDisplay {
   margin-top: 2rem;
-  text-align: center;
   line-height: 1.5rem;
 }
 

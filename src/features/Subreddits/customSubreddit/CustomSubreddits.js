@@ -38,7 +38,7 @@ export const CustomSubreddits = () => {
  
 
     return (
-        <div>
+        <div className='custom-subreddits-container'>
             <form className='subreddit-search' onSubmit={handleSubmit}>
                 <input
                     placeholder='Search subreddit'
