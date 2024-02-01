@@ -36,5 +36,9 @@
 @media only screen and (max-width: 600px) {
     .cmt-loading-details-container {
         flex-direction: column;
+        align-items: flex-start;
+    }
+    .cmt-loading-time-details {
+        margin-left: 1em;
     }
 }
