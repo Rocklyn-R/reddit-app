@@ -106,8 +106,7 @@ export const CustomSubredditsDropDown = () => {
 
                                     {getSubredditName(selectedSubreddit)}
                                 </div>
-                            ) : customSubreddits.length === 0 ? ""
-                            : "Custom Subreddits"
+                            ) : "Custom Subreddits"
                     }}
                     onChange={changeSelectedSubreddit}
                     options={customSubreddits.map(subreddit => ({
@@ -153,7 +152,7 @@ export const CustomSubredditsDropDown = () => {
                         }),
                         menu: (baseStyles) => ({
                             ...baseStyles,
-                            zIndex: 1000
+                            zIndex: 2000
                         }),
                         option: (baseStyles, state) => ({
                             ...baseStyles,
