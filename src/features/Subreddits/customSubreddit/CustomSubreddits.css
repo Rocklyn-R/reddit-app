@@ -54,11 +54,19 @@
     justify-content: space-between;
     cursor: pointer;
   }
+
+  .custom-subreddit-button:hover {
+    background-color: pink;
+  }
   
   
   .selected-subreddit .custom-subreddit-button {
     color: black;
     background-color: lightblue;
+  }
+
+  .custom-sub-buttons {
+    display: flex;
   }
   
 
@@ -71,6 +79,5 @@
   }
   
   .remove-subreddit:active {
-    font-size: 1.4em;
     background-color: aliceblue;
   }

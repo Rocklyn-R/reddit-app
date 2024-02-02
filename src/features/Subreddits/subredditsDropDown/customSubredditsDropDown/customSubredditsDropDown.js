@@ -93,9 +93,9 @@ export const CustomSubredditsDropDown = () => {
                     onChange={handleInputChange}
                     className="search-input"
                 />
-                <button className='subreddit-search-button' type="submit"><AiOutlineSearch className='subreddit-search-icon' /></button>
+                <button className='subreddit-search-button' type="submit" data-testid="search-subreddit-button"><AiOutlineSearch className='subreddit-search-icon' /></button>
             </form>
-            <div className='custom-drop-down-container'>
+            <div className='custom-drop-down-container' data-testid="select">
                 <Select
                     aria-label="Select Subreddit"
                     className='custom-select'
@@ -141,6 +141,7 @@ export const CustomSubredditsDropDown = () => {
                                         }
                                         dispatch(removeCustomSubreddit(subreddit.id));
                                     }}
+                                    data-testid="remove-button"
                                 >
                                     x
                                 </button>

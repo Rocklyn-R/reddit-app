@@ -190,6 +190,7 @@ describe(("reddit slice"), () => {
         expect(post.comments).toEqual([]);
         expect(post.loadingComments).toBe(false);
         expect(post.userIcons).toEqual([mockUserIcons]);
+        
     })
 
     it("should handle error in fetchPosts", async () => {

@@ -4,21 +4,21 @@ const cache = {};
 const CACHE_EXPIRY_MS = 4 * 60 * 60 * 1000; //4 hours in miliseconds
 
 export const getSubredditPosts = async (subreddit) => {
-   
-
-        if (cache[subreddit] && cache[subreddit].timestamp + CACHE_EXPIRY_MS > Date.now()) {
-            return cache[subreddit].data;
-        }
-        const response = await fetch(`${baseUrl}${subreddit}.json`);
 
 
+    if (cache[subreddit] && cache[subreddit].timestamp + CACHE_EXPIRY_MS > Date.now()) {
+        return cache[subreddit].data;
+    }
+    const response = await fetch(`${baseUrl}${subreddit}.json`);
 
-        const json = await response.json();
 
-        const newArray = json.data.children.map(post => post.data);
-        cache[subreddit] = { data: newArray, timestamp: Date.now() };
-        return newArray;
- 
+
+    const json = await response.json();
+
+    const newArray = json.data.children.map(post => post.data);
+    cache[subreddit] = { data: newArray, timestamp: Date.now() };
+    return newArray;
+
 }
 
 
@@ -36,7 +36,7 @@ export const getSubreddits = async () => {
 
 
 export const getPostComments = async (permalink) => {
-   if (cache[permalink] && cache[permalink].timestamp + CACHE_EXPIRY_MS > Date.now()) {
+    if (cache[permalink] && cache[permalink].timestamp + CACHE_EXPIRY_MS > Date.now()) {
         return cache[permalink].data;
     }
 
@@ -59,7 +59,7 @@ export const getUserIcons = async (user) => {
     const emptyIconObject = {
         img_icon: "",
         snoovatar: ""
-    } 
+    }
 
     if (user === "[deleted]") {
         return emptyIconObject;
@@ -78,16 +78,15 @@ export const getUserIcons = async (user) => {
 
         return updatedArray[0];
     } catch (error) {
-        console.error(`Error fetching user icons for user: ${user}`, error);
         return emptyIconObject;
     }
 };
 
 export const getSubredditInfo = async (subredditName) => {
 
-        const response = await fetch(`${baseUrl}/r/${subredditName}/about.json`);
+    const response = await fetch(`${baseUrl}/r/${subredditName}/about.json`);
     const json = await response.json();
     const newArray = [json.data];
     return newArray[0];
-   
+
 }

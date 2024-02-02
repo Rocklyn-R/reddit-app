@@ -57,9 +57,7 @@ export const Home = () => {
                     <PostLoading />
                 </React.Fragment>
 
-                : (searchTerm && filteredPosts.length === 0
-
-                )
+                : (searchTerm && filteredPosts.length === 0)
                     ?
                     (
                         <Card className="no-post-found">
@@ -67,10 +65,10 @@ export const Home = () => {
                         </Card>
                     )
                     : (selectedSub === "") ? (
-                        <Card className="no-post-found">Select or search for a subreddit.</Card>
+                        <Card className="no-post-found"><p>Select or search for a subreddit.</p></Card>
                     )
                         : ((customSubError && postsError) || (selectedSub === "none found" && !subError)) ? (
-                            <Card className="no-post-found">Subreddit not found. Try a different keyword.</Card>
+                            <Card className="no-post-found"><p>Subreddit not found. Try a different keyword.</p></Card>
                         )
                             : (
 

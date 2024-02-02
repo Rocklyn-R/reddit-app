@@ -37,8 +37,6 @@ describe("Proper rendering of Subreddits", () => {
             )
         })
 
-
-
         //wait for subreddits in state to update
         await waitFor(() => {
             const updatedState = mockStore.getState();

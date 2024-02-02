@@ -34,7 +34,7 @@ export const CustomSubreddits = () => {
         };
     }
 
- 
+
 
     return (
         <div className='custom-subreddits-container'>
@@ -44,7 +44,7 @@ export const CustomSubreddits = () => {
                     value={localInput}
                     onChange={handleInputChange}
                 />
-                <button className='subreddit-search-button' type="submit"><AiOutlineSearch className='subreddit-search-icon' /></button>
+                <button className='subreddit-search-button' type="submit" data-testid="search-subreddit-button"><AiOutlineSearch className='subreddit-search-icon' /></button>
             </form>
             <ul className="subreddits-list">
                 {
@@ -54,36 +54,41 @@ export const CustomSubreddits = () => {
                             className={`${selectedSub.toLowerCase() === subreddit.url.toLowerCase() ? "selected-subreddit" : ""
                                 }`}
                         >
-                            <button
-                                className='custom-subreddit-button'
-                                type="button"
-                                onClick={() => { dispatch(setSelectedSubreddit(subreddit.url)) }}
-                            >
-                                <div className='subreddit-img-name'>
-                                    <img
-                                        src={subreddit.icon_img ? subreddit.icon_img : 'https://b.thumbs.redditmedia.com/rmlXC779KUA2MTO4r_GJd2enqa8GKx3BOasymol6gLk.png'}
-                                        className="subreddit-icon"
-                                        alt="subreddit-icon"
-                                        width={50}
-                                        height="auto"
-                                        loading="lazy"
-                                    />
-                                    <p>{subreddit.display_name}</p>
-                                </div>
-
+                            <div className="custom-sub-buttons">
+                                <button
+                                    className='custom-subreddit-button'
+                                    type="button"
+                                    onClick={() => { dispatch(setSelectedSubreddit(subreddit.url)) }}
+                                >
+                                    <div className='subreddit-img-name'>
+                                        <img
+                                            src={subreddit.icon_img ? subreddit.icon_img : 'https://b.thumbs.redditmedia.com/rmlXC779KUA2MTO4r_GJd2enqa8GKx3BOasymol6gLk.png'}
+                                            className="subreddit-icon"
+                                            alt="subreddit-icon"
+                                            width={50}
+                                            height="auto"
+                                            loading="lazy"
+                                        />
+                                        <p>{subreddit.display_name}</p>
+                                    </div>
+                                </button>
                                 <button
                                     className='remove-subreddit'
                                     onClick={(event) => {
                                         event.stopPropagation();
-                                        if(subreddit.url.toLowerCase() === selectedSub.toLowerCase()) {
+                                        if (subreddit.url.toLowerCase() === selectedSub.toLowerCase()) {
                                             dispatch(setSelectedSubreddit(""));
                                         }
                                         dispatch(removeCustomSubreddit(subreddit.id));
                                     }}
+                                    data-testid="remove-button"
                                 >
                                     x
                                 </button>
-                            </button>
+
+
+                            </div>
+
                         </li>
                     ))
                 }

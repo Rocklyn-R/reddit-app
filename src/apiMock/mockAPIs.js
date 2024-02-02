@@ -168,6 +168,20 @@ export const mockGetSubreddits = () => {
 }
 
 
+export const mockGetSubredditInfo = (subredditName) => {
+    if (subredditName === "fitness") {
+        return {
+            display_name: "Home",
+            icon_img: "",
+            url: "/r/home/",
+            id: 1234
+        };
+    } else {
+        return [];
+    }
+}
+
+
 
 /*const posts = [
     {

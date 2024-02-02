@@ -76,7 +76,6 @@ export const {
     getSubredditsFailed,
     setCustomSubredditInput,
     startAddCustomSubreddit,
-    addCustomSubreddit,
     addCustomSubredditFailed,
     addCustomSubredditSuccess,
     removeCustomSubreddit
@@ -104,7 +103,6 @@ export const getCustomSubreddit = (subredditName) => async (dispatch, getState) 
         }
     }
     catch (error) {
-        console.log(error);
         dispatch(addCustomSubredditFailed())
     }
 }
