@@ -68,6 +68,7 @@ export const isLoadingSubreddits = state => state.subreddits.isLoading;
 export const subredditsError = state => state.subreddits.error;
 export const selectCustomSubredditInput = state => state.subreddits.customSubredditInput;
 export const isLoadingCustomSubreddit = state => state.subreddits.customSubredditsIsLoading;
+export const customSubredditError = state => state.subreddits.customSubredditsError;
 
 export const {
     startGetSubreddits,
@@ -103,6 +104,7 @@ export const getCustomSubreddit = (subredditName) => async (dispatch, getState) 
         }
     }
     catch (error) {
+        console.log(error);
         dispatch(addCustomSubredditFailed())
     }
 }

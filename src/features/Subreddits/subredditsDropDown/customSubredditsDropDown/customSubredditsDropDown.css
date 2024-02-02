@@ -16,6 +16,12 @@
     font-size: 1rem;
 }
 
+.custom-drop-down-container {
+    justify-content: center;
+    display: flex;
+    margin-top: 1rem;
+}
+
 .custom-option {
     display: flex;
     justify-content: space-between;

@@ -95,16 +95,6 @@ export const redditSlice = createSlice({
                 return false; //comment not found
             };
             updateCommentScore(post.comments, replyId, score);
-        },
-        startGetCustomPosts: (state) => {
-            state.errorCustomPosts = false;
-            state.isLoading = true;
-            state.error = false;
-        },
-        getCustomPostsFailed: (state) => {
-            state.errorCustomPosts = true;
-            state.isLoading = false;
-            state.error = false;
         }
     }
 });
@@ -114,7 +104,6 @@ export const isLoadingPosts = state => state.reddit.isLoading;
 export const selectSearchTerm = state => state.reddit.searchTerm;
 export const selectSelectedSubreddit = (state) => state.reddit.selectedSubreddit;
 export const isError = (state) => state.reddit.error;
-export const isCustomPostsError = (state) => state.reddit.errorCustomPosts
 
 export const {
     setPosts,
@@ -130,9 +119,7 @@ export const {
     setPostScore,
     setCommentScore,
     toggleShowingComments,
-    setReplyScore,
-    startGetCustomPosts,
-    getCustomPostsFailed
+    setReplyScore
 } = redditSlice.actions;
 
 
@@ -157,7 +144,6 @@ export const fetchPosts = (subreddit) => async (dispatch) => {
         })
         dispatch(getPostsSuccess(postsWithMetadata));
     } catch (error) {
-        dispatch(getCustomPostsFailed());
         dispatch(setSelectedSubreddit("none found"))
         dispatch(getPostsFailed());
     }

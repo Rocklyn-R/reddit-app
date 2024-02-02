@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react';
 import { Post } from '../Post/Post';
-import { selectFilteredPosts, selectPosts } from '../../store/redditSlice';
+import { isError, selectFilteredPosts, selectPosts } from '../../store/redditSlice';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchPosts, fetchComments } from '../../store/redditSlice';
 import './Home.css';
 import { getMediaContent } from '../../Utilities/Helpers';
 import { PostLoading } from '../Post/postLoading/postLoading';
 import Card from '../../components/Card';
-import { subredditsError } from '../../store/subredditsSlice';
-import { selectSearchTerm, toggleShowingComments, isCustomPostsError, selectSelectedSubreddit } from '../../store/redditSlice';
+import { subredditsError, customSubredditError } from '../../store/subredditsSlice';
+import { selectSearchTerm, toggleShowingComments, selectSelectedSubreddit } from '../../store/redditSlice';
 
 
 
@@ -19,9 +19,10 @@ export const Home = () => {
     const filteredPosts = useSelector(selectFilteredPosts);
     const dispatch = useDispatch();
     const searchTerm = useSelector(selectSearchTerm);
-    const customPostsError = useSelector(isCustomPostsError);
     const selectedSub = useSelector(selectSelectedSubreddit);
     const subError = useSelector(subredditsError);
+    const customSubError = useSelector(customSubredditError)
+    const postsError = useSelector(isError)
 
     useEffect(() => {
         if (selectedSubreddit === "none found" || selectedSubreddit === "") {
@@ -68,7 +69,7 @@ export const Home = () => {
                     : (selectedSub === "") ? (
                         <Card className="no-post-found">Select or search for a subreddit.</Card>
                     )
-                        : (customPostsError && selectedSub === "none found" && !subError) ? (
+                        : ((customSubError && postsError) || (selectedSub === "none found" && !subError)) ? (
                             <Card className="no-post-found">Subreddit not found. Try a different keyword.</Card>
                         )
                             : (

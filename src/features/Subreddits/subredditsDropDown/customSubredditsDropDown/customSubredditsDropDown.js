@@ -1,7 +1,7 @@
 import "./customSubredditsDropDown.css";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { selectSelectedSubreddit, setSelectedSubreddit, startGetCustomPosts } from "../../../../store/redditSlice";
+import { selectSelectedSubreddit, setSelectedSubreddit } from "../../../../store/redditSlice";
 import { selectCustomSubreddits, selectSubreddits, setCustomSubredditInput, getCustomSubreddit, removeCustomSubreddit } from "../../../../store/subredditsSlice";
 import { AiOutlineSearch } from 'react-icons/ai';
 import Select from "react-select";
@@ -29,7 +29,6 @@ export const CustomSubredditsDropDown = () => {
         if (selectedSubreddit.toLowerCase() !== newSelectedSubreddit.toLowerCase()) {
             dispatch(setCustomSubredditInput(localInput));
             dispatch(setSelectedSubreddit("/r/" + localInput + "/"));
-            dispatch(startGetCustomPosts());
             dispatch(getCustomSubreddit(newSelectedSubredditWithoutPrefix));
             setLocalInput("")
         } else {
@@ -42,7 +41,6 @@ export const CustomSubredditsDropDown = () => {
         const selectedSubreddit = selectedOption ? selectedOption.value : '';
         dispatch(setSelectedSubreddit(selectedSubreddit));
     };
-
 
 
     const getSubredditName = (url) => {
@@ -71,8 +69,20 @@ export const CustomSubredditsDropDown = () => {
         return customSubreddits.some(subreddit => subreddit.url.toLowerCase() === sub.toLowerCase());
     };
 
-
-
+    const NoOptionsMessageComponent = (props) => {
+        if (customSubreddits.length === 0) {
+            return (
+            <div style={{ padding: '8px 12px' }}>
+                Search above to create options
+            </div>
+        );
+        } else return (
+            <div style={{ padding: '8px 12px' }}>
+                No options
+            </div>
+        )
+        
+    };
 
     return (
         <div>
@@ -85,7 +95,7 @@ export const CustomSubredditsDropDown = () => {
                 />
                 <button className='subreddit-search-button' type="submit"><AiOutlineSearch className='subreddit-search-icon' /></button>
             </form>
-            <div className='drop-down-container'>
+            <div className='custom-drop-down-container'>
                 <Select
                     aria-label="Select Subreddit"
                     className='custom-select'
@@ -137,6 +147,7 @@ export const CustomSubredditsDropDown = () => {
                             </div>
                         ),
                     }))}
+                    components={{ NoOptionsMessage: () => NoOptionsMessageComponent() }}
                     styles={{
                         control: (baseStyles, state) => ({
                             ...baseStyles,

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectSelectedSubreddit, setSelectedSubreddit, startGetCustomPosts } from '../../../store/redditSlice';
+import { selectSelectedSubreddit, setSelectedSubreddit } from '../../../store/redditSlice';
 import { AiOutlineSearch } from 'react-icons/ai';
 import "./CustomSubreddits.css";
 import { setCustomSubredditInput, getCustomSubreddit, selectCustomSubreddits, removeCustomSubreddit } from '../../../store/subredditsSlice';
@@ -27,7 +27,6 @@ export const CustomSubreddits = () => {
         if (selectedSubreddit.toLowerCase() !== newSelectedSubreddit.toLowerCase()) {
             dispatch(setCustomSubredditInput(localInput));
             dispatch(setSelectedSubreddit("/r/" + localInput + "/"));
-            dispatch(startGetCustomPosts());
             dispatch(getCustomSubreddit(newSelectedSubredditWithoutPrefix));
             setLocalInput("")
         } else {

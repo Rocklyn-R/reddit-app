@@ -25,11 +25,14 @@ export const PostLoading = () => {
                 </h1>
             </div>
             <div className="post-content-loading-container">
-                <Skeleton height={100} width={950} />
+                <Skeleton height={100} width={500} />
             </div>
-            <div className="comments-container">
-                <div type="button">
-                    <Skeleton height={40} width={120} />
+            <div className="loading-footer-container">
+                <div>
+                    <Skeleton height={30} width={100} />
+                </div>
+                <div>
+                    <Skeleton height={30} width={100} />
                 </div>
             </div>
         </Card>
