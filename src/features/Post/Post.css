@@ -102,12 +102,11 @@
   width: 100%;
 }
 
-
-
 .image-text {
   line-height: 1.5rem;
   margin-bottom: 2rem;
   width: 100%;
+  text-align: center;
 }
 
 .selftextDisplay {

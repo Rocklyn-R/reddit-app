@@ -97,9 +97,7 @@
     align-items: center;
     justify-content: space-between;
 }
-.comment-footer button {
-    padding: .5em;
-}
+
 
 .replies-button {
     color: black; /* Text color */
@@ -110,6 +108,9 @@
     transition: color 0.3s ease; /* Smooth transition for color change */
     background: transparent;
     -webkit-tap-highlight-color: transparent;
+    padding-top: 0;
+    margin-top: 0;
+    margin-bottom: .5em;
 }
 
 @media only screen and (max-width: 450px) {
@@ -124,6 +125,7 @@
        justify-content: center;
        flex-direction: column;
        align-items: flex-start;
+       margin-left: .5em;
     }
    
     .comment-user-details p {

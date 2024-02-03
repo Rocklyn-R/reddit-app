@@ -20,8 +20,8 @@ export const Header = () => {
     //get the name of selected subreddit.
     const getSubredditName = () => {
         if (posts.length > 0 && !postsLoading && selectedSubreddit !== "") {
-           return posts[0].subreddit; 
-        } else return ""  
+            return posts[0].subreddit;
+        } else return ""
     }
 
     //clear the search input when switching to another subreddit
@@ -39,10 +39,15 @@ export const Header = () => {
     return (
         <header data-testid="header" className="header">
             <div className="logo">
-                <FaReddit className="logo-icon" />
-                <p>
-                    Reddit<span>Lite</span>
-                </p>
+                <button className='logo-button' onClick={() => window.location.reload()}>
+                    <FaReddit className="logo-icon" />
+                </button>
+                <button onClick={() => window.location.reload()}>
+                    <p>
+                        Reddit<span>Lite</span>
+                    </p>
+                </button>
+
             </div>
             <div>
                 <div className='search-container'>
