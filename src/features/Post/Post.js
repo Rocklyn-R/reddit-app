@@ -57,7 +57,6 @@ export const Post = ({ post, onToggleComments, mediaContent, postIndex }) => {
                     <img
                         src={getSubredditImage(selectedSub.toLowerCase())}
                         alt="Post Icon"
-                        loading="lazy"
                     />
                     <p data-testid="subreddit-name">{post.subreddit_name_prefixed}</p>
                 </div>
