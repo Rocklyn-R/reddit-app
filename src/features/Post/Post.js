@@ -96,7 +96,6 @@ export const Post = ({ post, onToggleComments, mediaContent, postIndex }) => {
                             src={mediaContent.src}
                             className="post-image"
                             alt="Post"
-                            loading="lazy"
                         />
 
 
