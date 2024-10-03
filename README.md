@@ -35,11 +35,11 @@ Reddit Lite is a read-only web application that utilizes the .json endpoints of 
 
 ## Technologies and Tools
 
-- **React**
-- **Redux**
-- **Javascript**
-- **CSS5**
-- **Netlify**
+- [React](https://reactjs.org/)
+- [Redux](https://redux.js.org/)
+- [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+- [CSS3](https://www.w3.org/TR/CSS/)
+- [Netlify](https://www.netlify.com/)
 
 ---
 
