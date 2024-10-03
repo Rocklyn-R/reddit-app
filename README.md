@@ -20,7 +20,7 @@ Reddit Lite is a read-only web application that utilizes the .json endpoints of 
 - **Popular Posts & Comments**: Click on any subreddit to view its top posts.
   ![Screenshot of Subreddit Posts and Comments](./src/readMeImages/SubredditPost.png)
 
-- **Comments and Replies of Comments on Posts**: Click to load comments and their replies.
+- **Comments and Replies of Comments**: Click to load comments and their replies.
  ![Screenshot of Subreddit Posts and Comments](./src/readMeImages/SubredditComments.png)
 
 - **Search for Custom Subreddits**: Use the search feature to find and add custom subreddits to your menu.
@@ -28,6 +28,9 @@ Reddit Lite is a read-only web application that utilizes the .json endpoints of 
 
 - **Filter Posts by Keyword**: Use the top search feature to filter posts based on keywords.
 ![Screenshot of Search Feature](./src/readMeImages/RedditFilter.png)
+
+- **Mobile Version**: Features subreddit dropdown menus for a more seamless experience on mobile devices.
+![Screenshot of Search Feature](./src/readMeImages/RedditMobile.png)
 
 - **Read-Only Experience**: Reddit Lite is focused on reading, with no posting or voting capabilities, making it perfect for passive browsing.
 
