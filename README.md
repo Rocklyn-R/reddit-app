@@ -1,70 +1,73 @@
-# Getting Started with Create React App
+# Reddit Lite
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Reddit Lite is a read-only web application that utilizes the .json endpoints of the Reddit API and allows users to browse the most popular subreddits and posts from Reddit, with the option to search and add custom subreddits to your personal menu. The app is simple, lightweight, and focused purely on consuming Reddit content without distractions.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## Table of Contents
+- [Features](#features)
+- [Technologies and Tools](#technologies-and-tools)
+- [Installation](#installation)
+- [License](#license)
 
-### `npm start`
+---
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Features
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- **Subreddit Menu**: The subreddit menu includes Reddit's most popular subreddits.
+  ![Screenshot of Subreddit Menu](./src/readMeImages/SubredditMenu.png)
+  
+- **Popular Posts & Comments**: Click on any subreddit to view its top posts.
+  ![Screenshot of Subreddit Posts and Comments](./src/readMeImages/SubredditPost.png)
 
-### `npm test`
+- **Comments and Replies of Comments on Posts**: Click to load comments and their replies.
+ ![Screenshot of Subreddit Posts and Comments](./src/readMeImages/SubredditComments.png)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- **Search for Custom Subreddits**: Use the search feature to find and add custom subreddits to your menu.
+  ![Screenshot of Search Feature](./src/readMeImages/CustomSubreddits.png)
 
-### `npm run build`
+- **Filter Posts by Keyword**: Use the top search feature to filter posts based on keywords.
+![Screenshot of Search Feature](./src/readMeImages/RedditFilter.png)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- **Read-Only Experience**: Reddit Lite is focused on reading, with no posting or voting capabilities, making it perfect for passive browsing.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Technologies and Tools
 
-### `npm run eject`
+- **React**
+- **Redux**
+- **Javascript**
+- **CSS5**
+- **Netlify**
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+---
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Installation
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+To get Reddit Lite up and running locally, follow these steps:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+1. **Clone the repository**:
+    ```bash
+    git clone https://github.com/rocklyn-r/reddit-app.git
+    cd reddit-lite
+    ```
 
-## Learn More
+2. **Install dependencies**:
+    Make sure you have [Node.js](https://nodejs.org/) installed, then run:
+    ```bash
+    npm install
+    ```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+3. **Run the application**:
+    ```bash
+    npm start
+    ```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+4. **Open the app**:
+    Once the application is running, you can open it in your browser at:
+    ```
+    http://localhost:3000
+    ```
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+---

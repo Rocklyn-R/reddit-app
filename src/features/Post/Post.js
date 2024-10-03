@@ -15,6 +15,7 @@ import { selectSubreddits } from '../../store/subredditsSlice';
 import { useSelector } from 'react-redux';
 import { cleanIconUrl } from '../../Utilities/Helpers';
 import { VoteScore } from "../VoteScore/VoteScore";
+//import UserIcon from "../../Assets/Images/user-icon.png"
 
 
 
